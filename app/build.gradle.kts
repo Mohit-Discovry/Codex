@@ -1,14 +1,11 @@
-import com.google.gms.googleservices.GoogleServicesPlugin.MissingGoogleServicesStrategy
+
 
 plugins {
   alias(libs.plugins.android.application)
   alias(libs.plugins.kotlin.compose)
   alias(libs.plugins.google.devtools.ksp)
   alias(libs.plugins.secrets)
-  alias(libs.plugins.google.services)
 id 'com.google.gms.google-services' 
-// OR: apply plugin: 'com.google.gms.google-services'//
-
 }
 
 // Centralized Versioning Strategy for Local Builds, CI/CD, and GitHub Releases
