@@ -5,7 +5,6 @@ plugins {
   alias(libs.plugins.kotlin.compose)
   alias(libs.plugins.google.devtools.ksp)
   alias(libs.plugins.secrets)
-id 'com.google.gms.google-services' 
 }
 
 // Centralized Versioning Strategy for Local Builds, CI/CD, and GitHub Releases
