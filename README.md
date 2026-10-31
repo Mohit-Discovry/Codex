@@ -136,22 +136,56 @@ HTML test reports will be generated at:
 
 ---
 
-## 🤖 GitHub Actions CI/CD Pipeline
+## 🤖 GitHub Actions CI/CD Pipeline (Android • iOS • Windows)
 
-The repository includes a ready-to-run GitHub Actions workflow located in [`.github/workflows/android-build-release.yml`](.github/workflows/android-build-release.yml).
+The repository includes a bulletproof multi-platform GitHub Actions workflow located in [`.github/workflows/android-build-release.yml`](.github/workflows/android-build-release.yml).
 
-### What the Pipeline Does:
-1. **Automated Testing**: Runs `./gradlew testDebugUnitTest` on every push to `main` and all Pull Requests.
-2. **APK Compilation**: Assembles both `app-debug.apk` and `app-release-unsigned.apk`.
-3. **Artifact Staging**: Uploads compiled APKs to the GitHub Actions run summary for 30 days.
-4. **Automated GitHub Releases**: Pushing a version tag automatically creates a formal GitHub Release and attaches the APKs for instant download!
+### ⚙️ Crucial GitHub Setting (Prevents Release Publishing Errors):
+If your GitHub Action failed previously with permission errors, make sure this one setting is enabled on GitHub:
+1. Go to your repository on GitHub.
+2. Click **Settings** (tab on top right).
+3. In the left sidebar, click **Actions** ➔ **General**.
+4. Scroll down to **Workflow permissions**.
+5. Select **"Read and write permissions"** and check **"Allow GitHub Actions to create and approve pull requests"**.
+6. Click **Save**.
 
-### How to Trigger an Automated Release:
+---
+
+### 🚀 2 Ways to Publish From the GitHub "Actions" Tab:
+
+#### Option 1: One-Click Manual Trigger (From Browser)
+1. Go to your GitHub repository and click the **Actions** tab.
+2. In the left list, click **"Multi-Platform CI/CD & Release Pipeline (Android, iOS, Windows)"**.
+3. Click the **"Run workflow"** dropdown button on the right.
+4. Select `main` branch, keep options enabled, and click the green **"Run workflow"** button!
+5. When complete, download the APKs or Web PWA zip directly from the **Artifacts summary** at the bottom of the run, or check your repository's **Releases** page!
+
+#### Option 2: Automated Tag Release
 ```bash
-git tag v1.0.0
-git push origin v1.0.0
+./scripts/publish_release.sh -p
 ```
-GitHub Actions will automatically run tests, build APKs, generate release notes, and publish the release under your repository's **Releases** tab.
+or manually:
+```bash
+git tag v1.0.1
+git push origin v1.0.1
+```
+
+---
+
+### 📦 Downloadable Assets Produced:
+- **`AetherStudio-Elite-Android-Universal-debug.apk`**: Pre-signed APK ready to sideload immediately onto any Android device (Android 7.0+ / API 24+).
+- **`AetherStudio-Elite-Android-release.apk`**: Production release APK.
+- **`AetherStudio-Elite-Web-PWA-iOS-Windows.zip`**: Complete offline standalone package:
+  - **iOS (iPhone/iPad)**: Host on GitHub Pages or Safari ➔ tap *Share* ➔ *Add to Home Screen*.
+  - **Windows 10/11**: Double-click `run-windows.bat` or open in Edge/Chrome and click *Install App* in the address bar.
+  - **macOS / Linux**: Double-click or run `./run-macos-linux.sh`.
+- **`checksums.sha256`**: Cryptographic verification checksums.
+
+---
+
+### 🔒 Zero Firebase Account Requirement:
+- You do **NOT** need a Firebase account, Google Cloud billing, or API credentials to use or publish this app.
+- All layers, undo/redo history, brush stabilization, HSB color wheel, Photoshop filters, vector Bezier tools, and multi-format exports (PNG, JPG, SVG, PSD, TIFF) run 100% locally and offline.
 
 ---
 
