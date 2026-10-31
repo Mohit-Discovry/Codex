@@ -1,140 +1,118 @@
-# All-in-One Levitating Studio Pod, Ibis Paint Color Studio & Multi-Ecosystem Tool Integration
+# Comprehensive Studio Upgrade: Auth, Collaboration, Studio Sidebar & Smart Templates
 
-An architectural plan to transform AetherStudio Elite into an all-in-one creative workstation. Rather than fragmenting controls across separated modes or tabs, all tools and controls from **Ibis Paint, Adobe Photoshop, Figma, and Canva** are unified into a single levitating rounded-squircle control pod with a top horizontal section and a vertical levitating left dock in a Cyberpunk Glassmorphism aesthetic with neon cyan and violet glows.
+This plan outlines the architecture and execution steps for integrating Google & Email authentication, profile editing with device photo library upload, Figma-style collaborative group projects, hiding animation UI on static canvases, removing top bar color clutter, adding a CapCut/Canva collapsible tool sidebar, and providing interactive smart editable templates.
+
+---
 
 ## User Review & Critical Decisions
 
 > [!IMPORTANT]
-> The design below incorporates your specific instructions:
-> 1. **No Separated Modes (All Tools Unified in One Frame)**: Every control from Ibis Paint, Photoshop, Figma, and Canva is directly accessible in a single integrated studio interface with quick-action clusters and smooth flyout shelves, eliminating mode switching.
-> 2. **Levitating Rounded-Squircle Control Pod (`#studio-unified-pod`)**:
->    - **Top Horizontal Section**: Houses document control, Undo/Redo, Canvas Zoom/100%/Rotate, Symmetry axes (Mirror X, Mirror Y, Radial), Rulers/Grid, Gemini AI Vision diagnostics, and Publish/Export (SVG, PSD, TIFF).
->    - **Left Vertical Levitating Dock**: Houses all primary creative tools in a unified vertical squircle pod:
->      - *Ibis Paint*: Brush engine (Dip Pen, Felt Tip, Watercolor, Airbrush, Manga Screentone), Catmull-Rom stabilizer (0-10), inside/outside smart lineart containment.
->      - *Adobe Photoshop*: Smudge, Blur, Dodge, Burn, Clone Stamp, Magic Wand, Lasso, Curves & Adjustment filters.
->      - *Figma*: Bezier Pen, Anchor Node edit, Vector shapes, Alignment/Distribution matrix, typography controls.
->      - *Canva*: Graphic element stamps, gradient mesh backgrounds, layout badges, and frame overlays.
-> 3. **Ibis Paint Color Studio Pod**:
->    - Dual-picker interface featuring both a **circular 360° HSB color wheel** and a **square Saturation/Brightness gradient box**.
->    - Dedicated **Transparency (Opacity) Slider from 0% to 100%** with a live alpha checkerboard preview and percentage readout.
->    - Quick swatch bank with custom color pins and standard JSON palette import/export.
->    - Real-time circular zoom loupe eyedropper for sampling colors directly from canvas pixels.
-> 4. **Aesthetic Direction**: **Cyberpunk Glassmorphism** with deep OLED blacks, multi-layer blur filters (`backdrop-filter: blur(24px)`), and glowing neon cyan (`#06b6d4`) and electric violet (`#8b5cf6`) interactive borders.
+> The following decisions were confirmed during the Phase 1 questionnaire and will guide the implementation:
+
+- **Confirmed Decision 1 (Authentication Flow)**: Provide a frictionless authentication experience where users start in a clean profile view with 1-tap options for "Sign in with Google" or "Sign in with Email & Password". Signed-in profiles persist locally in device storage with custom avatars imported from the device photo library.
+- **Confirmed Decision 2 (Studio Sidebar)**: Implement a sleek collapsible left drawer styled after CapCut and Canva, housing Elements, Text, Layers, Filters, AI Studio, and Adjustments, keeping the canvas spacious on phones while expanding smoothly on larger displays.
+- **Confirmed Decision 3 (Group Projects)**: Projects tab will feature a dedicated "+ Group Project" action generating instant room codes with multi-user presence avatars and simulated peer live cursors (Figma-style).
+- **Confirmed Decision 4 (Canvas Decluttering)**: The animation filmstrip and timeline will be hidden on all standard static canvases, appearing strictly when an Animation project is active. The color palette bar on the top header will be streamlined into the tool drawer to avoid top-edge clutter.
 
 ---
 
 ## 1. Overview & Core Concept
 
-- **What It Does**: Provides professional artists and designers with the ultimate creative toolset in a single unified canvas frame. Instead of hunting through separate app views or menus, artists have a sleek, levitating glassmorphic squircle pod where drawing, photo retouching, vector manipulation, and element templating exist harmoniously.
-- **Target Audience**: Digital painters, manga/anime illustrators, UI/UX concept designers, and social graphic creators wanting desktop-grade depth with touch-first ergonomics.
-- **Key Value**: Zero context switching. Color inking with Ibis Paint stabilization, retouch lineart with Photoshop smudge/dodge, draw vector paths with Figma pen bezier nodes, and drop Canva layout shapes without ever leaving the canvas.
+- **What It Does**:
+  1. **Authentication & Profile Hub**: Complete login modal with Google OAuth simulation and Email/Password fields. Displays profile card with custom avatar (from device library), full name, and @username handle. Includes an "Edit Profile" modal to customize profile details anytime.
+  2. **Figma Group Projects**: Group project creator in the Projects tab allowing users to generate shareable room codes, see connected collaborator avatars, and experience real-time cursor indicators.
+  3. **Contextual Canvas UI**: Hides animation controls when editing standard illustrations and removes top bar color clutter, placing color selection in the primary tool palette.
+  4. **CapCut / Canva Studio Sidebar**: Expandable left navigation rail featuring Elements, Text, Filters, Layers, and AI Tools tailored for mobile and tablet touch ergonomics.
+  5. **Smart Canva-Style Templates**: Curated royalty-free templates with editable text, background, and graphic layers that can be selected and manipulated directly on the canvas.
 
 ---
 
 ## 2. User Experience & Visual Design
 
-### A. Levitating Rounded-Squircle Pod Architecture
-- **Glassmorphic Surface**: Frosted dark glass container with `background: rgba(10, 12, 22, 0.82)`, `backdrop-filter: blur(28px)`, border `1px solid rgba(6, 182, 212, 0.28)`, and dual neon drop-shadows `0 12px 40px rgba(6, 182, 212, 0.22), 0 0 25px rgba(139, 92, 246, 0.18)`.
-- **Top Horizontal Squircle Section**:
-  - **Doc Header & Status**: Project title pill with real-time auto-save indicator.
-  - **History**: Rapid Undo, Redo, and undo step counter.
-  - **Transform & Navigation**: 1-tap Canvas Zoom In (+), Zoom Out (-), Fit-to-Screen (100%), and 0° Rotation Reset.
-  - **Precision Guides**: Symmetry selector (Off, Horizontal X, Vertical Y, Radial 8-way kaleidoscope), Snapping Pixel Grid toggle, and Canvas Rulers.
-  - **AI Studio & Export**: Gemini AI Canvas Coach button and Multi-Format Publishing button (SVG, PSD, TIFF, PNG).
+### Key User Flows
 
-### B. Vertical Levitating Left Dock (Unified Multi-App Tool Suite)
-A single vertical squircle dock organizing all creative powerhouses into immediately clickable tool clusters:
-1. **Ibis Paint Drawing Suite**:
-   - Brush Tool with expandable brush shelf: *Dip Pen (Hard/Soft)*, *Felt Tip Pen*, *Airbrush*, *Watercolor Brush*, *Neon Glow Pen*, and *Manga Screen Tone*.
-   - Stabilizer Slider (0 to 10) with real-time Catmull-Rom exponential stroke dampening.
-   - Smart Lineart Containment: Toggle between *Off*, *Inside Contours*, and *Outside Lineart*.
-2. **Adobe Photoshop Retouch & Adjustment Suite**:
-   - *Smudge Tool* (blends adjacent pixels smoothly with pressure sensitivity).
-   - *Blur Tool* (softens hard stroke edges).
-   - *Dodge Tool* (lightens highlights) & *Burn Tool* (deepens shadows).
-   - *Lasso & Marquee Selection* with floating marching ants indicator.
-   - *Adjustment Matrix*: 1-tap Curves, Brightness/Contrast, Hue/Saturation, and Gaussian Blur filters.
-3. **Figma Vector & Layout Suite**:
-   - *Bezier Pen Tool* with interactive anchor points and curve handles.
-   - *Geometric Shapes*: Rectangle, Rounded Squircle, Ellipse, Polygon, Star, Arrow.
-   - *Alignment & Distribution Bar*: Align Left, Center, Right, Top, Middle, Bottom, Distribute Horizontally/Vertically.
-   - *Typography Hub*: Font selection, font size, tracking/kerning, and text effects.
-4. **Canva Asset & Styling Suite**:
-   - *Graphic Stamps*: Badges, geometric stickers, starbursts, framing ribbons.
-   - *Gradient Mesh*: Background gradient generator with multi-stop radial and linear presets.
-   - *Template Layouts*: Dribbble Shot, YouTube Banner, Instagram Square, Mobile Wallpaper presets.
+1. **Profile Authentication & Avatar Customization**:
+   - User navigates to the **Profile** tab in the bottom dock.
+   - If not logged in, user sees a sleek login card with:
+     - `Continue with Google` (One-tap sign in)
+     - `Sign in with Email & Password` (Form fields with toggle)
+   - Once signed in, user sees a prominent Profile Card showing their avatar image, Name, and `@username`.
+   - User taps **Edit Profile**: a drawer opens allowing them to pick an image from their phone photo library, update their Name and Username, and save immediately to device storage.
+2. **Starting a Group Project (Figma Style)**:
+   - User navigates to the **Projects** tab and taps **+ Group Project**.
+   - A modal prompts for project title and generates a 6-digit room code (e.g. `AETH-7429`) with a "Copy Invite Link" action.
+   - Upon launching the project, the studio shows collaborator avatars in the header and peer presence cursors on canvas.
+3. **Clean Canvas Studio & Sidebar**:
+   - When opening a standard canvas, the bottom animation filmstrip is automatically hidden.
+   - The top header remains ultra-clean (Undo/Redo, Zoom, Symmetry, Analyze, Publish).
+   - Tapping the left sidebar toggle reveals the Canva/CapCut tool flyout:
+     - **Elements**: Geometric badges, ribbons, arrows, stars.
+     - **Text**: Heading, Subtitle, Body text presets.
+     - **Filters**: Brightness, Contrast, Saturation, Vignette.
+     - **Layers**: Reorder, opacity, blend mode.
 
-### C. Authentic Ibis Paint Color Studio Pod
-- **Dual HSB Picker**:
-  - Outer 360° chromatic hue ring with draggable glowing thumb.
-  - Inner square saturation/brightness gradient with high-precision reticle.
-- **Transparency Slider (0% - 100%)**:
-  - Live alpha slider with checkered transparency backdrop showing exact opacity level in real-time.
-  - Synchronized with brush flow and layer opacity.
-- **Hex & RGB Readouts**: Editable HEX input, HSV values, and quick color chip bank.
-- **Eyedropper Loupe**: Circular magnifier showing 9x magnified canvas pixels with crosshairs and instant color lock.
+### Visual Identity & Theme Tokens
+
+```css
+:root {
+  --sidebar-bg: rgba(14, 16, 26, 0.95);
+  --sidebar-width: 64px;
+  --sidebar-expanded: 260px;
+  --presence-user-1: #06b6d4;
+  --presence-user-2: #ec4899;
+  --presence-user-3: #10b981;
+}
+```
 
 ---
 
-## 3. Technical Architecture & Component Mapping
+## 3. Key Product Decisions & Trade-Offs
+
+### Decision 1: Collapsible Sidebar vs Fixed Dock
+- **Chosen Approach**: A compact 56px left vertical rail with collapsible slide-out drawer on phones, which expands to a full side panel on wider viewports.
+- **Why**: Protects valuable canvas real-estate on mobile phones while providing instant access to Canva/CapCut-level tools.
+
+### Decision 2: Local & Simulated Multi-User Presence
+- **Chosen Approach**: Peer presence simulation with real room-code persistence, collaborator avatars in header, and active peer cursor position tracking.
+- **Why**: Works 100% offline and in emulator environments without requiring paid Firebase authentication credentials, fulfilling the user's explicit request.
+
+---
+
+## 4. Technical Architecture & Component Structure
 
 ```
 ┌────────────────────────────────────────────────────────────────────────┐
-│             Top Horizontal Squircle Pod (#studio-top-pod)              │
-│ ┌───────────────┐ ┌───────────────┐ ┌──────────────┐ ┌───────────────┐ │
-│ │ History & Nav │ │ Symmetry/Grid │ │ AI Vision    │ │ Publish/Export│ │
-│ │ Undo/Redo/Zoom│ │ Off/X/Y/Radial│ │ Gemini Coach │ │ SVG,PSD,TIFF  │ │
-│ └───────────────┘ └───────────────┘ └──────────────┘ └───────────────┘ │
-└────────────────────────────────────────────────────────────────────────┘
-
-┌────────────────────────────────────────────────────────────────────────┐
-│            Left Vertical Levitating Dock (#studio-left-dock)           │
-├────────────────────────────────────────────────────────────────────────┤
-│ ┌────────────────────────────────────────────────────────────────────┐ │
-│ │ 🎨 Ibis Paint Inking Cluster                                       │ │
-│ │ • Dip Pen • Felt Tip • Airbrush • Watercolor • Glow • Screentone   │ │
-│ │ • Stabilizer (0-10) • Lineart Inside/Outside Containment           │ │
-│ └────────────────────────────────────────────────────────────────────┘ │
-│ ┌────────────────────────────────────────────────────────────────────┐ │
-│ │ 🖌️ Photoshop Retouch Cluster                                       │ │
-│ │ • Smudge • Blur • Dodge • Burn • Lasso • Image Adjustment Filters  │ │
-│ └────────────────────────────────────────────────────────────────────┘ │
-│ ┌────────────────────────────────────────────────────────────────────┐ │
-│ │ 📐 Figma Vector & Layout Cluster                                   │ │
-│ │ • Bezier Pen • Node Edit • Shapes • Align/Distribute • Typography  │ │
-│ └────────────────────────────────────────────────────────────────────┘ │
-│ ┌────────────────────────────────────────────────────────────────────┐ │
-│ │ ✨ Canva Assets & Mesh Cluster                                     │ │
-│ │ • Graphic Stamps • Gradient Mesh Presets • Frame Overlays          │ │
-│ └────────────────────────────────────────────────────────────────────┘ │
-│ ┌────────────────────────────────────────────────────────────────────┐ │
-│ │ 🌈 Ibis Paint Color Studio Pod                                     │ │
-│ │ • Circular 360° Hue Wheel & Square Saturation/Brightness Box       │ │
-│ │ • 0% - 100% Alpha Transparency Slider • Swatch Bank • Loupe        │ │
-│ └────────────────────────────────────────────────────────────────────┘ │
-└────────────────────────────────────────────────────────────────────────┘
-                                    │
-                                    ▼
-┌────────────────────────────────────────────────────────────────────────┐
-│                     Multi-Layer Canvas Workspace                       │
-│  • Layer Stack with Opacity & 12 Blend Modes (Hover/Scrub Preview)     │
-│  • Scoped Storage Publishing Bridge (Java/Kotlin Native)               │
+│                        AetherStudio Architecture                       │
+│                                                                        │
+│  ┌──────────────────────────────────────────────────────────────────┐  │
+│  │ Navigation Dock: Home | Templates | Projects | Profile           │  │
+│  └──────────────────────────────────────────────────────────────────┘  │
+│                                                                        │
+│  ┌─────────────────────────┐  ┌──────────────────────────────────────┐  │
+│  │ CapCut / Canva Sidebar  │  │ Canvas Workspace                     │  │
+│  │  - Elements & Shapes    │  │  - Clean Header (No palette clutter) │  │
+│  │  - Typography & Text    │  │  - Pure Drawing Stage                │  │
+│  │  - Filters & Inpainting │  │  - Animation Timeline (Anim ONLY)    │  │
+│  │  - Layers & Blends      │  │  - Peer Collaborative Cursors (Live) │  │
+│  └─────────────────────────┘  └──────────────────────────────────────┘  │
+│                                                                        │
+│  ┌──────────────────────────────────────────────────────────────────┐  │
+│  │ Profile Engine                                                   │  │
+│  │  - Google & Email Auth State Machine                             │  │
+│  │  - Device Photo Library Avatar Upload (FileReader -> localStorage)│  │
+│  │  - Username & Name Editor Modal                                  │  │
+│  └──────────────────────────────────────────────────────────────────┘  │
 └────────────────────────────────────────────────────────────────────────┘
 ```
 
 ---
 
-## 4. Key Implementation Steps & Verification
+## 5. Verification Plan
 
-1. **CSS Glassmorphism & Cyberpunk Neon System**:
-   - Implement `.studio-unified-pod`, `.studio-top-pod`, and `.studio-left-dock` with neon cyan/violet glow shadows and rounded squircle borders (`border-radius: 20px`).
-2. **Ibis Paint Color Studio Engine**:
-   - Implement circular Canvas-based HSB color wheel and square Saturation/Brightness Canvas picker.
-   - Build horizontal transparency slider from 0% to 100% with CSS checkerboard pattern.
-   - Connect active color changes directly to brush stroke and swatch bank.
-3. **Integrated Multi-Tool Canvas Handlers**:
-   - Connect all drawing, retouching (smudge/blur/dodge/burn), vector, and element stamp functions into the active pointer down/move/up handlers.
-4. **Validation & Testing**:
-   - Run Node.js JavaScript syntax verification on `index.html`.
-   - Run Robolectric unit tests via `gradle :app:testDebugUnitTest`.
-   - Compile application via `compile_applet`.
+1. Verify profile login flow (Google 1-tap and Email/Password).
+2. Verify photo library picker updates profile avatar and persists across app restarts.
+3. Verify "+ Group Project" creates a collaborative room with collaborator avatars and peer cursor motion.
+4. Verify standard canvas projects do not display the animation timeline panel.
+5. Verify canvas top bar is clean with no redundant color palette.
+6. Verify CapCut/Canva sidebar toggles and adds text/elements to canvas.
+7. Run `compile_applet` and verify zero build errors.

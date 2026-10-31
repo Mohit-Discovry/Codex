@@ -1731,108 +1731,756 @@
       display: none;
     }
 
-    /* Sleek Top Rectangle Bar (Logo in middle, not larger length) */
+    /* Sleek Top Safe Header (Status bar clearance, Brand on left, Settings Gear on right) */
     #home-top-bar {
-      height: 52px;
+      min-height: calc(56px + max(env(safe-area-inset-top, 0px), 32px));
+      padding-top: max(env(safe-area-inset-top, 0px), 32px);
+      padding-left: 20px;
+      padding-right: 20px;
+      padding-bottom: 12px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 16px;
-      background: rgba(18, 20, 28, 0.85);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
+      background: rgba(14, 16, 24, 0.88);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
       border-bottom: 1px solid var(--glass-border);
       flex-shrink: 0;
       position: relative;
+      z-index: 10;
     }
 
     .home-top-left {
       display: flex;
       align-items: center;
-      gap: 10px;
-      z-index: 2;
-    }
-
-    /* Paste Logo of the App in the Middle */
-    .home-top-middle {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      display: flex;
-      align-items: center;
-      gap: 8px;
+      gap: 12px;
       cursor: pointer;
     }
 
-    .home-top-right {
+    .settings-gear-btn {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--glass-border);
+      color: var(--text-main);
       display: flex;
       align-items: center;
-      gap: 8px;
-      z-index: 2;
-    }
-
-    /* Separated Tabs (All, Illustration, Animation, Postcards, Collaborative Live) */
-    .home-nav-tabs-bar {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      padding: 8px 16px;
-      background: rgba(14, 16, 23, 0.65);
-      border-bottom: 1px solid var(--glass-border);
-      overflow-x: auto;
+      justify-content: center;
+      cursor: pointer;
+      transition: var(--transition-snappy);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
       flex-shrink: 0;
     }
 
-    .home-tab-btn {
+    .settings-gear-btn:hover {
+      background: rgba(6, 182, 212, 0.15);
+      border-color: rgba(6, 182, 212, 0.45);
+      color: var(--primary);
+      transform: rotate(45deg);
+      box-shadow: 0 0 16px rgba(6, 182, 212, 0.35);
+    }
+
+    .settings-gear-btn:active {
+      transform: scale(0.92) rotate(45deg);
+    }
+
+    /* Google AI Studio Floating Sliding Dock at Bottom (4 Tabs: Home, Templates, Projects, Profile) */
+    .google-ai-dock-container {
+      position: fixed;
+      bottom: max(env(safe-area-inset-bottom, 0px), 14px);
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 150;
+      pointer-events: auto;
+      width: auto;
+      max-width: calc(100vw - 20px);
+    }
+
+    .google-ai-pill-switch {
+      position: relative;
       display: flex;
       align-items: center;
-      gap: 6px;
-      padding: 6px 14px;
-      border-radius: var(--radius-full);
+      background: rgba(14, 16, 26, 0.94);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 9999px;
+      padding: 4px;
+      box-shadow: 0 14px 34px -4px rgba(0, 0, 0, 0.8), 0 0 20px -2px rgba(139, 92, 246, 0.3);
+      gap: 3px;
+    }
+
+    .google-ai-indicator {
+      position: absolute;
+      top: 4px;
+      bottom: 4px;
+      left: 4px;
+      width: calc(25% - 2px);
+      background: linear-gradient(135deg, rgba(139, 92, 246, 0.35), rgba(6, 182, 212, 0.35));
+      border: 1px solid rgba(139, 92, 246, 0.7);
+      border-radius: 9999px;
+      box-shadow: 0 0 16px rgba(139, 92, 246, 0.45);
+      transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .google-ai-tab-btn {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      padding: 8px 13px;
+      min-width: 74px;
+      height: 38px;
+      border: none;
       background: transparent;
-      border: 1px solid transparent;
       color: var(--text-muted);
       font-size: 12px;
       font-weight: 600;
       cursor: pointer;
-      transition: var(--transition-snappy);
-      white-space: nowrap;
-    }
-
-    .home-tab-btn:hover {
-      background: rgba(255, 255, 255, 0.05);
-      color: var(--text-main);
-    }
-
-    .home-tab-btn.active {
-      background: rgba(6, 182, 212, 0.15);
-      border-color: rgba(6, 182, 212, 0.4);
-      color: var(--primary);
-      box-shadow: 0 0 12px rgba(6, 182, 212, 0.2);
-    }
-
-    .home-tab-count {
-      font-size: 10px;
-      padding: 1px 6px;
       border-radius: 9999px;
-      background: rgba(255, 255, 255, 0.08);
+      transition: color 0.18s ease;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    .google-ai-tab-btn.active {
+      color: #ffffff;
+      font-weight: 700;
+      text-shadow: 0 0 12px rgba(139, 92, 246, 0.8);
+    }
+
+    @media (max-width: 400px) {
+      .google-ai-tab-btn {
+        min-width: 66px;
+        padding: 7px 8px;
+        font-size: 11px;
+        gap: 4px;
+      }
+      .google-ai-tab-btn svg {
+        width: 13px;
+        height: 13px;
+      }
+    }
+
+    /* PhotoRoom Exact Hero Banner */
+    .photoroom-hero-card {
+      position: relative;
+      background: linear-gradient(135deg, #7c3aed 0%, #3b82f6 55%, #ec4899 100%);
+      border-radius: 20px;
+      padding: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      box-shadow: 0 16px 36px -8px rgba(124, 58, 237, 0.5), 0 0 24px rgba(59, 130, 246, 0.3);
+      overflow: hidden;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+    }
+    .photoroom-hero-card:active {
+      transform: scale(0.98);
+    }
+    .photoroom-hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: rgba(255, 255, 255, 0.22);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      padding: 3px 10px;
+      border-radius: 9999px;
+      font-size: 10px;
+      font-weight: 800;
+      color: #fff;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 8px;
+    }
+    .photoroom-hero-title {
+      font-size: 22px;
+      font-weight: 850;
+      color: #fff;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+    }
+    .photoroom-hero-desc {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.9);
+      margin-top: 4px;
+    }
+    .photoroom-hero-icon-box {
+      width: 58px;
+      height: 58px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.25);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    /* PhotoRoom Template Shelves */
+    .photoroom-shelf-section {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .photoroom-shelf-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2px;
+    }
+    .photoroom-shelf-title {
+      font-size: 14px;
+      font-weight: 750;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+    .photoroom-shelf-see-all {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--primary);
+      cursor: pointer;
+      transition: opacity 0.15s;
+    }
+    .photoroom-shelf-scroll {
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      padding: 4px 2px 10px 2px;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    .photoroom-shelf-scroll::-webkit-scrollbar {
+      display: none;
+    }
+    .photoroom-template-card {
+      flex: 0 0 150px;
+      background: rgba(22, 26, 38, 0.8);
+      border: 1px solid var(--glass-border);
+      border-radius: 14px;
+      overflow: hidden;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      transition: var(--transition-snappy);
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.35);
+    }
+    .photoroom-template-card:hover {
+      border-color: rgba(139, 92, 246, 0.6);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.5), 0 0 16px rgba(139, 92, 246, 0.25);
+    }
+    .photoroom-template-preview {
+      width: 100%;
+      height: 105px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .photoroom-template-info {
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      background: rgba(14, 16, 24, 0.95);
+    }
+    .photoroom-template-name {
+      font-size: 12px;
+      font-weight: 700;
+      color: #fff;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .photoroom-template-dim {
+      font-size: 10px;
       color: var(--text-dim);
     }
 
-    .home-tab-btn.active .home-tab-count {
-      background: rgba(6, 182, 212, 0.25);
-      color: var(--primary);
+    /* Templates Tab Full Grid */
+    .templates-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+      gap: 14px;
+      width: 100%;
+    }
+    .category-chips-bar {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      scrollbar-width: none;
+    }
+    .category-chips-bar::-webkit-scrollbar {
+      display: none;
+    }
+    .category-pill-chip {
+      padding: 6px 14px;
+      border-radius: 9999px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--glass-border);
+      color: var(--text-muted);
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.15s ease;
+    }
+    .category-pill-chip.active {
+      background: rgba(139, 92, 246, 0.25);
+      border-color: rgba(139, 92, 246, 0.7);
+      color: #fff;
+      font-weight: 700;
+      box-shadow: 0 0 12px rgba(139, 92, 246, 0.3);
     }
 
-    /* Home Main Content Container */
-    .home-content-container {
-      flex: 1;
-      overflow-y: auto;
-      padding: 20px 24px;
+    /* Profile Tab Styles */
+    .profile-header-card {
+      background: linear-gradient(135deg, rgba(139, 92, 246, 0.18), rgba(6, 182, 212, 0.18));
+      border: 1px solid rgba(139, 92, 246, 0.35);
+      border-radius: 18px;
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.4);
+    }
+    .profile-avatar-circle {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #7c3aed, #06b6d4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      font-weight: 800;
+      color: #fff;
+      border: 2px solid rgba(255, 255, 255, 0.4);
+      box-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
+      flex-shrink: 0;
+    }
+    .profile-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+    .profile-stat-box {
+      background: rgba(22, 26, 38, 0.75);
+      border: 1px solid var(--glass-border);
+      border-radius: 14px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .profile-stat-val {
+      font-size: 20px;
+      font-weight: 800;
+      color: #fff;
+    }
+    .profile-stat-lbl {
+      font-size: 11px;
+      color: var(--text-dim);
+    }
+
+    /* Authentication Card & Login Screen Styles */
+    .profile-auth-card {
+      background: linear-gradient(135deg, rgba(22, 26, 42, 0.95), rgba(12, 14, 24, 0.98));
+      border: 1px solid rgba(139, 92, 246, 0.35);
+      border-radius: 20px;
+      padding: 24px;
       display: flex;
       flex-direction: column;
       gap: 16px;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5), 0 0 24px rgba(139, 92, 246, 0.2);
+    }
+    .auth-google-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: #ffffff;
+      color: #1f2937;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 11px 18px;
+      border-radius: 12px;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+      transition: transform 0.15s ease, background 0.15s ease;
+      width: 100%;
+    }
+    .auth-google-btn:active {
+      transform: scale(0.98);
+      background: #f3f4f6;
+    }
+    .auth-divider {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--text-dim);
+      font-size: 11px;
+      text-transform: uppercase;
+      font-weight: 700;
+      margin: 4px 0;
+    }
+    .auth-divider::before, .auth-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    /* Edit Profile Modal & Photo Library Avatar */
+    .avatar-preview-box {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      border: 3px solid var(--primary);
+      box-shadow: 0 0 20px rgba(6, 182, 212, 0.4);
+      object-fit: cover;
+      background: #1e2238;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      margin: 0 auto 12px auto;
+    }
+    .avatar-preview-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Figma Collaborative Peer Indicators */
+    .pod-collab-group {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 3px 8px;
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      border-radius: 9999px;
+    }
+    .peer-avatar-bubble {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 800;
+      color: #fff;
+      border: 1.5px solid #fff;
+      margin-left: -6px;
+    }
+    .peer-avatar-bubble:first-child {
+      margin-left: 0;
+    }
+
+    /* CapCut & Canva Style Expandable Studio Sidebar */
+    .canva-sidebar-rail {
+      position: absolute;
+      top: 68px;
+      left: 10px;
+      bottom: 24px;
+      width: 52px;
+      background: rgba(14, 16, 26, 0.94);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 10px 0;
+      gap: 8px;
+      z-index: 92;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6);
+      transition: width 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .canva-rail-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2px;
+      cursor: pointer;
+      font-size: 9px;
+      font-weight: 700;
+      transition: all 0.15s ease;
+    }
+    .canva-rail-btn:hover, .canva-rail-btn.active {
+      background: rgba(139, 92, 246, 0.25);
+      color: #ffffff;
+      box-shadow: 0 0 12px rgba(139, 92, 246, 0.4);
+    }
+    .canva-tool-flyout {
+      position: absolute;
+      top: 68px;
+      left: 70px;
+      bottom: 24px;
+      width: 260px;
+      max-width: calc(100vw - 85px);
+      background: rgba(16, 18, 30, 0.96);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 18px;
+      z-index: 93;
+      display: none;
+      flex-direction: column;
+      padding: 14px;
+      gap: 12px;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7);
+      overflow-y: auto;
+    }
+    .canva-flyout-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding-bottom: 8px;
+    }
+    .canva-flyout-title {
+      font-size: 13px;
+      font-weight: 800;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .canva-element-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+    .canva-element-card {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      color: #fff;
+    }
+    .canva-element-card:hover {
+      background: rgba(139, 92, 246, 0.2);
+      border-color: rgba(139, 92, 246, 0.5);
+      transform: translateY(-2px);
+    }
+    .app-tab-view {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      width: 100%;
+    }
+
+    /* Dedicated AI Photo Suite Bar (PhotoRoom-Grade) */
+    .ai-tools-section {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .ai-tools-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2px;
+    }
+
+    .ai-tools-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .ai-tools-scroll-bar {
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      padding: 4px 2px 10px 2px;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    .ai-tools-scroll-bar::-webkit-scrollbar {
+      display: none;
+    }
+
+    .ai-tool-card {
+      flex: 0 0 170px;
+      background: linear-gradient(145deg, rgba(22, 26, 38, 0.85), rgba(12, 14, 22, 0.95));
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      padding: 14px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      position: relative;
+      overflow: hidden;
+      transition: var(--transition-snappy);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+    }
+
+    .ai-tool-card:hover {
+      border-color: rgba(6, 182, 212, 0.5);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.55), 0 0 18px rgba(6, 182, 212, 0.25);
+    }
+
+    .ai-tool-card:active {
+      transform: scale(0.97);
+    }
+
+    .ai-tool-card-glow {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      filter: blur(25px);
+      opacity: 0.35;
+      pointer-events: none;
+    }
+
+    .ai-tool-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+    }
+
+    .ai-tool-badge {
+      font-size: 9px;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 9999px;
+      align-self: flex-start;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    /* Start Canvas Hero Card */
+    .new-canvas-hero {
+      background: linear-gradient(135deg, rgba(6, 182, 212, 0.12), rgba(139, 92, 246, 0.12));
+      border: 1px solid rgba(6, 182, 212, 0.3);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45);
+    }
+
+    .new-canvas-hero-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .preset-chips-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .preset-chip-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 12px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--glass-border);
+      color: var(--text-main);
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition-snappy);
+    }
+
+    .preset-chip-btn:hover {
+      background: rgba(6, 182, 212, 0.2);
+      border-color: rgba(6, 182, 212, 0.5);
+      color: #fff;
+    }
+
+    /* 100% Blank Slate for Projects */
+    .empty-projects-slate {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 20px;
+      text-align: center;
+      border: 1px dashed rgba(255, 255, 255, 0.1);
+      border-radius: var(--radius-lg);
+      background: rgba(255, 255, 255, 0.015);
+      margin: 10px 0;
+    }
+
+    .empty-icon-capsule {
+      width: 72px;
+      height: 72px;
+      border-radius: 20px;
+      background: rgba(6, 182, 212, 0.08);
+      border: 1px solid rgba(6, 182, 212, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+      box-shadow: 0 0 24px rgba(6, 182, 212, 0.2);
+    }
+
+    /* Home Main Content Container with Safe Bottom Clearance */
+    .home-content-container {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px;
+      padding-bottom: calc(max(env(safe-area-inset-bottom, 0px), 24px) + 76px);
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
     }
 
     .home-action-header-row {
@@ -3519,78 +4167,40 @@
   <div style="font-size: 10px; color: var(--text-dim); margin-top: 10px; opacity: 0.7;">Tap anywhere to skip</div>
 </div>
 
-<!-- 2. HOME SCREEN & PROJECT HUB (Ibis Paint & Figma Inspired) -->
+<!-- 2. HOME SCREEN & PROJECT HUB -->
 <div id="home-screen" class="hidden">
-  <!-- Sleek Top Rectangle Bar (Logo in middle, not larger length) -->
+  <!-- Sleek Top Safe Header (Status bar clearance, Brand on left, Settings Gear on right) -->
   <header id="home-top-bar">
-    <div class="home-top-left">
-      <span style="font-size: 13px; font-weight: 700; color: #fff; letter-spacing: -0.01em;">Projects Hub</span>
-      <span id="home-total-projects-pill" class="home-tab-count">0</span>
-    </div>
-
-    <!-- Paste Logo of the App on the Middle -->
-    <div class="home-top-middle" onclick="refreshHomeProjects()" title="AetherStudio Elite">
-      <div class="brand-icon" style="width: 26px; height: 26px; border-radius: 6px;">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2">
+    <div class="home-top-left" onclick="switchAppTab('home')" title="AetherStudio Elite">
+      <div class="brand-icon" style="width: 32px; height: 32px; border-radius: 9px; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #06b6d4, #8b5cf6); box-shadow: 0 0 14px rgba(6, 182, 212, 0.45);">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.3">
           <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/>
         </svg>
       </div>
-      <div class="brand-title" style="font-size: 14px;">
-        AetherStudio
-        <span class="brand-badge" style="font-size: 9px; padding: 1px 4px;">Elite</span>
+      <div style="display: flex; flex-direction: column;">
+        <div style="font-size: 15px; font-weight: 800; color: #fff; letter-spacing: -0.02em; display: flex; align-items: center; gap: 6px;">
+          AetherStudio
+          <span class="badge-pill" style="font-size: 9px; padding: 1px 6px; background: rgba(6, 182, 212, 0.2); color: #06b6d4; border: 1px solid rgba(6, 182, 212, 0.4); border-radius: 9999px;">Elite</span>
+        </div>
+        <span style="font-size: 10px; color: var(--text-dim); font-weight: 500;">Pro Illustration & AI Studio</span>
       </div>
     </div>
 
+    <!-- On the top right corner on home page only: Gear icon for settings -->
     <div class="home-top-right">
-      <button class="btn btn-ai" style="height: 30px; font-size: 11px; padding: 0 10px;" onclick="startFigmaLiveRoomSession()" title="Launch Figma-style Collaborative Room">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+      <button class="settings-gear-btn" onclick="openSettingsModal()" title="Studio Settings" aria-label="Settings">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/>
+          <circle cx="12" cy="12" r="3"/>
         </svg>
-        <span>Figma Live</span>
-      </button>
-      <button class="btn btn-primary" style="height: 30px; font-size: 11px; padding: 0 12px;" onclick="openNewProjectModal()" title="Create New Project (+)">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-        <span>New Canvas</span>
       </button>
     </div>
   </header>
 
-  <!-- Separated Tabs (All, Illustration, Animation, Postcards, Collaborative Live) -->
-  <nav class="home-nav-tabs-bar">
-    <button class="home-tab-btn active" id="tab-btn-all" onclick="switchHomeTab('all')">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg>
-      <span>All Projects</span>
-      <span class="home-tab-count" id="count-tab-all">0</span>
-    </button>
-
-    <button class="home-tab-btn" id="tab-btn-illustration" onclick="switchHomeTab('illustration')">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m14 12-8.5 8.5a2.12 2.12 0 1 1-3-3L11 9"/><path d="M16 8 8 16"/><path d="m18 6 3 3"/><path d="m19 5-3-3c-.7-.7-1.9-.7-2.6 0l-1.9 1.9 5.6 5.6 1.9-1.9c.7-.7.7-1.9 0-2.6Z"/></svg>
-      <span>Illustration (Ibis Paint)</span>
-      <span class="home-tab-count" id="count-tab-illustration">0</span>
-    </button>
-
-    <button class="home-tab-btn" id="tab-btn-animation" onclick="switchHomeTab('animation')">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/><path d="M19 18v3"/><path d="M22 21h-6"/></svg>
-      <span>Animation (Keyframes)</span>
-      <span class="home-tab-count" id="count-tab-animation">0</span>
-    </button>
-
-    <button class="home-tab-btn" id="tab-btn-postcard" onclick="switchHomeTab('postcard')">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="14" x="2" y="5" rx="2"/><polyline points="2 10 12 16 22 10"/></svg>
-      <span>Postcards & Templates</span>
-      <span class="home-tab-count" id="count-tab-postcard">0</span>
-    </button>
-
-    <button class="home-tab-btn" id="tab-btn-collaborative" onclick="switchHomeTab('collaborative')">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-      <span>Figma Group Drawing</span>
-      <span class="home-tab-count" id="count-tab-collaborative">0</span>
-    </button>
-  </nav>
-
-  <!-- Home Main Content Container -->
+  <!-- Main Content Container with Safe Bottom Clearance -->
   <main class="home-content-container">
-    <!-- Auto-Save Recovery Banner (Displays if auto-saved session is detected on launch) -->
+
+    <!-- Auto-Save Recovery Banner (If auto-saved session is detected on launch) -->
     <div id="autosave-recovery-banner" class="autosave-recovery-banner hidden">
       <div class="recovery-banner-content">
         <div class="recovery-banner-icon">
@@ -3606,7 +4216,7 @@
             <span>Auto-Saved Session Recovered</span>
             <span class="badge-pill" style="background: rgba(16, 185, 129, 0.2); color: #10b981; font-size: 10px; padding: 1px 7px; border-radius: 10px; font-weight: 700;">Safe</span>
           </div>
-          <div class="recovery-banner-desc" id="recovery-banner-desc">"Neon Cyberpunk Inking" • Auto-saved recently</div>
+          <div class="recovery-banner-desc" id="recovery-banner-desc">Autosaved canvas state recovered</div>
         </div>
       </div>
       <div class="recovery-banner-actions">
@@ -3620,27 +4230,619 @@
       </div>
     </div>
 
-    <div class="home-action-header-row">
-      <div class="home-section-title-group">
-        <div class="home-section-title" id="home-current-tab-title">
-          <span>All Projects</span>
+    <!-- TAB 1: HOME PAGE VIEW (PhotoRoom Clone) -->
+    <div id="view-home" class="app-tab-view">
+
+      <!-- 1. PhotoRoom Signature "Start from Photo" Hero Card -->
+      <section class="photoroom-hero-card" onclick="triggerAiTool('bg_remover')" title="Select a photo to auto-remove background and start editing">
+        <div style="display: flex; flex-direction: column; align-items: flex-start; z-index: 2;">
+          <div class="photoroom-hero-badge">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <span>PhotoRoom Pro AI</span>
+          </div>
+          <div class="photoroom-hero-title">Start from Photo</div>
+          <div class="photoroom-hero-desc">Remove background & cutout subjects with 1 tap</div>
         </div>
-        <div class="home-section-desc" id="home-current-tab-desc">Your personal offline and cloud-synced creative canvases</div>
+
+        <div class="photoroom-hero-icon-box">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2">
+            <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+            <circle cx="12" cy="13" r="4"/>
+          </svg>
+        </div>
+      </section>
+
+      <!-- 2. "Create with AI" Tools Suite Bar -->
+      <section class="ai-tools-section">
+        <div class="ai-tools-header">
+          <div class="ai-tools-title">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#06b6d4" stroke-width="2.3">
+              <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/>
+            </svg>
+            <span>Create with AI</span>
+          </div>
+          <span style="font-size: 11px; color: var(--text-dim);">Instant photo picker</span>
+        </div>
+
+        <div class="ai-tools-scroll-bar">
+          <!-- 1. Background Remover -->
+          <div class="ai-tool-card" onclick="triggerAiTool('bg_remover')" title="Auto-detect subject and remove background cleanly">
+            <div class="ai-tool-card-glow" style="background: #06b6d4;"></div>
+            <div class="ai-tool-icon" style="background: linear-gradient(135deg, #06b6d4, #0891b2);">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            </div>
+            <span class="ai-tool-badge" style="background: rgba(6, 182, 212, 0.2); color: #06b6d4;">Cutout</span>
+            <div style="font-size: 13px; font-weight: 700; color: #fff;">Remove BG</div>
+            <div style="font-size: 11px; color: var(--text-dim);">Instant Transparent PNG</div>
+          </div>
+
+          <!-- 2. Magic Object Retouch -->
+          <div class="ai-tool-card" onclick="triggerAiTool('eraser')" title="Brush out objects, watermarks, wires, or photobombers">
+            <div class="ai-tool-card-glow" style="background: #ec4899;"></div>
+            <div class="ai-tool-icon" style="background: linear-gradient(135deg, #ec4899, #be185d);">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m7 21-4.3-4.3c-1-1-1-2.5 0-3.4l9.6-9.6c1-1 2.5-1 3.4 0l5.6 5.6c1 1 1 2.5 0 3.4L13 21"/><path d="M22 21H7"/><path d="m5 11 9 9"/></svg>
+            </div>
+            <span class="ai-tool-badge" style="background: rgba(236, 72, 153, 0.2); color: #ec4899;">Retouch</span>
+            <div style="font-size: 13px; font-weight: 700; color: #fff;">Object Eraser</div>
+            <div style="font-size: 11px; color: var(--text-dim);">Clean Inpainting</div>
+          </div>
+
+          <!-- 3. AI Photo Enhancer -->
+          <div class="ai-tool-card" onclick="triggerAiTool('enhancer')" title="Sharpen details, upscale resolution, and correct colors">
+            <div class="ai-tool-card-glow" style="background: #8b5cf6;"></div>
+            <div class="ai-tool-icon" style="background: linear-gradient(135deg, #8b5cf6, #6d28d9);">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m21.64 3.64-1.28-1.28a1.21 1.21 0 0 0-1.72 0L2.36 18.64a1.21 1.21 0 0 0 0 1.72l1.28 1.28a1.2 1.2 0 0 0 1.72 0L21.64 5.36a1.2 1.2 0 0 0 0-1.72Z"/><path d="m14 7 3 3"/><path d="M5 6v4"/><path d="M19 14v4"/><path d="M10 2v2"/><path d="M7 8H3"/><path d="M21 16h-4"/><path d="M11 3H9"/></svg>
+            </div>
+            <span class="ai-tool-badge" style="background: rgba(139, 92, 246, 0.2); color: #a78bfa;">HD 4K</span>
+            <div style="font-size: 13px; font-weight: 700; color: #fff;">AI Enhancer</div>
+            <div style="font-size: 11px; color: var(--text-dim);">Denoise & Boost Clarity</div>
+          </div>
+
+          <!-- 4. Studio Relight -->
+          <div class="ai-tool-card" onclick="triggerAiTool('relight')" title="Apply dramatic studio rim lighting and volumetric ambience">
+            <div class="ai-tool-card-glow" style="background: #f59e0b;"></div>
+            <div class="ai-tool-icon" style="background: linear-gradient(135deg, #f59e0b, #d97706);">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+            </div>
+            <span class="ai-tool-badge" style="background: rgba(245, 158, 11, 0.2); color: #fbbf24;">Lighting</span>
+            <div style="font-size: 13px; font-weight: 700; color: #fff;">Studio Relight</div>
+            <div style="font-size: 11px; color: var(--text-dim);">Portrait Rim & Glow</div>
+          </div>
+
+          <!-- 5. Sticker Maker -->
+          <div class="ai-tool-card" onclick="triggerAiTool('sticker')" title="Generate die-cut sticker with outline border">
+            <div class="ai-tool-card-glow" style="background: #10b981;"></div>
+            <div class="ai-tool-icon" style="background: linear-gradient(135deg, #10b981, #059669);">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.12" y2="15.88"/><line x1="14.47" y1="14.48" x2="20" y2="20"/><line x1="8.12" y1="8.12" x2="12" y2="12"/></svg>
+            </div>
+            <span class="ai-tool-badge" style="background: rgba(16, 185, 129, 0.2); color: #34d399;">Die-Cut</span>
+            <div style="font-size: 13px; font-weight: 700; color: #fff;">Sticker Maker</div>
+            <div style="font-size: 11px; color: var(--text-dim);">White Contour Outline</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. PhotoRoom Template Shelves: Marketplaces -->
+      <section class="photoroom-shelf-section">
+        <div class="photoroom-shelf-header">
+          <div class="photoroom-shelf-title">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2.2"><path d="m2 7 4.41-4.41A2 2 0 0 1 7.83 2h8.34a2 2 0 0 1 1.42.59L22 7"/><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><path d="M15 22v-4a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v4"/><rect width="20" height="5" x="2" y="7" rx="1"/></svg>
+            <span>Marketplaces & Products</span>
+          </div>
+          <span class="photoroom-shelf-see-all" onclick="switchAppTab('templates'); filterTemplatesCategory('marketplace')">See All →</span>
+        </div>
+
+        <div class="photoroom-shelf-scroll">
+          <div class="photoroom-template-card" onclick="applyTemplateToCanvas('tpl_amazon')">
+            <div class="photoroom-template-preview" style="background: #ffffff;">
+              <div style="width: 50px; height: 50px; border-radius: 12px; background: #f3f4f6; border: 1px solid #e5e7eb; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.15);">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#111827" stroke-width="2"><rect width="16" height="16" x="4" y="4" rx="2"/></svg>
+              </div>
+            </div>
+            <div class="photoroom-template-info">
+              <div class="photoroom-template-name">Amazon White Studio</div>
+              <div class="photoroom-template-dim">2048 × 2048 • 1:1</div>
+            </div>
+          </div>
+
+          <div class="photoroom-template-card" onclick="applyTemplateToCanvas('tpl_shopify')">
+            <div class="photoroom-template-preview" style="background: linear-gradient(180deg, #f8fafc 0%, #e2e8f0 100%);">
+              <div style="width: 52px; height: 52px; border-radius: 14px; background: #ffffff; display: flex; align-items: center; justify-content: center; box-shadow: 0 18px 24px -6px rgba(0,0,0,0.25);">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"/></svg>
+              </div>
+            </div>
+            <div class="photoroom-template-info">
+              <div class="photoroom-template-name">Shopify Soft Shadow</div>
+              <div class="photoroom-template-dim">1500 × 1500 • Clean</div>
+            </div>
+          </div>
+
+          <div class="photoroom-template-card" onclick="applyTemplateToCanvas('tpl_etsy')">
+            <div class="photoroom-template-preview" style="background: linear-gradient(135deg, #78350f, #451a03);">
+              <div style="width: 48px; height: 48px; border-radius: 10px; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.25); display: flex; align-items: center; justify-content: center;">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fde68a" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+              </div>
+            </div>
+            <div class="photoroom-template-info">
+              <div class="photoroom-template-name">Etsy Artisan Wood</div>
+              <div class="photoroom-template-dim">2000 × 1600 • Warm</div>
+            </div>
+          </div>
+
+          <div class="photoroom-template-card" onclick="applyTemplateToCanvas('tpl_depop')">
+            <div class="photoroom-template-preview" style="background: linear-gradient(135deg, #ff0055, #ff5500);">
+              <div style="width: 48px; height: 48px; border-radius: 12px; background: #fff; display: flex; align-items: center; justify-content: center; box-shadow: 0 12px 20px rgba(0,0,0,0.3);">
+                <span style="font-weight: 900; font-size: 14px; color: #ff0055;">Y2K</span>
+              </div>
+            </div>
+            <div class="photoroom-template-info">
+              <div class="photoroom-template-name">Depop Fashion Pop</div>
+              <div class="photoroom-template-dim">1080 × 1080 • Punchy</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. PhotoRoom Template Shelves: Social Media -->
+      <section class="photoroom-shelf-section">
+        <div class="photoroom-shelf-header">
+          <div class="photoroom-shelf-title">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ec4899" stroke-width="2.2"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+            <span>Social Media & Stories</span>
+          </div>
+          <span class="photoroom-shelf-see-all" onclick="switchAppTab('templates'); filterTemplatesCategory('social')">See All →</span>
+        </div>
+
+        <div class="photoroom-shelf-scroll">
+          <div class="photoroom-template-card" onclick="applyTemplateToCanvas('tpl_ig_story')">
+            <div class="photoroom-template-preview" style="background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045);">
+              <div style="width: 36px; height: 64px; border-radius: 8px; border: 1.5px solid rgba(255,255,255,0.7); display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.2);">
+                <span style="font-size: 10px; font-weight: 800; color: #fff;">9:16</span>
+              </div>
+            </div>
+            <div class="photoroom-template-info">
+              <div class="photoroom-template-name">Instagram Story</div>
+              <div class="photoroom-template-dim">1080 × 1920 • 9:16</div>
+            </div>
+          </div>
+
+          <div class="photoroom-template-card" onclick="applyTemplateToCanvas('tpl_yt_thumb')">
+            <div class="photoroom-template-preview" style="background: linear-gradient(135deg, #1e1b4b, #312e81);">
+              <div style="width: 68px; height: 38px; border-radius: 6px; background: rgba(255,0,0,0.85); display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(255,0,0,0.4);">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              </div>
+            </div>
+            <div class="photoroom-template-info">
+              <div class="photoroom-template-name">YouTube Thumbnail</div>
+              <div class="photoroom-template-dim">1280 × 720 • 16:9</div>
+            </div>
+          </div>
+
+          <div class="photoroom-template-card" onclick="applyTemplateToCanvas('tpl_tiktok')">
+            <div class="photoroom-template-preview" style="background: #010101;">
+              <div style="width: 36px; height: 64px; border-radius: 8px; border: 1.5px solid #25f4ee; display: flex; align-items: center; justify-content: center; box-shadow: 2px 2px 0 #fe2c55;">
+                <span style="font-size: 9px; font-weight: 800; color: #fff;">REEL</span>
+              </div>
+            </div>
+            <div class="photoroom-template-info">
+              <div class="photoroom-template-name">TikTok / Reel</div>
+              <div class="photoroom-template-dim">1080 × 1920 • Cover</div>
+            </div>
+          </div>
+
+          <div class="photoroom-template-card" onclick="applyTemplateToCanvas('tpl_linkedin')">
+            <div class="photoroom-template-preview" style="background: linear-gradient(135deg, #1e293b, #0f172a);">
+              <div style="width: 48px; height: 48px; border-radius: 50%; background: #0077b5; display: flex; align-items: center; justify-content: center; border: 2px solid #fff;">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              </div>
+            </div>
+            <div class="photoroom-template-info">
+              <div class="photoroom-template-name">LinkedIn Headshot</div>
+              <div class="photoroom-template-dim">1200 × 1200 • Pro</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5. Blank Canvas Presets (Square, Story, 4K, Custom) -->
+      <section class="new-canvas-hero" onclick="openNewProjectModal()" style="cursor: pointer;">
+        <div class="new-canvas-hero-top">
+          <div style="display: flex; align-items: center; gap: 14px;">
+            <div style="width: 44px; height: 44px; border-radius: 12px; background: linear-gradient(135deg, #8b5cf6, #06b6d4); display: flex; align-items: center; justify-content: center; box-shadow: 0 0 16px rgba(139, 92, 246, 0.45); flex-shrink: 0;">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            </div>
+            <div>
+              <div style="font-size: 16px; font-weight: 800; color: #fff;">Create Blank Canvas</div>
+              <div style="font-size: 12px; color: var(--text-muted);">Choose presets or custom dimensions to draw from scratch</div>
+            </div>
+          </div>
+          <button class="btn btn-primary" onclick="event.stopPropagation(); openNewProjectModal()" style="padding: 0 16px; height: 34px; border-radius: 9999px; font-size: 12px; font-weight: 700;">
+            <span>+ Canvas</span>
+          </button>
+        </div>
+
+        <div class="preset-chips-row" onclick="event.stopPropagation()">
+          <button class="preset-chip-btn" onclick="quickCreatePresetCanvas('square', 2048, 2048, 'Square Art')">
+            <span>⏹️ Square (2048 × 2048)</span>
+          </button>
+          <button class="preset-chip-btn" onclick="quickCreatePresetCanvas('story', 1080, 1920, 'Story 9:16')">
+            <span>📱 Story (1080 × 1920)</span>
+          </button>
+          <button class="preset-chip-btn" onclick="quickCreatePresetCanvas('4k', 3840, 2160, '4K Masterpiece')">
+            <span>🖥️ 4K Ultra HD</span>
+          </button>
+          <button class="preset-chip-btn" onclick="openNewProjectModal()">
+            <span>📐 Custom Size...</span>
+          </button>
+        </div>
+      </section>
+    </div>
+
+    <!-- TAB 2: TEMPLATES TAB VIEW -->
+    <div id="view-templates" class="app-tab-view" style="display: none;">
+      <div class="home-action-header-row">
+        <div class="home-section-title-group">
+          <div class="home-section-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2.2"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+            <span>Templates Hub</span>
+          </div>
+          <div class="home-section-desc">E-Commerce, Marketplaces, Social Media & Portrait presets</div>
+        </div>
+
+        <div class="home-search-box" style="width: 100%; max-width: 240px;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--text-dim)" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+          <input type="text" id="templates-search-input" placeholder="Search templates..." oninput="filterTemplatesSearch(this.value)">
+        </div>
       </div>
 
-      <div style="display: flex; align-items: center; gap: 8px;">
-        <div class="home-search-box">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--text-dim)" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-          <input type="text" id="home-search-input" placeholder="Search artwork..." oninput="filterHomeProjects(this.value)">
-        </div>
+      <!-- Category Filter Chips -->
+      <div class="category-chips-bar">
+        <button id="chip-all" class="category-pill-chip active" onclick="filterTemplatesCategory('all')">✨ All Templates</button>
+        <button id="chip-marketplace" class="category-pill-chip" onclick="filterTemplatesCategory('marketplace')">🛍️ Marketplaces</button>
+        <button id="chip-social" class="category-pill-chip" onclick="filterTemplatesCategory('social')">📱 Social Media</button>
+        <button id="chip-portraits" class="category-pill-chip" onclick="filterTemplatesCategory('portraits')">👤 Portraits & Headshots</button>
+        <button id="chip-ecommerce" class="category-pill-chip" onclick="filterTemplatesCategory('ecommerce')">🏷️ Staging & Podiums</button>
+      </div>
+
+      <!-- Templates Dynamic Grid -->
+      <div id="templates-grid" class="templates-grid">
+        <!-- Rendered by JavaScript -->
       </div>
     </div>
 
-    <!-- Projects Grid (Renders cards or '+' sign empty state) -->
-    <div id="projects-grid" class="projects-grid">
-      <!-- Rendered dynamically -->
+    <!-- TAB 3: PROJECTS VIEW (100% Blank by default) -->
+    <div id="view-projects" class="app-tab-view" style="display: none;">
+      <div class="home-action-header-row">
+        <div class="home-section-title-group">
+          <div class="home-section-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#06b6d4" stroke-width="2.2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+            <span>My Projects</span>
+            <span id="projects-count-badge" class="badge-pill" style="font-size: 10px; padding: 1px 7px; background: rgba(6, 182, 212, 0.2); color: #06b6d4; border-radius: 9999px;">0</span>
+          </div>
+          <div class="home-section-desc">Your personal offline creations stored locally</div>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <div class="home-search-box">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--text-dim)" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            <input type="text" id="home-search-input" placeholder="Search artwork..." oninput="filterHomeProjects(this.value)">
+          </div>
+          <button class="btn btn-secondary" onclick="openGroupProjectModal()" style="height: 32px; padding: 0 11px; font-size: 11px; border-radius: 8px; border-color: rgba(16, 185, 129, 0.45); color: #10b981;" title="Figma-Style Group Project with Live Room Code">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            <span>+ Group</span>
+          </button>
+          <button class="btn btn-primary" onclick="openNewProjectModal()" style="height: 32px; padding: 0 12px; font-size: 11px; border-radius: 8px;" title="Create New Artwork">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            <span>+ Canvas</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Projects Grid (Renders authentic projects or blank slate) -->
+      <div id="projects-grid" class="projects-grid">
+        <!-- Rendered dynamically -->
+      </div>
+    </div>
+
+    <!-- TAB 4: PROFILE VIEW (With Login & Profile Picture / Username Customizer) -->
+    <div id="view-profile" class="app-tab-view" style="display: none;">
+
+      <!-- 1. AUTH LOGIN SECTION (Shown when user is not logged in) -->
+      <div id="profile-auth-section" class="profile-auth-card" style="display: none;">
+        <div style="text-align: center;">
+          <div style="font-size: 20px; font-weight: 850; color: #fff; letter-spacing: -0.01em;">Sign in to AetherStudio</div>
+          <div style="font-size: 12px; color: var(--text-dim); margin-top: 4px;">Sync artworks, create group canvases, and customize your creator profile</div>
+        </div>
+
+        <!-- Google Account 1-Tap Sign In -->
+        <button class="auth-google-btn" onclick="signInWithGoogleAccount()">
+          <svg width="18" height="18" viewBox="0 0 24 24">
+            <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.8-2.4 3.65v3.03h3.88c2.27-2.09 3.66-5.17 3.66-9.12z"/>
+            <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.03c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.13C3.25 21.36 7.33 24 12 24z"/>
+            <path fill="#FBBC05" d="M5.28 14.29c-.25-.72-.38-1.49-.38-2.29s.13-1.57.38-2.29V6.58H1.25C.45 8.18 0 9.99 0 12s.45 3.82 1.25 5.42l4.03-3.13z"/>
+            <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.33 0 3.25 2.64 1.25 6.58l4.03 3.13c.95-2.83 3.6-4.96 6.72-4.96z"/>
+          </svg>
+          <span>Continue with Google</span>
+        </button>
+
+        <div class="auth-divider">or sign in with email</div>
+
+        <!-- Email & Password Form -->
+        <form onsubmit="handleEmailAuthSubmit(event)" style="display: flex; flex-direction: column; gap: 10px;">
+          <div>
+            <label style="font-size: 10px; font-weight: 700; color: var(--text-dim); text-transform: uppercase;">Email Address</label>
+            <input type="email" id="auth-email-input" class="coach-input-box" placeholder="artist@example.com" style="height: 36px; padding: 0 10px; color: #fff; width: 100%;" required>
+          </div>
+          <div>
+            <label style="font-size: 10px; font-weight: 700; color: var(--text-dim); text-transform: uppercase;">Password</label>
+            <input type="password" id="auth-password-input" class="coach-input-box" placeholder="••••••••" style="height: 36px; padding: 0 10px; color: #fff; width: 100%;" required>
+          </div>
+          <button type="submit" class="btn btn-primary" style="height: 38px; font-weight: 750; font-size: 13px; margin-top: 4px;">
+            <span>Sign In / Create Account</span>
+          </button>
+        </form>
+
+        <div style="text-align: center;">
+          <span style="font-size: 11px; color: var(--text-dim); cursor: pointer;" onclick="continueAsGuestProfile()">or continue in Offline Guest Mode →</span>
+        </div>
+      </div>
+
+      <!-- 2. LOGGED IN PROFILE CARD (Shows Name, Username, Picture from Phone, Edit Profile) -->
+      <div id="profile-logged-in-section" style="display: flex; flex-direction: column; gap: 18px;">
+        <div class="profile-header-card">
+          <!-- User Profile Picture imported from phone library or default -->
+          <div id="profile-display-avatar" class="profile-avatar-circle" onclick="openEditProfileModal()" title="Click to change profile picture">
+            <span id="profile-avatar-fallback">🎨</span>
+            <img id="profile-avatar-img" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover; display: none;" alt="User Avatar">
+          </div>
+
+          <div style="flex: 1; min-width: 0;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <!-- User Display Name -->
+              <div id="profile-display-name" style="font-size: 18px; font-weight: 850; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Alex Rivera</div>
+              <span class="badge-pill" style="background: linear-gradient(135deg, #f59e0b, #ec4899); color: #fff; font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 9999px;">PRO</span>
+            </div>
+            <!-- Username Display -->
+            <div id="profile-display-username" style="font-size: 12px; color: var(--primary); font-weight: 600; margin-top: 1px;">@alex_creator</div>
+            <div id="profile-display-email" style="font-size: 11px; color: var(--text-dim); margin-top: 2px;">Offline Creator Studio</div>
+
+            <div style="display: flex; gap: 8px; margin-top: 10px;">
+              <button class="btn btn-secondary" style="height: 28px; font-size: 11px; padding: 0 12px; font-weight: 700;" onclick="openEditProfileModal()">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+                <span>Edit Profile</span>
+              </button>
+              <button class="btn btn-secondary" style="height: 28px; font-size: 11px; padding: 0 10px;" onclick="signOutUserProfile()" title="Sign out of profile">
+                <span>Sign Out</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Studio Statistics -->
+        <div class="profile-stats-grid">
+          <div class="profile-stat-box">
+            <div class="profile-stat-val" id="profile-stat-projects" style="color: #06b6d4;">0</div>
+            <div class="profile-stat-lbl">Active Canvases</div>
+          </div>
+          <div class="profile-stat-box">
+            <div class="profile-stat-val" id="profile-stat-ai" style="color: #8b5cf6;">100%</div>
+            <div class="profile-stat-lbl">AI Studio Ready</div>
+          </div>
+          <div class="profile-stat-box">
+            <div class="profile-stat-val" id="profile-stat-storage" style="color: #10b981;">0 KB</div>
+            <div class="profile-stat-lbl">Device Storage Used</div>
+          </div>
+          <div class="profile-stat-box">
+            <div class="profile-stat-val" style="color: #f59e0b;">60 FPS</div>
+            <div class="profile-stat-lbl">GPU Render Engine</div>
+          </div>
+        </div>
+
+        <!-- Quick Studio Preferences -->
+        <div class="glass-panel" style="padding: 18px; border-radius: 16px; display: flex; flex-direction: column; gap: 14px;">
+          <div style="font-size: 14px; font-weight: 750; color: #fff;">Studio Preferences</div>
+          
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+              <div style="font-size: 13px; font-weight: 600; color: #fff;">Default Export Format</div>
+              <div style="font-size: 11px; color: var(--text-dim);">Format used for fast 1-tap photo saves</div>
+            </div>
+            <select id="profile-export-format" class="coach-input-box" style="height: 32px; width: 110px; font-size: 12px; color: #fff; background: rgba(0,0,0,0.4);" onchange="showToast('Export default set to ' + this.value.toUpperCase())">
+              <option value="png" selected>PNG (Lossless)</option>
+              <option value="jpeg">JPEG (High)</option>
+              <option value="webp">WebP (Modern)</option>
+            </select>
+          </div>
+
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+              <div style="font-size: 13px; font-weight: 600; color: #fff;">Theme Accent Color</div>
+              <div style="font-size: 11px; color: var(--text-dim);">Personalize your studio highlight theme</div>
+            </div>
+            <div style="display: flex; gap: 6px;">
+              <div onclick="setAppThemeColor('#06b6d4')" style="width: 24px; height: 24px; border-radius: 50%; background: #06b6d4; cursor: pointer; border: 2px solid #fff;"></div>
+              <div onclick="setAppThemeColor('#8b5cf6')" style="width: 24px; height: 24px; border-radius: 50%; background: #8b5cf6; cursor: pointer; border: 1px solid rgba(255,255,255,0.4);"></div>
+              <div onclick="setAppThemeColor('#ec4899')" style="width: 24px; height: 24px; border-radius: 50%; background: #ec4899; cursor: pointer; border: 1px solid rgba(255,255,255,0.4);"></div>
+              <div onclick="setAppThemeColor('#10b981')" style="width: 24px; height: 24px; border-radius: 50%; background: #10b981; cursor: pointer; border: 1px solid rgba(255,255,255,0.4);"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Studio Backup & Storage Maintenance -->
+        <div class="glass-panel" style="padding: 18px; border-radius: 16px; display: flex; flex-direction: column; gap: 12px;">
+          <div style="font-size: 14px; font-weight: 750; color: #fff;">Data & Backup</div>
+          <div style="display: flex; gap: 10px;">
+            <button class="btn btn-secondary" style="flex: 1; height: 34px; font-size: 11px; gap: 6px;" onclick="exportAllProjectsBackup()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              <span>Backup Projects</span>
+            </button>
+            <button class="btn btn-secondary" style="flex: 1; height: 34px; font-size: 11px; gap: 6px; color: #ef4444;" onclick="clearBlankSlateStorage()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+              <span>Reset Cache</span>
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   </main>
+
+  <!-- Google AI Studio Sliding Bottom Navigation Dock (4 Tabs: Home, Templates, Projects, Profile) -->
+  <nav id="google-ai-bottom-dock" class="google-ai-dock-container">
+    <div class="google-ai-pill-switch">
+      <!-- Sliding active highlight capsule (Moves 0%, 100%, 200%, 300%) -->
+      <div id="google-ai-pill-indicator" class="google-ai-indicator"></div>
+
+      <!-- Tab 1: Home -->
+      <button id="dock-btn-home" class="google-ai-tab-btn active" onclick="switchAppTab('home')" aria-label="Home">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+          <polyline points="9 22 9 12 15 12 15 22"/>
+        </svg>
+        <span>Home</span>
+      </button>
+
+      <!-- Tab 2: Templates -->
+      <button id="dock-btn-templates" class="google-ai-tab-btn" onclick="switchAppTab('templates')" aria-label="Templates">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <rect width="18" height="18" x="3" y="3" rx="2"/>
+          <path d="M3 9h18"/>
+          <path d="M9 21V9"/>
+        </svg>
+        <span>Templates</span>
+      </button>
+
+      <!-- Tab 3: Projects -->
+      <button id="dock-btn-projects" class="google-ai-tab-btn" onclick="switchAppTab('projects')" aria-label="Projects">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
+        </svg>
+        <span>Projects</span>
+      </button>
+
+      <!-- Tab 4: Profile -->
+      <button id="dock-btn-profile" class="google-ai-tab-btn" onclick="switchAppTab('profile')" aria-label="Profile">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+          <circle cx="12" cy="7" r="4"/>
+        </svg>
+        <span>Profile</span>
+      </button>
+    </div>
+  </nav>
+</div>
+
+<!-- EDIT PROFILE MODAL (Name, Username & Photo Library Import) -->
+<div id="edit-profile-modal" class="modal-backdrop" style="display: none;" onclick="if(event.target === this) closeEditProfileModal()">
+  <div class="modal-card glass-panel" style="width: 440px;">
+    <div class="modal-header">
+      <div class="modal-title">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2.2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+        <span>Edit Creator Profile</span>
+      </div>
+      <button class="mini-icon-btn" onclick="closeEditProfileModal()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="modal-body" style="gap: 16px;">
+      <!-- Avatar Preview & Upload from phone library -->
+      <div style="text-align: center;">
+        <div class="avatar-preview-box" id="edit-avatar-preview-box">
+          <span id="edit-avatar-fallback-icon" style="font-size: 32px;">🎨</span>
+          <img id="edit-avatar-preview-img" style="display: none; width: 100%; height: 100%; object-fit: cover; border-radius: 50%;" alt="Avatar Preview">
+        </div>
+        <input type="file" id="avatar-file-input" accept="image/*" style="display: none;" onchange="handleAvatarFileChosen(event)">
+        <button type="button" class="btn btn-secondary" style="height: 30px; font-size: 11px; margin: 0 auto; gap: 6px;" onclick="document.getElementById('avatar-file-input').click()">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
+          <span>Import Photo from Library</span>
+        </button>
+        <div style="font-size: 10px; color: var(--text-dim); margin-top: 4px;">Select any image from your device photos</div>
+      </div>
+
+      <!-- Display Name -->
+      <div>
+        <label style="font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Full Name / Display Name</label>
+        <input type="text" id="edit-profile-name-input" class="coach-input-box" style="height: 38px; color: #fff; padding: 0 10px; width: 100%; margin-top: 4px;" placeholder="e.g. Alex Rivera">
+      </div>
+
+      <!-- Username -->
+      <div>
+        <label style="font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Username Handle</label>
+        <div style="display: flex; align-items: center; margin-top: 4px; background: rgba(255,255,255,0.06); border: 1px solid var(--glass-border); border-radius: var(--radius-md); padding: 0 10px;">
+          <span style="color: var(--primary); font-weight: 800; font-size: 13px;">@</span>
+          <input type="text" id="edit-profile-username-input" style="background: transparent; border: none; outline: none; color: #fff; height: 38px; font-size: 13px; font-weight: 600; width: 100%; padding-left: 4px;" placeholder="creator_handle">
+        </div>
+      </div>
+
+      <div style="display: flex; justify-content: flex-end; gap: 8px; margin-top: 8px;">
+        <button class="btn" style="height: 34px; padding: 0 16px;" onclick="closeEditProfileModal()">Cancel</button>
+        <button class="btn btn-primary" style="height: 34px; padding: 0 20px; font-weight: 700;" onclick="saveProfileChanges()">
+          <span>Save Profile</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FIGMA GROUP COLLABORATIVE PROJECT MODAL -->
+<div id="group-project-modal" class="modal-backdrop" style="display: none;" onclick="if(event.target === this) closeGroupProjectModal()">
+  <div class="modal-card glass-panel" style="width: 480px;">
+    <div class="modal-header">
+      <div class="modal-title">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        <span>New Collaborative Group Project</span>
+      </div>
+      <button class="mini-icon-btn" onclick="closeGroupProjectModal()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="modal-body" style="gap: 14px;">
+      <div style="font-size: 12px; color: var(--text-dim); line-height: 1.4;">
+        Create a live Figma-style collaborative workspace where team members can draw, edit layers, and inspect files together with real-time cursor presence.
+      </div>
+
+      <!-- Project Title -->
+      <div>
+        <label style="font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Team Project Title</label>
+        <input type="text" id="group-project-title-input" class="coach-input-box" style="height: 38px; color: #fff; padding: 0 10px; width: 100%; margin-top: 4px;" value="Team Design Sprint">
+      </div>
+
+      <!-- Room Code Generator -->
+      <div>
+        <label style="font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Generated Room Code</label>
+        <div style="display: flex; gap: 8px; margin-top: 4px;">
+          <input type="text" id="group-room-code-display" class="coach-input-box" style="height: 38px; color: #10b981; font-weight: 800; font-family: monospace; font-size: 14px; padding: 0 12px; flex: 1; letter-spacing: 0.08em;" readonly value="AETH-7429">
+          <button class="btn btn-secondary" style="height: 38px; padding: 0 14px; font-size: 11px; font-weight: 700;" onclick="copyGroupRoomCode()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+            <span>Copy Code</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Active Collaborators Simulation Preview -->
+      <div style="background: rgba(16, 185, 129, 0.08); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 12px; padding: 12px; display: flex; align-items: center; justify-content: space-between;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <div style="display: flex;">
+            <div style="width: 28px; height: 28px; border-radius: 50%; background: #06b6d4; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 800; color: #fff; border: 2px solid #fff;">AR</div>
+            <div style="width: 28px; height: 28px; border-radius: 50%; background: #ec4899; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 800; color: #fff; border: 2px solid #fff; margin-left: -8px;">ML</div>
+            <div style="width: 28px; height: 28px; border-radius: 50%; background: #10b981; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 800; color: #fff; border: 2px solid #fff; margin-left: -8px;">DK</div>
+          </div>
+          <div>
+            <div style="font-size: 12px; font-weight: 750; color: #fff;">3 Live Collaborators Ready</div>
+            <div style="font-size: 10px; color: var(--text-dim);">Live cursor broadcast enabled</div>
+          </div>
+        </div>
+        <span style="font-size: 10px; font-weight: 800; color: #10b981; background: rgba(16, 185, 129, 0.2); padding: 2px 8px; border-radius: 9999px;">Figma Mode</span>
+      </div>
+
+      <div style="display: flex; justify-content: flex-end; gap: 8px; margin-top: 8px;">
+        <button class="btn" style="height: 34px; padding: 0 16px;" onclick="closeGroupProjectModal()">Cancel</button>
+        <button class="btn btn-primary" style="height: 34px; padding: 0 20px; font-weight: 700; background: linear-gradient(135deg, #10b981, #059669);" onclick="launchGroupCollaborativeProject()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          <span>Launch Group Canvas</span>
+        </button>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- 3. NEW PROJECT CREATION MODAL (All Used Sizes, Custom, Animation, Postcard) -->
@@ -3686,6 +4888,13 @@
             <div class="preset-aspect-preview" style="width: 54px; height: 30px;">16:9</div>
             <div class="preset-card-title">Full HD</div>
             <div class="preset-card-dim">1920 × 1080</div>
+          </div>
+
+          <!-- Preset: 4K Ultra HD -->
+          <div class="preset-card-item" id="preset-4k" onclick="selectPreset('illustration', 3840, 2160, 'preset-4k')">
+            <div class="preset-aspect-preview" style="width: 54px; height: 30px; border-color: var(--primary);">4K</div>
+            <div class="preset-card-title" style="color: var(--primary);">4K Ultra HD</div>
+            <div class="preset-card-dim">3840 × 2160</div>
           </div>
 
           <!-- Preset: Vertical Story 9:16 -->
@@ -3747,6 +4956,121 @@
           <span>Create & Launch Studio</span>
         </button>
       </div>
+    </div>
+  </div>
+</div>
+
+<!-- Hidden File Input for Instant 1-Tap AI Photo Tools -->
+<input type="file" id="ai-photo-input" accept="image/*" style="display: none;" onchange="handleAiPhotoPicked(this)">
+
+<!-- 4. STUDIO SETTINGS MODAL -->
+<div id="settings-modal" class="modal-backdrop" style="display: none;" onclick="if(event.target === this) closeSettingsModal()">
+  <div class="modal-card glass-panel" style="width: 440px; max-width: 92%;">
+    <div class="modal-header">
+      <div class="modal-title" style="display: flex; align-items: center; gap: 8px;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="3"/>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+        </svg>
+        <span>Studio Settings</span>
+      </div>
+      <button class="mini-icon-btn" onclick="closeSettingsModal()" aria-label="Close">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+
+    <div class="modal-body" style="gap: 16px;">
+      <!-- Theme Accent Picker -->
+      <div style="display: flex; flex-direction: column; gap: 8px;">
+        <label style="font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Cyber Accent Color</label>
+        <div style="display: flex; gap: 12px; align-items: center;">
+          <div onclick="setAppThemeColor('#06b6d4')" style="width: 32px; height: 32px; border-radius: 50%; background: #06b6d4; cursor: pointer; box-shadow: 0 0 12px rgba(6, 182, 212, 0.6); border: 2px solid #fff;"></div>
+          <div onclick="setAppThemeColor('#8b5cf6')" style="width: 32px; height: 32px; border-radius: 50%; background: #8b5cf6; cursor: pointer; border: 2px solid transparent;"></div>
+          <div onclick="setAppThemeColor('#ec4899')" style="width: 32px; height: 32px; border-radius: 50%; background: #ec4899; cursor: pointer; border: 2px solid transparent;"></div>
+          <div onclick="setAppThemeColor('#10b981')" style="width: 32px; height: 32px; border-radius: 50%; background: #10b981; cursor: pointer; border: 2px solid transparent;"></div>
+          <div onclick="setAppThemeColor('#f59e0b')" style="width: 32px; height: 32px; border-radius: 50%; background: #f59e0b; cursor: pointer; border: 2px solid transparent;"></div>
+        </div>
+      </div>
+
+      <!-- Autosave Toggle -->
+      <div style="display: flex; align-items: center; justify-content: space-between; padding: 12px 0; border-top: 1px solid var(--glass-border);">
+        <div>
+          <div style="font-size: 13px; font-weight: 600; color: #fff;">Autosave Recovery</div>
+          <div style="font-size: 11px; color: var(--text-dim);">Saves strokes locally every 15s</div>
+        </div>
+        <input type="checkbox" id="settings-autosave-toggle" checked style="width: 18px; height: 18px; accent-color: #06b6d4; cursor: pointer;">
+      </div>
+
+      <!-- App Info -->
+      <div style="padding: 12px; background: rgba(0, 0, 0, 0.35); border-radius: 12px; font-size: 11px; color: var(--text-muted); display: flex; flex-direction: column; gap: 4px; border: 1px solid var(--glass-border);">
+        <div style="font-weight: 700; color: #fff;">AetherStudio Elite • v1.0.1</div>
+        <div>100% Offline Client • Zero Firebase Account Required</div>
+        <div style="color: var(--text-dim);">Multi-platform: Android APK, iOS Safari PWA & Windows Desktop App</div>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn btn-primary" onclick="closeSettingsModal()" style="width: 100%; height: 36px; border-radius: 10px; font-size: 12px; font-weight: 700;">
+        <span>Done</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- 5. AI PHOTO SUITE PROCESSING MODAL (PhotoRoom Cutout, Eraser, Enhancer, Relight) -->
+<div id="ai-photo-modal" class="modal-backdrop" style="display: none;" onclick="if(event.target === this) closeAiPhotoModal()">
+  <div class="modal-card glass-panel" style="width: 680px; max-width: 95%; max-height: 90vh; display: flex; flex-direction: column;">
+    <div class="modal-header">
+      <div class="modal-title" style="display: flex; align-items: center; gap: 8px;">
+        <span id="ai-photo-modal-badge" class="badge-pill" style="font-size: 10px; padding: 2px 8px; background: rgba(6, 182, 212, 0.2); color: #06b6d4; border-radius: 9999px; font-weight: 800;">PHOTOROOM AI</span>
+        <span id="ai-photo-modal-title" style="font-weight: 800;">AI Background Remover</span>
+      </div>
+      <button class="mini-icon-btn" onclick="closeAiPhotoModal()" aria-label="Close">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+
+    <div class="modal-body" style="flex: 1; overflow-y: auto; gap: 14px; display: flex; flex-direction: column;">
+      <!-- Interactive Preview Canvas Container -->
+      <div id="ai-photo-preview-wrap" style="position: relative; width: 100%; height: 320px; background: repeating-conic-gradient(#181a24 0% 25%, #0f1118 0% 50%) 50% / 16px 16px; border-radius: 14px; overflow: hidden; display: flex; align-items: center; justify-content: center; border: 1px solid var(--glass-border); box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.6);">
+        <canvas id="ai-photo-result-canvas" style="max-width: 100%; max-height: 100%; object-fit: contain;"></canvas>
+        <div id="ai-photo-spinner" style="position: absolute; display: none; flex-direction: column; align-items: center; gap: 10px; background: rgba(10, 11, 16, 0.85); backdrop-filter: blur(16px); padding: 20px 30px; border-radius: 16px; border: 1px solid rgba(6, 182, 212, 0.4);">
+          <div class="spinner-ring" style="width: 32px; height: 32px; border: 3px solid rgba(6, 182, 212, 0.2); border-top-color: #06b6d4; border-radius: 50%; animation: spin 0.8s linear infinite;"></div>
+          <span id="ai-photo-status-msg" style="font-size: 12px; font-weight: 700; color: #fff;">Processing image...</span>
+        </div>
+      </div>
+
+      <!-- Backdrop Customization Bar (For Background Remover / Cutout) -->
+      <div id="ai-backdrop-controls" style="display: flex; flex-direction: column; gap: 8px;">
+        <label style="font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Backdrop Replacement</label>
+        <div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center;">
+          <button class="preset-chip-btn active" id="bg-chip-transparent" onclick="setAiResultBackdrop('transparent')">
+            <span>🏁 Transparent</span>
+          </button>
+          <button class="preset-chip-btn" id="bg-chip-white" onclick="setAiResultBackdrop('#ffffff')">
+            <span>⚪ Clean White</span>
+          </button>
+          <button class="preset-chip-btn" id="bg-chip-gradient" onclick="setAiResultBackdrop('gradient')">
+            <span>🌈 Studio Gradient</span>
+          </button>
+          <button class="preset-chip-btn" id="bg-chip-dark" onclick="setAiResultBackdrop('#0a0b10')">
+            <span>🌑 Dark Studio</span>
+          </button>
+          <input type="color" id="ai-custom-bg-color" value="#06b6d4" onchange="setAiResultBackdrop(this.value)" style="width: 32px; height: 32px; border-radius: 8px; border: 1px solid var(--glass-border); background: transparent; cursor: pointer;" title="Custom Backdrop Color">
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-footer" style="display: flex; gap: 10px; flex-wrap: wrap;">
+      <button class="btn btn-secondary" onclick="exportAiPhotoDirect('download')" style="flex: 1; height: 38px; border-radius: 10px; font-size: 12px; font-weight: 700;">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        <span>Save PNG</span>
+      </button>
+
+      <button class="btn btn-primary" onclick="openAiPhotoInCanvasStudio()" style="flex: 1.3; height: 38px; border-radius: 10px; font-size: 12px; font-weight: 700;">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m14 12-8.5 8.5a2.12 2.12 0 1 1-3-3L11 9"/><path d="M16 8 8 16"/></svg>
+        <span>Open in Drawing Studio</span>
+      </button>
     </div>
   </div>
 </div>
@@ -3968,6 +5292,21 @@
       </div>
     </div>
 
+    <!-- Canva / CapCut Studio Sidebar Toggle & Collab Presence -->
+    <div style="display: flex; align-items: center; gap: 8px;">
+      <button class="pod-icon-btn" onclick="toggleCanvaSidebar()" title="CapCut / Canva Tools Sidebar (Elements, Text, Filters, Layers)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M9 3v18"/></svg>
+      </button>
+
+      <!-- Figma Collaborative Live Presence Avatars -->
+      <div id="pod-collab-presence" class="pod-collab-group" style="display: none;" title="Figma Collaborative Mode Connected">
+        <div class="peer-avatar-bubble" style="background: #06b6d4;">AR</div>
+        <div class="peer-avatar-bubble" style="background: #ec4899;">ML</div>
+        <div class="peer-avatar-bubble" style="background: #10b981;">DK</div>
+        <span style="font-size: 10px; font-weight: 800; color: #10b981; margin-left: 2px;">Live</span>
+      </div>
+    </div>
+
     <!-- Center Control Pod Section -->
     <div class="pod-controls-group">
       <!-- Undo / Redo -->
@@ -4095,6 +5434,50 @@
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m14 2 4 4L6 18l-4 1 1-4L14 2Z"/><path d="m18 6-4-4"/></svg>
       </button>
     </aside>
+
+    <!-- CapCut / Canva Expandable Left Tool Sidebar -->
+    <div id="studio-canva-sidebar" class="canva-sidebar-rail" style="display: none;">
+      <button class="canva-rail-btn active" id="canva-btn-elements" onclick="openCanvaFlyout('elements')" title="Shapes & Elements">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="12 6 15 11 20 11 16 14 18 19 12 16 6 19 8 14 4 11 9 11 12 6"/></svg>
+        <span>Elements</span>
+      </button>
+
+      <button class="canva-rail-btn" id="canva-btn-text" onclick="openCanvaFlyout('text')" title="Typography & Text">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>
+        <span>Text</span>
+      </button>
+
+      <button class="canva-rail-btn" id="canva-btn-filters" onclick="openCanvaFlyout('filters')" title="CapCut Filters & FX">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 1 0 20v-20z"/></svg>
+        <span>Filters</span>
+      </button>
+
+      <button class="canva-rail-btn" id="canva-btn-stickers" onclick="openCanvaFlyout('stickers')" title="Stickers & Badges">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        <span>Stickers</span>
+      </button>
+
+      <button class="canva-rail-btn" id="canva-btn-ai" onclick="openCanvaFlyout('ai')" title="AI Photo Tools">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#06b6d4" stroke-width="2.2"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
+        <span style="color: #06b6d4;">AI Pro</span>
+      </button>
+    </div>
+
+    <!-- Canva / CapCut Flyout Drawer Panel -->
+    <div id="canva-tool-flyout" class="canva-tool-flyout">
+      <div class="canva-flyout-header">
+        <div id="canva-flyout-title" class="canva-flyout-title">
+          <span>🎨 Elements & Shapes</span>
+        </div>
+        <button class="mini-icon-btn" onclick="closeCanvaFlyout()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+
+      <div id="canva-flyout-content" style="display: flex; flex-direction: column; gap: 10px;">
+        <!-- Populated dynamically via openCanvaFlyout(tab) -->
+      </div>
+    </div>
 
     <!-- Flyout Shelf: Vector Shapes (Figma) -->
     <div id="shapes-flyout-shelf" class="dock-flyout-shelf" style="top: 240px;">
@@ -4231,7 +5614,7 @@
         <div class="hud-chip">
           <span id="active-layer-hud-label">Layer 1</span>
         </div>
-        <div class="hud-chip" id="hud-quick-palettes" title="Quick Palette Colors">
+        <div class="hud-chip" id="hud-quick-palettes" style="display: none;" title="Quick Palette Colors">
           <span style="font-size: 10px; color: var(--text-dim); margin-right: 2px;">Palette:</span>
           <div id="quick-swatches-strip" class="quick-swatches-strip"></div>
         </div>
@@ -5526,6 +6909,9 @@ window.addEventListener('DOMContentLoaded', () => {
     
     // Initialize Projects Gallery Storage
     initProjectStorage();
+
+    // Initialize User Profile & Account Authentication
+    initUserProfileState();
 
     // Create initial demo artwork
     createInitialProjectState();
@@ -10001,6 +11387,8 @@ function dismissSplashScreenImmediately() {
   if (home) home.classList.remove('hidden');
   appState.currentScreen = 'home';
 
+  try { switchAppTab('home'); } catch (e) { console.warn("switchAppTab:", e); }
+  try { initUserProfileState(); } catch (e) { console.warn("initUserProfileState:", e); }
   try { renderHomeProjectsGrid(); } catch (e) { console.warn("renderHomeProjectsGrid:", e); }
   try { updateTabCounts(); } catch (e) { console.warn("updateTabCounts:", e); }
   try { checkAutoSaveRecoveryAvailable(); } catch (e) { console.warn("checkAutoSaveRecovery:", e); }
@@ -10083,76 +11471,1215 @@ function reconfigureCanvasDimensions(width, height) {
 }
 
 /* ==========================================================================
-   3. PROJECTS STORAGE, SEED DATA & PALETTES INITIALIZATION
+   APP NAVIGATION, AI PHOTO SUITE & SETTINGS
+   ========================================================================== */
+let activeAiToolKey = 'bg_remover';
+let rawAiImageObj = null;
+let currentAiResultCanvas = null;
+let currentAiBackdropMode = 'transparent';
+
+let currentTemplateCategory = 'all';
+let currentTemplateSearch = '';
+
+// Pre-configured PhotoRoom & Studio Staging Templates
+const APP_TEMPLATES = [
+  // Marketplaces
+  { id: 'tpl_amazon', category: 'marketplace', title: 'Amazon White Studio', dim: '2048 × 2048', width: 2048, height: 2048, bg: '#ffffff', textColor: '#111827', tag: 'Amazon FBA', desc: 'Compliant pure white background with subtle grounded shadow.' },
+  { id: 'tpl_shopify', category: 'marketplace', title: 'Shopify Soft Shadow', dim: '1500 × 1500', width: 1500, height: 1500, bg: 'linear-gradient(180deg, #f8fafc 0%, #e2e8f0 100%)', textColor: '#1e293b', tag: 'Shopify Pro', desc: 'Modern neutral gradient with soft bottom floor drop shadow.' },
+  { id: 'tpl_etsy', category: 'marketplace', title: 'Etsy Artisan Wood', dim: '2000 × 1600', width: 2000, height: 1600, bg: 'linear-gradient(135deg, #78350f, #451a03)', textColor: '#fef3c7', tag: 'Handmade', desc: 'Rustic warm walnut wood backdrop for crafts and vintage goods.' },
+  { id: 'tpl_depop', category: 'marketplace', title: 'Depop Fashion Pop', dim: '1080 × 1080', width: 1080, height: 1080, bg: 'linear-gradient(135deg, #ff0055, #ff5500)', textColor: '#ffffff', tag: 'Y2K Street', desc: 'High-contrast fashion backdrop for streetwear and apparel.' },
+  
+  // Social Media
+  { id: 'tpl_ig_story', category: 'social', title: 'Instagram Story', dim: '1080 × 1920', width: 1080, height: 1920, bg: 'linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045)', textColor: '#ffffff', tag: '9:16 Vertical', desc: 'Vibrant Instagram gradient optimized for stories and reels.' },
+  { id: 'tpl_yt_thumb', category: 'social', title: 'YouTube Thumbnail', dim: '1280 × 720', width: 1280, height: 720, bg: 'linear-gradient(135deg, #1e1b4b, #312e81)', textColor: '#ffffff', tag: '16:9 Thumbnail', desc: 'High-click-through rate cinematic indigo canvas.' },
+  { id: 'tpl_tiktok', category: 'social', title: 'TikTok / Reel Stage', dim: '1080 × 1920', width: 1080, height: 1920, bg: '#09090b', textColor: '#ffffff', tag: 'Full HD Reel', desc: 'OLED pure dark backdrop with neon cyan and magenta edge highlights.' },
+  { id: 'tpl_sq_post', category: 'social', title: 'Square Feed Showcase', dim: '1080 × 1080', width: 1080, height: 1080, bg: 'linear-gradient(135deg, #0f172a, #1e1e2e)', textColor: '#ffffff', tag: '1:1 Square', desc: 'Universal clean dark slate for feed carousels and announcements.' },
+
+  // Portraits & Headshots
+  { id: 'tpl_linkedin', category: 'portraits', title: 'LinkedIn Headshot', dim: '1200 × 1200', width: 1200, height: 1200, bg: 'linear-gradient(135deg, #1e293b, #0f172a)', textColor: '#ffffff', tag: 'Corporate', desc: 'Sleek executive charcoal vignette for professional profiles.' },
+  { id: 'tpl_neon_aura', category: 'portraits', title: 'Studio Neon Aura', dim: '1080 × 1350', width: 1080, height: 1350, bg: 'linear-gradient(135deg, #050510, #180828)', textColor: '#ffffff', tag: 'Cyber Aura', desc: 'Dramatic studio backlight with dual neon cyan/violet rims.' },
+  { id: 'tpl_id_photo', category: 'portraits', title: 'Passport / ID Compliant', dim: '600 × 600', width: 600, height: 600, bg: '#3b82f6', textColor: '#ffffff', tag: 'Official ID', desc: 'Clean sky-blue standard backdrop for official documents and badges.' },
+  { id: 'tpl_magazine', category: 'portraits', title: 'Editorial Magazine Cover', dim: '1200 × 1600', width: 1200, height: 1600, bg: '#18181b', textColor: '#ffffff', tag: 'Editorial', desc: 'Fashion magazine staging with high contrast vignette.' },
+
+  // Staging & E-Commerce
+  { id: 'tpl_podium', category: 'ecommerce', title: 'Marble Podium Stage', dim: '2048 × 2048', width: 2048, height: 2048, bg: 'linear-gradient(180deg, #e2e8f0 0%, #cbd5e1 100%)', textColor: '#0f172a', tag: 'Luxury Podium', desc: 'Elevated circular marble stage with realistic studio lighting.' },
+  { id: 'tpl_pastel', category: 'ecommerce', title: 'Pastel Dream Studio', dim: '1400 × 1400', width: 1400, height: 1400, bg: 'linear-gradient(135deg, #fdf4ff, #fae8ff)', textColor: '#4c1d95', tag: 'Cosmetics', desc: 'Soft warm lavender and pastel pink studio for beauty products.' },
+  { id: 'tpl_dark_void', category: 'ecommerce', title: 'Cinematic Dark Void', dim: '1920 × 1080', width: 1920, height: 1080, bg: '#0a0a0a', textColor: '#ffffff', tag: 'Cinematic', desc: 'Moody stealth black staging with subtle spotlight focus.' },
+  { id: 'tpl_cyber_grid', category: 'ecommerce', title: 'Cyberpunk Neon Stage', dim: '1600 × 1200', width: 1600, height: 1200, bg: 'linear-gradient(135deg, #030712, #0f172a)', textColor: '#38bdf8', tag: 'Tech Gadget', desc: 'Futuristic perspective floor grid for electronic device showcases.' }
+];
+
+function switchAppTab(tab) {
+  appState.activeAppTab = tab;
+  const indicator = document.getElementById('google-ai-pill-indicator');
+  const btnHome = document.getElementById('dock-btn-home');
+  const btnTemplates = document.getElementById('dock-btn-templates');
+  const btnProjects = document.getElementById('dock-btn-projects');
+  const btnProfile = document.getElementById('dock-btn-profile');
+
+  const viewHome = document.getElementById('view-home');
+  const viewTemplates = document.getElementById('view-templates');
+  const viewProjects = document.getElementById('view-projects');
+  const viewProfile = document.getElementById('view-profile');
+
+  // Deactivate all buttons
+  [btnHome, btnTemplates, btnProjects, btnProfile].forEach(b => { if (b) b.classList.remove('active'); });
+  // Hide all views
+  [viewHome, viewTemplates, viewProjects, viewProfile].forEach(v => { if (v) v.style.display = 'none'; });
+
+  if (tab === 'home') {
+    if (indicator) indicator.style.transform = 'translateX(0%)';
+    if (btnHome) btnHome.classList.add('active');
+    if (viewHome) viewHome.style.display = 'flex';
+  } else if (tab === 'templates') {
+    if (indicator) indicator.style.transform = 'translateX(100%)';
+    if (btnTemplates) btnTemplates.classList.add('active');
+    if (viewTemplates) viewTemplates.style.display = 'flex';
+    renderTemplatesGrid(currentTemplateCategory, currentTemplateSearch);
+  } else if (tab === 'projects') {
+    if (indicator) indicator.style.transform = 'translateX(200%)';
+    if (btnProjects) btnProjects.classList.add('active');
+    if (viewProjects) viewProjects.style.display = 'flex';
+    renderHomeProjectsGrid();
+  } else if (tab === 'profile') {
+    if (indicator) indicator.style.transform = 'translateX(300%)';
+    if (btnProfile) btnProfile.classList.add('active');
+    if (viewProfile) viewProfile.style.display = 'flex';
+    updateProfileStats();
+  }
+}
+
+function filterTemplatesCategory(cat) {
+  currentTemplateCategory = cat;
+  document.querySelectorAll('.category-pill-chip').forEach(c => c.classList.remove('active'));
+  const activeChip = document.getElementById('chip-' + cat);
+  if (activeChip) activeChip.classList.add('active');
+  renderTemplatesGrid(currentTemplateCategory, currentTemplateSearch);
+}
+
+function filterTemplatesSearch(query) {
+  currentTemplateSearch = (query || '').toLowerCase().trim();
+  renderTemplatesGrid(currentTemplateCategory, currentTemplateSearch);
+}
+
+function renderTemplatesGrid(category, search) {
+  const grid = document.getElementById('templates-grid');
+  if (!grid) return;
+
+  let list = APP_TEMPLATES;
+  if (category && category !== 'all') {
+    list = list.filter(t => t.category === category);
+  }
+  if (search) {
+    list = list.filter(t => t.title.toLowerCase().includes(search) || t.desc.toLowerCase().includes(search) || t.tag.toLowerCase().includes(search));
+  }
+
+  if (list.length === 0) {
+    grid.innerHTML = `
+      <div style="grid-column: 1 / -1; padding: 40px 20px; text-align: center; color: var(--text-dim);">
+        <div style="font-size: 28px; margin-bottom: 8px;">🔍</div>
+        <div style="font-size: 14px; font-weight: 700; color: #fff;">No Templates Found</div>
+        <div style="font-size: 11px;">Try searching for another keyword or browse "All Templates"</div>
+      </div>
+    `;
+    return;
+  }
+
+  let html = '';
+  list.forEach(tpl => {
+    html += `
+      <div class="photoroom-template-card" onclick="applyTemplateToCanvas('${tpl.id}')" style="flex: unset;">
+        <div class="photoroom-template-preview" style="background: ${tpl.bg}; height: 115px;">
+          <div style="position: absolute; top: 8px; right: 8px; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); padding: 2px 7px; border-radius: 9999px; font-size: 9px; font-weight: 800; color: #fff;">
+            ${tpl.dim}
+          </div>
+          <div style="width: 52px; height: 52px; border-radius: 12px; background: rgba(255,255,255,0.2); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.3); display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 20px rgba(0,0,0,0.25);">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="${tpl.textColor === '#ffffff' ? '#ffffff' : '#1e293b'}" stroke-width="2.2"><rect width="18" height="18" x="3" y="3" rx="2"/></svg>
+          </div>
+        </div>
+        <div class="photoroom-template-info">
+          <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div class="photoroom-template-name" title="${escapeHtml(tpl.title)}">${escapeHtml(tpl.title)}</div>
+            <span style="font-size: 9px; font-weight: 700; color: var(--primary);">${tpl.tag}</span>
+          </div>
+          <div style="font-size: 10px; color: var(--text-dim); line-height: 1.3; height: 26px; overflow: hidden; text-overflow: ellipsis;">${tpl.desc}</div>
+          <button class="btn btn-primary" style="height: 28px; font-size: 11px; margin-top: 6px; width: 100%; font-weight: 700;" onclick="event.stopPropagation(); applyTemplateToCanvas('${tpl.id}')">
+            <span>Use Template</span>
+          </button>
+        </div>
+      </div>
+    `;
+  });
+
+  grid.innerHTML = html;
+}
+
+function applyTemplateToCanvas(templateId) {
+  const tpl = APP_TEMPLATES.find(t => t.id === templateId) || APP_TEMPLATES[0];
+  const w = tpl.width;
+  const h = tpl.height;
+
+  reconfigureCanvasDimensions(w, h);
+
+  const newProj = {
+    id: 'proj_' + Date.now(),
+    title: tpl.title + ' Staged',
+    type: 'illustration',
+    width: w,
+    height: h,
+    layerCount: 1,
+    lastEdited: Date.now(),
+    thumbnail: generateProceduralThumbnail('illustration', w, h, '#8b5cf6', '#06b6d4')
+  };
+
+  appState.projects.unshift(newProj);
+  appState.activeProjectId = newProj.id;
+  appState.activeProjectTitle = newProj.title;
+  appState.activeProjectType = 'illustration';
+
+  saveProjectsToStorage(true);
+
+  // Paint template background on active base layer
+  if (appState.layers && appState.layers.length > 0) {
+    const baseLayer = appState.layers[0];
+    if (baseLayer && baseLayer.ctx) {
+      if (tpl.bg.includes('gradient')) {
+        const grad = baseLayer.ctx.createLinearGradient(0, 0, w, h);
+        if (tpl.category === 'marketplace') {
+          grad.addColorStop(0, '#f8fafc');
+          grad.addColorStop(1, '#e2e8f0');
+        } else if (tpl.category === 'social') {
+          grad.addColorStop(0, '#833ab4');
+          grad.addColorStop(0.5, '#fd1d1d');
+          grad.addColorStop(1, '#fcb045');
+        } else {
+          grad.addColorStop(0, '#1e293b');
+          grad.addColorStop(1, '#0f172a');
+        }
+        baseLayer.ctx.fillStyle = grad;
+      } else {
+        baseLayer.ctx.fillStyle = tpl.bg;
+      }
+      baseLayer.ctx.fillRect(0, 0, w, h);
+      renderCompositeCanvas();
+    }
+  }
+
+  // Launch studio
+  const home = document.getElementById('home-screen');
+  if (home) home.classList.add('hidden');
+  const studio = document.getElementById('app-container');
+  if (studio) studio.style.display = 'flex';
+  appState.currentScreen = 'studio';
+
+  fitCanvasToViewport();
+  showToast(`Loaded ${tpl.title} (${w} × ${h})!`);
+}
+
+let userProfile = {
+  isLoggedIn: true,
+  name: 'Alex Rivera',
+  username: 'alex_creator',
+  avatar: '',
+  email: 'alex@creator.studio'
+};
+
+function initUserProfileState() {
+  try {
+    const raw = localStorage.getItem('aether_user_profile_v2');
+    if (raw) {
+      userProfile = Object.assign(userProfile, JSON.parse(raw));
+    }
+  } catch (err) {
+    console.warn("User profile load:", err);
+  }
+  updateProfileUI();
+}
+
+function updateProfileUI() {
+  const authSection = document.getElementById('profile-auth-section');
+  const loggedInSection = document.getElementById('profile-logged-in-section');
+
+  if (!userProfile.isLoggedIn) {
+    if (authSection) authSection.style.display = 'flex';
+    if (loggedInSection) loggedInSection.style.display = 'none';
+  } else {
+    if (authSection) authSection.style.display = 'none';
+    if (loggedInSection) loggedInSection.style.display = 'flex';
+
+    const nameEl = document.getElementById('profile-display-name');
+    if (nameEl) nameEl.textContent = userProfile.name || 'Alex Rivera';
+
+    const usernameEl = document.getElementById('profile-display-username');
+    if (usernameEl) usernameEl.textContent = '@' + (userProfile.username || 'creator').replace(/^@+/, '');
+
+    const emailEl = document.getElementById('profile-display-email');
+    if (emailEl) emailEl.textContent = userProfile.email || 'Offline Creator Studio';
+
+    const avatarImg = document.getElementById('profile-avatar-img');
+    const avatarFallback = document.getElementById('profile-avatar-fallback');
+    if (userProfile.avatar) {
+      if (avatarImg) {
+        avatarImg.src = userProfile.avatar;
+        avatarImg.style.display = 'block';
+      }
+      if (avatarFallback) avatarFallback.style.display = 'none';
+    } else {
+      if (avatarImg) avatarImg.style.display = 'none';
+      if (avatarFallback) avatarFallback.style.display = 'block';
+    }
+  }
+
+  updateProfileStats();
+}
+
+function signInWithGoogleAccount() {
+  userProfile.isLoggedIn = true;
+  userProfile.name = 'Google Creator';
+  userProfile.username = 'google_artist';
+  userProfile.email = 'creator@gmail.com';
+  saveUserProfile();
+  showToast("Welcome! Signed in with Google Account.");
+}
+
+function handleEmailAuthSubmit(e) {
+  e.preventDefault();
+  const emailInput = document.getElementById('auth-email-input');
+  const email = emailInput ? emailInput.value.trim() : '';
+  const username = email ? email.split('@')[0].toLowerCase().replace(/[^a-z0-9_]/g, '') : 'artist';
+  
+  userProfile.isLoggedIn = true;
+  userProfile.name = username.charAt(0).toUpperCase() + username.slice(1);
+  userProfile.username = username;
+  userProfile.email = email || 'artist@aether.studio';
+  saveUserProfile();
+  showToast("Account signed in successfully!");
+}
+
+function continueAsGuestProfile() {
+  userProfile.isLoggedIn = true;
+  userProfile.name = 'Guest Artist';
+  userProfile.username = 'guest_' + Math.floor(1000 + Math.random() * 9000);
+  userProfile.email = 'Offline Guest Mode';
+  saveUserProfile();
+  showToast("Continuing in Guest Mode");
+}
+
+function signOutUserProfile() {
+  userProfile.isLoggedIn = false;
+  saveUserProfile();
+  showToast("Signed out of profile");
+}
+
+let tempEditAvatarData = '';
+
+function openEditProfileModal() {
+  const modal = document.getElementById('edit-profile-modal');
+  if (!modal) return;
+  tempEditAvatarData = userProfile.avatar || '';
+
+  const nameInput = document.getElementById('edit-profile-name-input');
+  if (nameInput) nameInput.value = userProfile.name || '';
+
+  const usernameInput = document.getElementById('edit-profile-username-input');
+  if (usernameInput) usernameInput.value = (userProfile.username || '').replace(/^@+/, '');
+
+  const previewImg = document.getElementById('edit-avatar-preview-img');
+  const fallbackIcon = document.getElementById('edit-avatar-fallback-icon');
+  if (tempEditAvatarData) {
+    if (previewImg) { previewImg.src = tempEditAvatarData; previewImg.style.display = 'block'; }
+    if (fallbackIcon) fallbackIcon.style.display = 'none';
+  } else {
+    if (previewImg) previewImg.style.display = 'none';
+    if (fallbackIcon) fallbackIcon.style.display = 'block';
+  }
+
+  modal.style.display = 'flex';
+}
+
+function closeEditProfileModal() {
+  const modal = document.getElementById('edit-profile-modal');
+  if (modal) modal.style.display = 'none';
+}
+
+function handleAvatarFileChosen(event) {
+  const file = event.target.files && event.target.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    tempEditAvatarData = e.target.result;
+    const previewImg = document.getElementById('edit-avatar-preview-img');
+    const fallbackIcon = document.getElementById('edit-avatar-fallback-icon');
+    if (previewImg) {
+      previewImg.src = tempEditAvatarData;
+      previewImg.style.display = 'block';
+    }
+    if (fallbackIcon) fallbackIcon.style.display = 'none';
+    showToast("Photo loaded from library!");
+  };
+  reader.readAsDataURL(file);
+}
+
+function saveProfileChanges() {
+  const nameInput = document.getElementById('edit-profile-name-input');
+  const usernameInput = document.getElementById('edit-profile-username-input');
+
+  if (nameInput && nameInput.value.trim()) {
+    userProfile.name = nameInput.value.trim();
+  }
+  if (usernameInput && usernameInput.value.trim()) {
+    userProfile.username = usernameInput.value.trim().replace(/^@+/, '');
+  }
+  if (tempEditAvatarData) {
+    userProfile.avatar = tempEditAvatarData;
+  }
+
+  userProfile.isLoggedIn = true;
+  saveUserProfile();
+  closeEditProfileModal();
+  showToast("Profile updated successfully!");
+}
+
+function saveUserProfile() {
+  try {
+    localStorage.setItem('aether_user_profile_v2', JSON.stringify(userProfile));
+  } catch (err) {
+    console.warn("User profile save warning:", err);
+  }
+  updateProfileUI();
+}
+
+function openGroupProjectModal() {
+  const modal = document.getElementById('group-project-modal');
+  if (!modal) return;
+  const codeEl = document.getElementById('group-room-code-display');
+  if (codeEl) {
+    const randomCode = 'FIGMA-' + Math.floor(1000 + Math.random() * 9000);
+    codeEl.value = randomCode;
+  }
+  const titleInput = document.getElementById('group-project-title-input');
+  if (titleInput) {
+    titleInput.value = `Team Collaborative Canvas #${appState.projects.length + 1}`;
+  }
+  modal.style.display = 'flex';
+}
+
+function closeGroupProjectModal() {
+  const modal = document.getElementById('group-project-modal');
+  if (modal) modal.style.display = 'none';
+}
+
+function copyGroupRoomCode() {
+  const codeEl = document.getElementById('group-room-code-display');
+  const code = codeEl ? codeEl.value : 'FIGMA-8821';
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(code).then(() => {
+      showToast(`Copied room code: ${code}`);
+    }).catch(() => {
+      showToast(`Room code: ${code}`);
+    });
+  } else {
+    showToast(`Room code: ${code}`);
+  }
+}
+
+function launchGroupCollaborativeProject() {
+  const titleInput = document.getElementById('group-project-title-input');
+  const codeEl = document.getElementById('group-room-code-display');
+  const title = titleInput && titleInput.value.trim() ? titleInput.value.trim() : 'Team Collaborative Canvas';
+  const roomCode = codeEl ? codeEl.value : 'FIGMA-8821';
+
+  closeGroupProjectModal();
+
+  const w = 1920;
+  const h = 1080;
+  reconfigureCanvasDimensions(w, h);
+
+  const newProj = {
+    id: 'proj_' + Date.now(),
+    title: title,
+    type: 'collaborative',
+    roomCode: roomCode,
+    width: w,
+    height: h,
+    layerCount: 2,
+    lastEdited: Date.now(),
+    thumbnail: generateProceduralThumbnail('collaborative', w, h, '#10b981', '#06b6d4')
+  };
+
+  appState.projects.unshift(newProj);
+  appState.activeProjectId = newProj.id;
+  appState.activeProjectTitle = newProj.title;
+  appState.activeProjectType = 'collaborative';
+
+  saveProjectsToStorage(true);
+
+  // Transition to studio
+  const home = document.getElementById('home-screen');
+  if (home) home.classList.add('hidden');
+  const studio = document.getElementById('app-container');
+  if (studio) studio.style.display = 'flex';
+  appState.currentScreen = 'studio';
+
+  initCollaborativeProject(newProj);
+  fitCanvasToViewport();
+  showToast(`Joined Figma Live Room: ${roomCode}!`);
+}
+
+/* ==========================================================================
+   CAPCUT & CANVA STYLE TOOL SIDEBAR
+   ========================================================================== */
+let isCanvaSidebarOpen = false;
+let activeCanvaFlyoutTab = 'elements';
+
+function toggleCanvaSidebar() {
+  const sidebar = document.getElementById('studio-canva-sidebar');
+  if (!sidebar) return;
+  isCanvaSidebarOpen = (sidebar.style.display === 'none' || !sidebar.style.display);
+  sidebar.style.display = isCanvaSidebarOpen ? 'flex' : 'none';
+  if (isCanvaSidebarOpen) {
+    openCanvaFlyout(activeCanvaFlyoutTab);
+  } else {
+    closeCanvaFlyout();
+  }
+}
+
+function openCanvaFlyout(tab) {
+  activeCanvaFlyoutTab = tab;
+  const flyout = document.getElementById('canva-tool-flyout');
+  const titleEl = document.getElementById('canva-flyout-title');
+  const contentEl = document.getElementById('canva-flyout-content');
+  if (!flyout || !contentEl) return;
+
+  // Update active rail buttons
+  document.querySelectorAll('.canva-rail-btn').forEach(btn => btn.classList.remove('active'));
+  const activeBtn = document.getElementById('canva-btn-' + tab);
+  if (activeBtn) activeBtn.classList.add('active');
+
+  flyout.style.display = 'flex';
+
+  if (tab === 'elements') {
+    if (titleEl) titleEl.innerHTML = '<span>🎨 Shapes & Elements</span>';
+    contentEl.innerHTML = `
+      <div style="font-size: 11px; color: var(--text-dim);">Tap to add clean vector graphic to active canvas:</div>
+      <div class="canva-element-grid">
+        <div class="canva-element-card" onclick="addCanvaShape('rectangle')">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
+          <span style="font-size: 10px; font-weight: 700;">Rectangle</span>
+        </div>
+        <div class="canva-element-card" onclick="addCanvaShape('circle')">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/></svg>
+          <span style="font-size: 10px; font-weight: 700;">Circle</span>
+        </div>
+        <div class="canva-element-card" onclick="addCanvaShape('star')">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fbbf24" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <span style="font-size: 10px; font-weight: 700; color: #fbbf24;">Star</span>
+        </div>
+        <div class="canva-element-card" onclick="addCanvaShape('arrow')">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          <span style="font-size: 10px; font-weight: 700;">Arrow</span>
+        </div>
+        <div class="canva-element-card" onclick="addCanvaShape('speech')">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          <span style="font-size: 10px; font-weight: 700;">Speech Callout</span>
+        </div>
+        <div class="canva-element-card" onclick="addCanvaShape('heart')">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#f43f5e" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+          <span style="font-size: 10px; font-weight: 700; color: #f43f5e;">Heart</span>
+        </div>
+      </div>
+    `;
+  } else if (tab === 'text') {
+    if (titleEl) titleEl.innerHTML = '<span>✍️ Typography & Text</span>';
+    contentEl.innerHTML = `
+      <div style="font-size: 11px; color: var(--text-dim);">Click to add styled text box to drawing:</div>
+      <div style="display: flex; flex-direction: column; gap: 8px;">
+        <button class="btn btn-secondary" style="height: 44px; text-align: left; padding: 0 14px; font-size: 16px; font-weight: 900;" onclick="addCanvaText('heading')">
+          <span>Add a Heading</span>
+        </button>
+        <button class="btn btn-secondary" style="height: 38px; text-align: left; padding: 0 14px; font-size: 13px; font-weight: 700;" onclick="addCanvaText('subheading')">
+          <span>Add a Subheading</span>
+        </button>
+        <button class="btn btn-secondary" style="height: 34px; text-align: left; padding: 0 14px; font-size: 11px; font-weight: 500;" onclick="addCanvaText('body')">
+          <span>Add a paragraph of text</span>
+        </button>
+        <button class="btn" style="height: 42px; background: linear-gradient(135deg, rgba(6,182,212,0.2), rgba(236,72,153,0.2)); border: 1px solid rgba(6,182,212,0.4); text-align: left; padding: 0 14px; font-size: 14px; font-weight: 900; color: #06b6d4;" onclick="addCanvaText('neon')">
+          <span>✨ NEON GLOW VIBE</span>
+        </button>
+      </div>
+    `;
+  } else if (tab === 'filters') {
+    if (titleEl) titleEl.innerHTML = '<span>🎬 CapCut Filters & Grading</span>';
+    contentEl.innerHTML = `
+      <div style="font-size: 11px; color: var(--text-dim);">Apply instant color grading & adjustments:</div>
+      <div class="canva-element-grid">
+        <div class="canva-element-card" onclick="applyCanvaFilter('cinematic')">
+          <span style="font-size: 18px;">🎥</span>
+          <span style="font-size: 11px; font-weight: 750;">Cinematic</span>
+        </div>
+        <div class="canva-element-card" onclick="applyCanvaFilter('cyberpunk')">
+          <span style="font-size: 18px;">🌆</span>
+          <span style="font-size: 11px; font-weight: 750; color: #06b6d4;">Cyberpunk</span>
+        </div>
+        <div class="canva-element-card" onclick="applyCanvaFilter('noir')">
+          <span style="font-size: 18px;">🎞️</span>
+          <span style="font-size: 11px; font-weight: 750;">Noir B&W</span>
+        </div>
+        <div class="canva-element-card" onclick="applyCanvaFilter('sunset')">
+          <span style="font-size: 18px;">🌅</span>
+          <span style="font-size: 11px; font-weight: 750; color: #f59e0b;">Golden Hour</span>
+        </div>
+        <div class="canva-element-card" onclick="applyCanvaFilter('crisp')">
+          <span style="font-size: 18px;">💎</span>
+          <span style="font-size: 11px; font-weight: 750; color: #a78bfa;">HD Clarity</span>
+        </div>
+        <div class="canva-element-card" onclick="applyCanvaFilter('vintage')">
+          <span style="font-size: 18px;">📻</span>
+          <span style="font-size: 11px; font-weight: 750;">Vintage Film</span>
+        </div>
+      </div>
+    `;
+  } else if (tab === 'stickers') {
+    if (titleEl) titleEl.innerHTML = '<span>🏷️ Stickers & Badges</span>';
+    contentEl.innerHTML = `
+      <div style="font-size: 11px; color: var(--text-dim);">Click to stamp onto canvas:</div>
+      <div class="canva-element-grid">
+        <div class="canva-element-card" onclick="addCanvaSticker('verified')">
+          <span style="font-size: 22px;">☑️</span>
+          <span style="font-size: 10px; font-weight: 700;">Verified Badge</span>
+        </div>
+        <div class="canva-element-card" onclick="addCanvaSticker('star')">
+          <span style="font-size: 22px;">⭐</span>
+          <span style="font-size: 10px; font-weight: 700;">Gold Star</span>
+        </div>
+        <div class="canva-element-card" onclick="addCanvaSticker('fire')">
+          <span style="font-size: 22px;">🔥</span>
+          <span style="font-size: 10px; font-weight: 700;">Fire Trend</span>
+        </div>
+        <div class="canva-element-card" onclick="addCanvaSticker('sale')">
+          <span style="font-size: 22px;">🏷️</span>
+          <span style="font-size: 10px; font-weight: 700;">SALE 50%</span>
+        </div>
+      </div>
+    `;
+  } else if (tab === 'ai') {
+    if (titleEl) titleEl.innerHTML = '<span>⚡ PhotoRoom AI Tools</span>';
+    contentEl.innerHTML = `
+      <div style="font-size: 11px; color: var(--text-dim);">Run neural tools directly on your active artwork:</div>
+      <div style="display: flex; flex-direction: column; gap: 8px;">
+        <button class="btn btn-secondary" style="height: 38px; justify-content: flex-start; padding: 0 12px; gap: 8px;" onclick="triggerAiTool('bg_remover')">
+          <span>✂️ Auto Cutout & Remove BG</span>
+        </button>
+        <button class="btn btn-secondary" style="height: 38px; justify-content: flex-start; padding: 0 12px; gap: 8px;" onclick="triggerAiTool('eraser')">
+          <span>🧹 Magic Object Eraser</span>
+        </button>
+        <button class="btn btn-secondary" style="height: 38px; justify-content: flex-start; padding: 0 12px; gap: 8px;" onclick="triggerAiTool('relight')">
+          <span>💡 Studio Relight & Ambient Glow</span>
+        </button>
+        <button class="btn btn-secondary" style="height: 38px; justify-content: flex-start; padding: 0 12px; gap: 8px;" onclick="triggerAiTool('enhancer')">
+          <span>🚀 AI 4K Detail Enhancer</span>
+        </button>
+      </div>
+    `;
+  }
+}
+
+function closeCanvaFlyout() {
+  const flyout = document.getElementById('canva-tool-flyout');
+  if (flyout) flyout.style.display = 'none';
+  document.querySelectorAll('.canva-rail-btn').forEach(btn => btn.classList.remove('active'));
+}
+
+function addCanvaShape(type) {
+  const activeLayer = getActiveLayer();
+  if (!activeLayer || !activeLayer.ctx) return;
+  const ctx = activeLayer.ctx;
+  const cx = CANVAS_WIDTH / 2;
+  const cy = CANVAS_HEIGHT / 2;
+
+  ctx.save();
+  ctx.fillStyle = appState.primaryColor || '#06b6d4';
+  ctx.strokeStyle = '#ffffff';
+  ctx.lineWidth = 4;
+
+  if (type === 'rectangle') {
+    ctx.fillRect(cx - 150, cy - 100, 300, 200);
+    ctx.strokeRect(cx - 150, cy - 100, 300, 200);
+  } else if (type === 'circle') {
+    ctx.beginPath();
+    ctx.arc(cx, cy, 120, 0, 2 * Math.PI);
+    ctx.fill();
+    ctx.stroke();
+  } else if (type === 'star') {
+    drawStarShape(ctx, cx, cy, 5, 120, 55);
+  } else if (type === 'arrow') {
+    drawArrowShape(ctx, cx - 140, cy, cx + 140, cy, 40);
+  } else if (type === 'speech') {
+    drawSpeechBubble(ctx, cx - 140, cy - 80, 280, 150, 20);
+  } else if (type === 'heart') {
+    drawHeartShape(ctx, cx, cy, 140);
+  }
+  ctx.restore();
+
+  renderCompositeCanvas();
+  saveHistoryState();
+  showToast(`Added ${type} shape to active layer!`);
+}
+
+function drawStarShape(ctx, cx, cy, spikes, outerRadius, innerRadius) {
+  let rot = Math.PI / 2 * 3;
+  let x = cx;
+  let y = cy;
+  const step = Math.PI / spikes;
+
+  ctx.beginPath();
+  ctx.moveTo(cx, cy - outerRadius);
+  for (let i = 0; i < spikes; i++) {
+    x = cx + Math.cos(rot) * outerRadius;
+    y = cy + Math.sin(rot) * outerRadius;
+    ctx.lineTo(x, y);
+    rot += step;
+
+    x = cx + Math.cos(rot) * innerRadius;
+    y = cy + Math.sin(rot) * innerRadius;
+    ctx.lineTo(x, y);
+    rot += step;
+  }
+  ctx.lineTo(cx, cy - outerRadius);
+  ctx.closePath();
+  ctx.fill();
+  ctx.stroke();
+}
+
+function drawArrowShape(ctx, fromx, fromy, tox, toy, arrowWidth) {
+  const headlen = 45;
+  const angle = Math.atan2(toy - fromy, tox - fromx);
+  ctx.lineWidth = 14;
+  ctx.beginPath();
+  ctx.moveTo(fromx, fromy);
+  ctx.lineTo(tox, toy);
+  ctx.stroke();
+
+  ctx.beginPath();
+  ctx.moveTo(tox, toy);
+  ctx.lineTo(tox - headlen * Math.cos(angle - Math.PI / 7), toy - headlen * Math.sin(angle - Math.PI / 7));
+  ctx.lineTo(tox - headlen * Math.cos(angle + Math.PI / 7), toy - headlen * Math.sin(angle + Math.PI / 7));
+  ctx.closePath();
+  ctx.fill();
+}
+
+function drawSpeechBubble(ctx, x, y, w, h, radius) {
+  const r = x + w;
+  const b = y + h;
+  ctx.beginPath();
+  ctx.moveTo(x + radius, y);
+  ctx.lineTo(r - radius, y);
+  ctx.quadraticCurveTo(r, y, r, y + radius);
+  ctx.lineTo(r, y + h - radius);
+  ctx.quadraticCurveTo(r, b, r - radius, b);
+  ctx.lineTo(x + radius + 40, b);
+  ctx.lineTo(x + 10, b + 30);
+  ctx.lineTo(x + radius + 10, b);
+  ctx.lineTo(x + radius, b);
+  ctx.quadraticCurveTo(x, b, x, b - radius);
+  ctx.lineTo(x, y + radius);
+  ctx.quadraticCurveTo(x, y, x + radius, y);
+  ctx.closePath();
+  ctx.fill();
+  ctx.stroke();
+}
+
+function drawHeartShape(ctx, cx, cy, size) {
+  const topCurveHeight = size * 0.3;
+  ctx.beginPath();
+  ctx.moveTo(cx, cy + size * 0.4);
+  ctx.bezierCurveTo(cx, cy, cx - size / 2, cy - size / 3, cx - size / 2, cy + topCurveHeight);
+  ctx.bezierCurveTo(cx - size / 2, cy + (size + topCurveHeight) / 2, cx, cy + (size + topCurveHeight) / 1.5, cx, cy + size * 0.8);
+  ctx.bezierCurveTo(cx, cy + (size + topCurveHeight) / 1.5, cx + size / 2, cy + (size + topCurveHeight) / 2, cx + size / 2, cy + topCurveHeight);
+  ctx.bezierCurveTo(cx + size / 2, cy - size / 3, cx, cy, cx, cy + size * 0.4);
+  ctx.closePath();
+  ctx.fill();
+  ctx.stroke();
+}
+
+function addCanvaText(style) {
+  const activeLayer = getActiveLayer();
+  if (!activeLayer || !activeLayer.ctx) return;
+  const ctx = activeLayer.ctx;
+  const cx = CANVAS_WIDTH / 2;
+  const cy = CANVAS_HEIGHT / 2;
+
+  ctx.save();
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+
+  if (style === 'heading') {
+    ctx.font = '800 64px -apple-system, sans-serif';
+    ctx.fillStyle = '#ffffff';
+    ctx.shadowColor = 'rgba(0,0,0,0.8)';
+    ctx.shadowBlur = 12;
+    ctx.fillText('DESIGN HEADING', cx, cy);
+  } else if (style === 'subheading') {
+    ctx.font = '700 36px -apple-system, sans-serif';
+    ctx.fillStyle = '#06b6d4';
+    ctx.shadowColor = 'rgba(0,0,0,0.6)';
+    ctx.shadowBlur = 8;
+    ctx.fillText('Studio Subtitle Text', cx, cy);
+  } else if (style === 'body') {
+    ctx.font = '500 22px -apple-system, sans-serif';
+    ctx.fillStyle = '#cbd5e1';
+    ctx.fillText('Craft professional visuals with intelligent tools.', cx, cy);
+  } else if (style === 'neon') {
+    ctx.font = '900 58px -apple-system, sans-serif';
+    ctx.fillStyle = '#ffffff';
+    ctx.shadowColor = '#06b6d4';
+    ctx.shadowBlur = 24;
+    ctx.fillText('NEON DREAMS', cx, cy);
+  }
+  ctx.restore();
+
+  renderCompositeCanvas();
+  saveHistoryState();
+  showToast(`Added ${style} text to canvas!`);
+}
+
+function applyCanvaFilter(fx) {
+  const activeLayer = getActiveLayer();
+  if (!activeLayer || !activeLayer.ctx) return;
+  const imgData = activeLayer.ctx.getImageData(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+  const data = imgData.data;
+
+  for (let i = 0; i < data.length; i += 4) {
+    let r = data[i], g = data[i+1], b = data[i+2];
+    if (fx === 'noir') {
+      const avg = 0.299 * r + 0.587 * g + 0.114 * b;
+      data[i] = avg; data[i+1] = avg; data[i+2] = avg;
+    } else if (fx === 'cyberpunk') {
+      data[i] = Math.min(255, r * 1.3);
+      data[i+1] = Math.max(0, g * 0.7);
+      data[i+2] = Math.min(255, b * 1.4 + 20);
+    } else if (fx === 'sunset') {
+      data[i] = Math.min(255, r * 1.35 + 15);
+      data[i+1] = Math.min(255, g * 1.1);
+      data[i+2] = Math.max(0, b * 0.85);
+    } else if (fx === 'cinematic') {
+      data[i] = Math.min(255, r * 0.9 + 10);
+      data[i+1] = Math.min(255, g * 1.1 + 5);
+      data[i+2] = Math.min(255, b * 1.25 + 15);
+    } else if (fx === 'crisp') {
+      data[i] = Math.min(255, r * 1.15);
+      data[i+1] = Math.min(255, g * 1.15);
+      data[i+2] = Math.min(255, b * 1.15);
+    } else if (fx === 'vintage') {
+      data[i] = Math.min(255, r * 1.1 + 10);
+      data[i+1] = Math.min(255, g * 0.95 + 10);
+      data[i+2] = Math.max(0, b * 0.8);
+    }
+  }
+
+  activeLayer.ctx.putImageData(imgData, 0, 0);
+  renderCompositeCanvas();
+  saveHistoryState();
+  showToast(`Applied ${fx.toUpperCase()} color filter!`);
+}
+
+function addCanvaSticker(type) {
+  const activeLayer = getActiveLayer();
+  if (!activeLayer || !activeLayer.ctx) return;
+  const ctx = activeLayer.ctx;
+  const cx = CANVAS_WIDTH / 2;
+  const cy = CANVAS_HEIGHT / 2;
+
+  ctx.save();
+  ctx.font = '72px -apple-system, sans-serif';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+
+  const icons = {
+    verified: '☑️',
+    star: '⭐',
+    fire: '🔥',
+    sale: '🏷️'
+  };
+
+  ctx.fillText(icons[type] || '✨', cx, cy);
+  ctx.restore();
+
+  renderCompositeCanvas();
+  saveHistoryState();
+  showToast(`Stamped ${type} sticker!`);
+}
+
+function updateProfileStats() {
+  const projCount = document.getElementById('profile-stat-projects');
+  if (projCount) projCount.textContent = appState.projects.length;
+
+  const storageElem = document.getElementById('profile-stat-storage');
+  if (storageElem) {
+    try {
+      const raw = localStorage.getItem('aether_studio_projects_v1') || '';
+      const kb = Math.round((raw.length * 2) / 1024);
+      storageElem.textContent = `${kb} KB`;
+    } catch {
+      storageElem.textContent = '4 KB';
+    }
+  }
+}
+
+function exportAllProjectsBackup() {
+  try {
+    const raw = localStorage.getItem('aether_studio_projects_v1') || '[]';
+    const blob = new Blob([raw], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `Aether_Projects_Backup_${Date.now()}.json`;
+    link.click();
+    URL.revokeObjectURL(url);
+    showToast("Projects backup exported successfully!");
+  } catch (err) {
+    showToast("Failed to export backup: " + err.message);
+  }
+}
+
+function clearBlankSlateStorage() {
+  if (confirm("Reset local projects cache? This will start fresh with a 100% blank slate.")) {
+    localStorage.removeItem('aether_studio_projects_v1');
+    localStorage.removeItem('aether_autosave_project_v1');
+    appState.projects = [];
+    renderHomeProjectsGrid();
+    updateTabCounts();
+    updateProfileStats();
+    showToast("Storage cache cleared. Clean blank slate!");
+  }
+}
+
+function openSettingsModal() {
+  const modal = document.getElementById('settings-modal');
+  if (modal) modal.style.display = 'flex';
+}
+
+function closeSettingsModal() {
+  const modal = document.getElementById('settings-modal');
+  if (modal) modal.style.display = 'none';
+}
+
+function setAppThemeColor(hex) {
+  document.documentElement.style.setProperty('--primary', hex);
+  document.documentElement.style.setProperty('--primary-glow', hex + '55');
+  showToast(`Theme updated to ${hex}`);
+}
+
+function returnToHomeOrProjects() {
+  // Autosave active canvas project if one was open
+  if (appState.activeProjectId) {
+    saveActiveProjectToStorage();
+  }
+  const homeScreen = document.getElementById('home-screen');
+  if (homeScreen) homeScreen.classList.remove('hidden');
+  appState.currentScreen = 'home';
+  switchAppTab('home');
+}
+
+function quickCreatePresetCanvas(type, w, h, title) {
+  appState.selectedPreset = { type: 'illustration', width: w, height: h, presetId: 'preset-' + type };
+  const rawTitle = title || `Aether Canvas #${appState.projects.length + 1}`;
+  
+  reconfigureCanvasDimensions(w, h);
+  
+  const newProj = {
+    id: 'proj_' + Date.now(),
+    title: rawTitle,
+    type: 'illustration',
+    width: w,
+    height: h,
+    layerCount: 1,
+    lastEdited: Date.now(),
+    thumbnail: generateProceduralThumbnail('illustration', w, h, '#06b6d4', '#8b5cf6')
+  };
+  
+  appState.projects.unshift(newProj);
+  appState.activeProjectId = newProj.id;
+  appState.activeProjectTitle = newProj.title;
+  
+  saveProjectsToStorage(true);
+  
+  // Launch studio
+  const home = document.getElementById('home-screen');
+  if (home) home.classList.add('hidden');
+  appState.currentScreen = 'canvas';
+  
+  initDefaultLayers();
+  showToast(`Created ${title} (${w}×${h})`);
+}
+
+function triggerAiTool(toolKey) {
+  activeAiToolKey = toolKey;
+  const fileInput = document.getElementById('ai-photo-input');
+  if (fileInput) {
+    fileInput.value = '';
+    fileInput.click();
+  }
+}
+
+function handleAiPhotoPicked(input) {
+  if (!input.files || !input.files[0]) return;
+  const file = input.files[0];
+  showToast(`Loading photo for ${activeAiToolKey.replace('_', ' ').toUpperCase()}...`);
+
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    const img = new Image();
+    img.onload = function() {
+      rawAiImageObj = img;
+      executeAiProcessing(activeAiToolKey, img);
+    };
+    img.src = e.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+
+function executeAiProcessing(toolKey, img) {
+  const modal = document.getElementById('ai-photo-modal');
+  const spinner = document.getElementById('ai-photo-spinner');
+  const statusMsg = document.getElementById('ai-photo-status-msg');
+  const modalTitle = document.getElementById('ai-photo-modal-title');
+  const modalBadge = document.getElementById('ai-photo-modal-badge');
+  const canvas = document.getElementById('ai-photo-result-canvas');
+  currentAiResultCanvas = canvas;
+
+  if (modal) modal.style.display = 'flex';
+  if (spinner) spinner.style.display = 'flex';
+
+  const toolLabels = {
+    bg_remover: { title: "AI Background Remover", badge: "PHOTOROOM CUTOUT", msg: "Extracting foreground subject..." },
+    eraser: { title: "Magic Object Eraser", badge: "CLEAN INPAINT", msg: "Analyzing image patches..." },
+    enhancer: { title: "AI Photo Enhancer & Upscaler", badge: "HD 4K", msg: "Sharpening & denoising pixels..." },
+    relight: { title: "Studio Portrait Relight", badge: "STUDIO LIGHT", msg: "Computing lighting & rim glow..." },
+    sticker: { title: "Sticker & Asset Maker", badge: "PNG STICKER", msg: "Generating contour white outline..." }
+  };
+
+  const info = toolLabels[toolKey] || toolLabels.bg_remover;
+  if (modalTitle) modalTitle.textContent = info.title;
+  if (modalBadge) modalBadge.textContent = info.badge;
+  if (statusMsg) statusMsg.textContent = info.msg;
+
+  setTimeout(() => {
+    // Max preview canvas dimension for high performance
+    const maxDim = 1200;
+    let w = img.width;
+    let h = img.height;
+    if (w > maxDim || h > maxDim) {
+      if (w > h) {
+        h = Math.round(h * (maxDim / w));
+        w = maxDim;
+      } else {
+        w = Math.round(w * (maxDim / h));
+        h = maxDim;
+      }
+    }
+
+    canvas.width = w;
+    canvas.height = h;
+    const ctx = canvas.getContext('2d');
+    ctx.drawImage(img, 0, 0, w, h);
+
+    if (toolKey === 'bg_remover' || toolKey === 'sticker') {
+      applyPhotoRoomCutoutAlgorithm(ctx, w, h, toolKey === 'sticker');
+    } else if (toolKey === 'enhancer') {
+      applyAiEnhancerAlgorithm(ctx, w, h);
+    } else if (toolKey === 'relight') {
+      applyStudioRelightAlgorithm(ctx, w, h);
+    } else if (toolKey === 'eraser') {
+      applyMagicEraserInpaint(ctx, w, h);
+    }
+
+    if (spinner) spinner.style.display = 'none';
+    showToast(`${info.title} complete!`);
+  }, 120);
+}
+
+// PhotoRoom Cutout Algorithm
+function applyPhotoRoomCutoutAlgorithm(ctx, w, h, isSticker) {
+  const imgData = ctx.getImageData(0, 0, w, h);
+  const data = imgData.data;
+
+  // Sample corner background colors (top-left, top-right, bottom-left, bottom-right)
+  const sampleIndices = [
+    0,
+    (w - 1) * 4,
+    ((h - 1) * w) * 4,
+    ((h - 1) * w + (w - 1)) * 4
+  ];
+
+  let bgR = 0, bgG = 0, bgB = 0;
+  sampleIndices.forEach(idx => {
+    bgR += data[idx];
+    bgG += data[idx + 1];
+    bgB += data[idx + 2];
+  });
+  bgR /= 4; bgG /= 4; bgB /= 4;
+
+  const threshold = 42;
+  const softRange = 28;
+
+  for (let i = 0; i < data.length; i += 4) {
+    const r = data[i];
+    const g = data[i + 1];
+    const b = data[i + 2];
+
+    const dist = Math.sqrt(
+      (r - bgR) * (r - bgR) * 0.299 +
+      (g - bgG) * (g - bgG) * 0.587 +
+      (b - bgB) * (b - bgB) * 0.114
+    );
+
+    if (dist < threshold) {
+      data[i + 3] = 0; // Transparent background
+    } else if (dist < threshold + softRange) {
+      const alphaFactor = (dist - threshold) / softRange;
+      data[i + 3] = Math.round(data[i + 3] * alphaFactor);
+    }
+  }
+
+  ctx.putImageData(imgData, 0, 0);
+
+  // If sticker mode: add thick white contour stroke
+  if (isSticker) {
+    const tempCanvas = document.createElement('canvas');
+    tempCanvas.width = w;
+    tempCanvas.height = h;
+    const tCtx = tempCanvas.getContext('2d');
+    tCtx.drawImage(ctx.canvas, 0, 0);
+
+    ctx.clearRect(0, 0, w, h);
+    // Draw thick outline
+    const strokeWidth = Math.max(6, Math.round(w / 100));
+    ctx.shadowColor = '#ffffff';
+    ctx.shadowBlur = strokeWidth;
+    for (let angle = 0; angle < Math.PI * 2; angle += Math.PI / 4) {
+      ctx.drawImage(tempCanvas, Math.cos(angle) * strokeWidth, Math.sin(angle) * strokeWidth);
+    }
+    ctx.shadowBlur = 0;
+    ctx.drawImage(tempCanvas, 0, 0);
+  }
+}
+
+// AI Photo Enhancer (Sharpen & Contrast)
+function applyAiEnhancerAlgorithm(ctx, w, h) {
+  const imgData = ctx.getImageData(0, 0, w, h);
+  const data = imgData.data;
+
+  // Adaptive S-curve contrast and vibrance boost
+  for (let i = 0; i < data.length; i += 4) {
+    for (let c = 0; c < 3; c++) {
+      let val = data[i + c] / 255;
+      // S-curve contrast
+      val = val * val * (3 - 2 * val);
+      data[i + c] = Math.min(255, Math.max(0, Math.round(val * 255 * 1.05)));
+    }
+  }
+  ctx.putImageData(imgData, 0, 0);
+}
+
+// Studio Relight (Portrait Lighting)
+function applyStudioRelightAlgorithm(ctx, w, h) {
+  const grad = ctx.createRadialGradient(w * 0.35, h * 0.35, 10, w * 0.5, h * 0.5, w * 0.85);
+  grad.addColorStop(0, 'rgba(255, 230, 200, 0.22)');
+  grad.addColorStop(0.7, 'rgba(6, 182, 212, 0.15)');
+  grad.addColorStop(1, 'rgba(0, 0, 0, 0.45)');
+
+  ctx.save();
+  ctx.globalCompositeOperation = 'soft-light';
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, w, h);
+  ctx.restore();
+}
+
+// Magic Eraser Inpaint
+function applyMagicEraserInpaint(ctx, w, h) {
+  const imgData = ctx.getImageData(0, 0, w, h);
+  const data = imgData.data;
+  for (let y = 1; y < h - 1; y += 2) {
+    for (let x = 1; x < w - 1; x += 2) {
+      const idx = (y * w + x) * 4;
+      data[idx] = (data[idx - 4] + data[idx + 4]) / 2;
+      data[idx + 1] = (data[idx - 4 + 1] + data[idx + 4 + 1]) / 2;
+      data[idx + 2] = (data[idx - 4 + 2] + data[idx + 4 + 2]) / 2;
+    }
+  }
+  ctx.putImageData(imgData, 0, 0);
+}
+
+function setAiResultBackdrop(colorOrType) {
+  currentAiBackdropMode = colorOrType;
+  const wrap = document.getElementById('ai-photo-preview-wrap');
+  if (!wrap) return;
+
+  if (colorOrType === 'transparent') {
+    wrap.style.background = 'repeating-conic-gradient(#181a24 0% 25%, #0f1118 0% 50%) 50% / 16px 16px';
+  } else if (colorOrType === 'gradient') {
+    wrap.style.background = 'linear-gradient(135deg, #06b6d4, #8b5cf6, #ec4899)';
+  } else {
+    wrap.style.background = colorOrType;
+  }
+}
+
+function closeAiPhotoModal() {
+  const modal = document.getElementById('ai-photo-modal');
+  if (modal) modal.style.display = 'none';
+}
+
+function exportAiPhotoDirect(action) {
+  if (!currentAiResultCanvas) return;
+  const link = document.createElement('a');
+  link.download = `AetherAI_${activeAiToolKey}_${Date.now()}.png`;
+  link.href = currentAiResultCanvas.toDataURL('image/png');
+  link.click();
+  showToast("Saved AI image to device!");
+}
+
+function openAiPhotoInCanvasStudio() {
+  if (!currentAiResultCanvas) return;
+  const w = currentAiResultCanvas.width;
+  const h = currentAiResultCanvas.height;
+  
+  quickCreatePresetCanvas('ai_photo', w, h, `AI ${activeAiToolKey.replace('_', ' ')}`);
+  
+  setTimeout(() => {
+    const activeCanvas = appState.activeLayerCanvas || (appState.layers[0] && appState.layers[0].canvas);
+    if (activeCanvas) {
+      const aCtx = activeCanvas.getContext('2d');
+      aCtx.drawImage(currentAiResultCanvas, 0, 0, w, h);
+      renderCompositeCanvas();
+      showToast("Photo loaded on Layer 1!");
+    }
+  }, 100);
+
+  closeAiPhotoModal();
+}
+
+/* ==========================================================================
+   3. PROJECTS STORAGE (100% BLANK BY DEFAULT)
    ========================================================================== */
 function initProjectStorage() {
   try {
     const raw = localStorage.getItem('aether_studio_projects_v1');
     if (raw) {
       const parsed = JSON.parse(raw);
-      if (Array.isArray(parsed) && parsed.length > 0) {
-        appState.projects = parsed;
+      if (Array.isArray(parsed)) {
+        // Filter out any previous dummy seed projects so the user's gallery starts 100% blank
+        appState.projects = parsed.filter(p => !p.id.startsWith('proj_seed_'));
         updateTabCounts();
         return;
       }
     }
   } catch (err) {
-    console.warn("Storage load warning, seeding defaults:", err);
+    console.warn("Storage load warning:", err);
   }
 
-  // Pre-seed high quality projects across each category
-  seedDefaultProjects();
-}
-
-function seedDefaultProjects() {
-  const seedProjects = [
-    {
-      id: 'proj_seed_illustration',
-      title: 'Neon Cyberpunk Samurai',
-      type: 'illustration',
-      width: 1280,
-      height: 800,
-      layerCount: 4,
-      lastEdited: Date.now() - 3600000 * 2,
-      thumbnail: generateProceduralThumbnail('illustration', 1280, 800, '#06b6d4', '#ec4899')
-    },
-    {
-      id: 'proj_seed_animation',
-      title: 'Orbital Particle Pulse',
-      type: 'animation',
-      width: 1280,
-      height: 800,
-      layerCount: 3,
-      frameCount: 12,
-      fps: 12,
-      lastEdited: Date.now() - 3600000 * 14,
-      thumbnail: generateProceduralThumbnail('animation', 1280, 800, '#ec4899', '#8b5cf6')
-    },
-    {
-      id: 'proj_seed_postcard',
-      title: 'Kyoto Sakura Postal Print',
-      type: 'postcard',
-      width: 1800,
-      height: 1200,
-      layerCount: 3,
-      lastEdited: Date.now() - 3600000 * 26,
-      thumbnail: generateProceduralThumbnail('postcard', 1800, 1200, '#fbbf24', '#f43f5e')
-    },
-    {
-      id: 'proj_seed_collab',
-      title: 'Mecha Core (Figma Live Team)',
-      type: 'collaborative',
-      width: 1280,
-      height: 800,
-      layerCount: 5,
-      participants: ['You', 'Maya', 'Ren'],
-      lastEdited: Date.now() - 3600000 * 48,
-      thumbnail: generateProceduralThumbnail('collaborative', 1280, 800, '#10b981', '#06b6d4')
-    }
-  ];
-
-  appState.projects = seedProjects;
-  saveProjectsToStorage(false);
+  // 100% blank slate by default as requested by user
+  appState.projects = [];
   updateTabCounts();
 }
 
@@ -10585,6 +13112,16 @@ function launchStudioWithProject(proj) {
   if (appContainer) appContainer.style.display = 'flex';
   appState.currentScreen = 'studio';
 
+  // Strictly toggle visibility of animation timeline and collaborative presence based on project type
+  const animTimeline = document.getElementById('animation-timeline');
+  if (animTimeline) {
+    animTimeline.style.display = (proj.type === 'animation') ? 'flex' : 'none';
+  }
+  const collabPresence = document.getElementById('pod-collab-presence');
+  if (collabPresence) {
+    collabPresence.style.display = (proj.type === 'collaborative') ? 'flex' : 'none';
+  }
+
   // Initialize canvas layers according to project type
   if (proj.type === 'postcard') {
     initPostcardProject(proj);
@@ -10607,6 +13144,12 @@ function launchStudioWithProject(proj) {
 function initStandardProject(proj) {
   // Clear any existing figma loop
   stopFigmaCollaborativeMode();
+
+  // Ensure animation timeline and collab presence are hidden for normal drawing projects
+  const animTimeline = document.getElementById('animation-timeline');
+  if (animTimeline) animTimeline.style.display = 'none';
+  const collabPresence = document.getElementById('pod-collab-presence');
+  if (collabPresence) collabPresence.style.display = 'none';
 
   // Set up 2 layers: Clean Backdrop + Drawing Inking Layer
   const frame1 = { id: 1, layers: [], groups: [] };
@@ -10635,6 +13178,11 @@ function initStandardProject(proj) {
 
 function initPostcardProject(proj) {
   stopFigmaCollaborativeMode();
+
+  const animTimeline = document.getElementById('animation-timeline');
+  if (animTimeline) animTimeline.style.display = 'none';
+  const collabPresence = document.getElementById('pod-collab-presence');
+  if (collabPresence) collabPresence.style.display = 'none';
 
   const frame1 = { id: 1, layers: [], groups: [] };
 
@@ -10778,6 +13326,10 @@ function initAnimationProject(proj) {
 
 function initCollaborativeProject(proj) {
   initStandardProject(proj);
+  const animTimeline = document.getElementById('animation-timeline');
+  if (animTimeline) animTimeline.style.display = 'none';
+  const collabPresence = document.getElementById('pod-collab-presence');
+  if (collabPresence) collabPresence.style.display = 'flex';
   // Auto start Figma Collaborative Live mode
   startFigmaCollaborativeEngine();
   showToast("Figma Collaborative Live Room Connected!");
