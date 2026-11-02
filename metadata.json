@@ -1,5 +1,5 @@
 {
-  "name": "Graphenx",
+  "name": "GraphenX",
   "description": "Multi-engine creative studio featuring Photoshop, Figma, Procreate, Ibis Paint, Krita, FlipaClip workspaces, vector layout hub, and keyframe timeline.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]

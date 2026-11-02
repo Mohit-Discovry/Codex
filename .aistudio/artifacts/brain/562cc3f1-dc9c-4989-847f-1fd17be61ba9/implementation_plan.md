@@ -1,26 +1,25 @@
-# Graphenx - Multi-Engine Creative Studio & Opacity Fade Timeline
-
-Deliver a studio-grade multi-engine creative workspace under the official name **Graphenx** with a top-right engine switcher (Graphic Design: Photoshop & Figma; Drawing & Animation: Procreate, Ibis Paint, Krita & FlipaClip), full canvas data preservation, linear Opacity Fade keyframe transitions in the animation timeline, complete removal of unnecessary emojis in favor of precision SVG icons, a universal save button, and permanently accessible templates.
+# GraphenX: Professional Authentication, User Onboarding, and High-Performance Studio Engine
 
 ## User Review & Critical Decisions
 
 > [!IMPORTANT]
-> The following architectural and user experience decisions have been aligned based on your preferences:
+> The following architectural and user experience decisions have been synthesized from your feedback:
 
-- **Confirmed Decision 1 (App Rebranding to Graphenx)**: Rename the application to **Graphenx** across all UI headers, splash screen, launcher labels (`strings.xml`), project settings (`settings.gradle.kts`), and platform metadata (`metadata.json`).
-- **Confirmed Decision 2 (Engine Workspaces)**: Switching engines (Photoshop, Figma, Procreate, Ibis Paint, Krita, FlipaClip) dynamically transforms the toolbars, inspectors, and docks into that specific software's layout while leaving the current canvas content, active layers, and drawing pixels 100% intact.
-- **Confirmed Decision 3 (Template Accessibility)**: Surfacing templates through an always-visible sliding dock tab, a prominent top-bar "Templates Hub" quick-launch button, and an instant in-canvas template picker modal so templates are never hidden or lost.
-- **Confirmed Decision 4 (Opacity Fade Transitions)**: Adding a linear opacity interpolation toggle between keyframes in the timeline filmstrip with configurable duration and ease-in-out curve.
-- **Confirmed Decision 5 (Professional Iconography)**: Stripping all decorative emojis across the interface and replacing them with sharp, studio-grade SVG vector icons and clean typographic labels.
-- **Confirmed Decision 6 (Universal Save Icon)**: Adding a standardized universal save icon in the persistent top bar across all engines with tactile visual feedback and timestamp tracking.
+- **Confirmed Decision (Authentication)**: Initial app launch presents a professional dark glass login screen with real Google Sign-In and email options. Users start in an unauthenticated state (`isLoggedIn: false`) by default.
+- **Confirmed Decision (Onboarding Flow)**: Immediately upon first sign-in, users transition to a dedicated onboarding page to set their Full Name, claim a unique `@username` (with real-time format and availability check), and select or upload an avatar before entering the studio.
+- **Confirmed Decision (Performance & Project Launch)**: Instant canvas mount, elimination of duplicate function handlers, and hardware-accelerated rendering to completely remove lag and make project opening, templates, and AI tools immediately responsive.
+- **Confirmed Decision (Button UI & Branding)**: Clean "+project" and "+ Canvas" labels into sleek "New Project" / "Create Project" action buttons without unnecessary `+` prefixes, and rebrand the application name strictly to **GraphenX** across Android metadata, strings, Gradle, and all UI views.
 
 ---
 
 ## 1. Overview & Core Concept
 
-- **What It Does**: Establishes **Graphenx** as a versatile multi-paradigm creative powerhouse. Artists and designers can toggle between **Graphic Design** (Adobe Photoshop or Figma) and **Drawing & Animation** (Procreate, Ibis Paint, Krita, FlipaClip) with dedicated 3-dot engine menus. The timeline gains true frame-to-frame opacity fade tweening, templates are guaranteed accessible at all times, and the entire UI is elevated to a professional vector-styled environment.
-- **Target Audience**: Digital painters, vector designers, motion animators, and content creators who frequently switch between raster illustration and UI/graphic design.
-- **Key Value**: Eliminates app-switching friction: sketching with Procreate-style gestures, vectoring with Figma tools, animating with FlipaClip onion-skinning, and retouching with Photoshop filters on a single continuous canvas.
+**GraphenX** is a high-performance creative design and animation studio. This release elevates the application from a guest-first prototype into a polished, professional multi-engine studio with:
+1. **Unauthenticated First Launch**: A luxury glassmorphic login screen featuring authentic Google Sign-In and email authentication.
+2. **Post-Sign-In Onboarding Page**: A focused setup flow allowing each creator to personalize their display identity, select an avatar, and secure a unique `@username`.
+3. **Zero-Lag Studio Engine**: Instant project launching, rapid template application (Canva, PhotoRoom, Pinterest, Google), and high-framerate AI tool execution without UI freeze or click-blocker overlays.
+4. **Clean Action Labels**: Removal of awkward `+` prefixes in favor of standard studio actions like "New Project" and "Create Artwork".
+5. **Universal Rebranding to GraphenX**: Consistent identity across the system manifest, Gradle build, Android strings, splash screen, and top navigation bar.
 
 ---
 
@@ -28,111 +27,109 @@ Deliver a studio-grade multi-engine creative workspace under the official name *
 
 ### Key User Flows
 
-1. **Switching Studio Modes & Engines**:
-   - The user looks at the top-right header pod and sees a sleek segmented pill toggle: `[ Graphic Design ] | [ Drawing & Animation ]`.
-   - Next to the active segment is a `[ ··· ]` engine menu button.
-   - When **Graphic Design** is active, tapping `···` presents:
-     - **Adobe Photoshop**: Activates dark carbon styling, Marquee/Lasso/Wand, Dodge/Burn/Smudge toolbar, adjustment layer presets, and layer blend modes.
-     - **Figma**: Activates clean slate UI, Frame tool, vector pen path nodes, collaborative cursor layer, and Auto-Layout property inspector.
-   - When **Drawing & Animation** is active, tapping `···` presents:
-     - **Procreate**: Floating vertical dual-slider dock (Brush Size & Opacity) on the left edge, streamlined minimal header, and quick color disc.
-     - **Ibis Paint**: Bottom-docked tool selector, stabilizer slider (0–10), and specialized dip pen / felt tip presets.
-     - **Krita**: Docker sidebars, brush preset wheel, and scratchpad canvas.
-     - **FlipaClip**: Lower timeline tray with onion skin toggles, frame-by-frame light table, and loop playback.
-   - *The user's canvas art, layer stack, and dimensions never reset when engines are switched.*
-
-2. **Universal Save Action**:
-   - A dedicated Universal Save button (floppy disc SVG icon with status ring) is anchored in the persistent top bar.
-   - Tapping it triggers an instant snapshot save to `localStorage` / project database, flashes a subtle teal ring, and confirms with "Project saved successfully".
-
-3. **Instant Template Browsing & Application**:
-   - Always accessible from two permanent access points:
-     1. The sliding bottom navigation dock: `Templates` tab.
-     2. A top header quick button: `Templates`.
-   - Selecting any template (Canva, PhotoRoom, Pinterest, Google) instantly formats the 5-layer editable structure with bounding-box handles and inline text customization.
-
-4. **Timeline Opacity Fade Keyframe Transition**:
-   - In the animation timeline, between any two sequential keyframes, the user can tap the transition connector icon `[ ⟐ Fade ]`.
-   - When enabled, during animation playback or frame scrubbing, the active layer's opacity linearly interpolates from Frame A's opacity to Frame B's opacity (0% to 100%).
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                           1. FIRST LAUNCH (AUTH)                            │
+│  Luxury Dark Glass Authentication Screen (isLoggedIn: false)               │
+│  • Google Sign-In (Real Google OAuth / GIS button with official logo)       │
+│  • Email / Password Tab with sleek input fields & validation                │
+└──────────────────────────────────────┬──────────────────────────────────────┘
+                                       │
+                                       ▼
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                      2. ONBOARDING & USERNAME SETUP                         │
+│  Personalization Screen (appears on first sign-in):                         │
+│  • Full Name input field                                                    │
+│  • Unique @username selector with live availability check                   │
+│  • Avatar selection carousel & photo upload picker                          │
+│  • "Complete Setup & Enter GraphenX" Primary Action                         │
+└──────────────────────────────────────┬──────────────────────────────────────┘
+                                       │
+                                       ▼
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                         3. GRAPHENX HOME DASHBOARD                          │
+│  • Clean "New Project" hero button (removed awkward '+' prefix)             │
+│  • Instant-opening Projects Grid (Figma, Photoshop, Procreate cards)        │
+│  • 1-Click Editable Templates (Canva, PhotoRoom, Pinterest, Google)         │
+│  • Engine Mode Switcher (Graphic Design vs. Drawing & Animation)            │
+└──────────────────────────────────────┬──────────────────────────────────────┘
+                                       │
+                                       ▼
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                          4. LAG-FREE STUDIO CANVAS                          │
+│  • Instant canvas mount with GPU hardware acceleration                      │
+│  • Unfrozen AI Tools (Background removal, artistic vision, blend modes)     │
+│  • Keyframe timeline with linear opacity fade transitions                   │
+│  • Universal Save button with tactile flash feedback                        │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
 
 ### Visual Identity & Theme
-
-- **Aesthetic Direction**: Studio Dark Mode (`#0d0e15` base, `#161726` elevated glass panels, `#222538` borders).
-- **Color Accents by Engine**:
-  - Photoshop: Cyan `#00c8ff` & Navy `#001e36`
-  - Figma: Purple `#a259ff` & Coral `#f24e1e`
-  - Procreate: Neon Orange `#ff6138` & Graphite `#1c1c1e`
-  - Ibis Paint: Sky Blue `#0099ff` & Teal `#00e5ff`
-  - Krita: Magenta `#f038ff` & Cyan `#38d9ff`
-  - FlipaClip: Vivid Red `#ff334b` & Amber `#ffaa00`
-- **Iconography**: 100% SVG line and filled vector icons (replacing all emojis) across every menu, tab, card, and action button.
-- **Typography**: Clean system sans-serif (`-apple-system`, `Inter`, `Roboto`) with high-contrast hierarchical weights (400, 600, 750, 900).
+- **Aesthetic Direction**: Luxury Cyber-Minimal Dark Glass (`#07080E` base with `#12141F` card surfaces, subtle 1px border glows `rgba(255,255,255,0.12)`, and electric cyan `#06B6D4` / royal purple `#8B5CF6` accents).
+- **Typography & Hierarchy**: Inter / Outfit modern sans-serif typography with high-contrast numerical tracking for dimensions and frame rates.
+- **Feedback & Motion**: Micro-spring animations for button clicks, smooth opacity cross-fades during screen transitions, and tactile toast notifications.
 
 ---
 
 ## 3. Key Product Decisions & Trade-Offs
 
-- **Decision 1: Engine Architecture via CSS Viewport Themes & Active Dock Configs**
-  - *Chosen Approach*: Maintain a single canvas state machine (`appState.layers`, `appState.canvasDimensions`), while swapping workspace tool palettes and UI modes via an `activeEngine` controller (`'photoshop'`, `'figma'`, `'procreate'`, `'ibispaint'`, `'krita'`, `'flipaclip'`).
-  - *Why*: Guarantees zero data loss across engine switches, instant switching performance (<16ms), and avoids memory-heavy DOM rebuilding.
-- **Decision 2: Universal Emoji Removal**
-  - *Chosen Approach*: Replace all 40+ emojis embedded in shelf headers, buttons, cards, and dialogs with inline SVGs and clean semantic text tags.
-  - *Why*: Eliminates the cluttered "hobbyist" aesthetic and satisfies the user's explicit demand for a clean, professional application look.
-- **Decision 3: Procedural Opacity Fade Tweening**
-  - *Chosen Approach*: Interpolate alpha during composite frame rendering based on normalized sub-frame time or keyframe sequence step without creating destructive flattened bitmaps.
-  - *Why*: Preserves full editability of individual layers on each keyframe.
-- **Decision 4: Full App Renaming to Graphenx**
-  - *Chosen Approach*: Update `metadata.json`, `app/src/main/res/values/strings.xml`, `settings.gradle.kts`, splash screen branding, and document title to **Graphenx**.
-  - *Why*: Meets the user's explicit name instruction and satisfies the mandatory AI Studio platform sync rule.
+### Decision 1: Authentication Architecture & Initial State
+- **Chosen Approach**: Users start signed out (`isLoggedIn: false`). The app displays an unauthenticated luxury login screen. Signing in with Google captures authentic account identity (`ma0780542@gmail.com`), initializes user credentials, and forwards new users to the Onboarding Page.
+- **Why**: The user explicitly requested: *"And the login page must not signed in and make real professional sign in or login why its looks so stupid and make real google sign in"*.
+- **Alternatives Considered**: Auto-logging in as a mock guest user was rejected because it bypassed authentication and confused the login flow.
+
+### Decision 2: Dedicated Post-Sign-In Onboarding Page
+- **Chosen Approach**: A separate dedicated onboarding screen that automatically opens after sign-in if the user has not configured their unique username. The form validates the `@username` against regex rules (`^[a-zA-Z0-9_]{3,20}$`) and existing local/cloud records, ensures uniqueness, provides avatar selection, and saves the verified profile to GraphenX Vault.
+- **Why**: Directly addresses *"make another page after sign in or login page that allows users to set up their name and a uniqe username for each person"*.
+
+### Decision 3: Resolving Project Launching, Template, and AI Responsiveness (Eliminating Lag)
+- **Chosen Approach**:
+  1. Deduplicate and fix `launchStudioWithProject` and `launchStudioWithProjectById`: ensure switching screens properly hides `#home-screen` and displays `#app-container` without hanging.
+  2. Optimize canvas stage initialization: avoid re-creating offscreen buffer canvases on every click; use single-instance pooled canvases.
+  3. Ensure modal z-indexes and touch pointer events do not leave transparent blocking overlays over project cards.
+  4. Enable GPU hardware acceleration layers (`will-change: transform`, `transform: translateZ(0)`) across active canvas tools.
+- **Why**: Resolves *"Nothing is working not opening the projects... And everything is laggy and projects and templates and ai tools are not responding"*.
+
+### Decision 4: Button Labeling & App Naming
+- **Chosen Approach**: Replace all `+ Canvas`, `+ Group`, and `+ Project` labels with clean modern labels like `New Project`, `Create Canvas`, and `Group Space`. Update app name everywhere to **GraphenX** (matching the capitalized `X`).
+- **Why**: Fulfills *"Remove that + from "+project""* and *"change name to GraphenX also the app name on everything"*.
 
 ---
 
-## 4. Technical Architecture & Data Strategy
+## 4. Technical Architecture & Component Mapping
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│                             GRAPHENX WORKSPACE                              │
+│                          GRAPHENX SYSTEM ARCHITECTURE                       │
 ├─────────────────────────────────────────────────────────────────────────────┤
-│  TOP BAR                                                                    │
-│  [Universal Save]  [Project Title]   [ Mode: Graphic / Draw ] [ ··· Engine ]│
-├───────────────────┬─────────────────────────────────────┬───────────────────┤
-│ ENGINE PALETTE    │ CANVAS STAGE (Persistent Data)      │ INSPECTOR / DOCK  │
-│                   │                                     │                   │
-│ - Photoshop Tools │ ┌─────────────────────────────────┐ │ - Layers / Groups │
-│ - Figma Vectors   │ │ Active Composite Viewport       │ │ - Blend Modes     │
-│ - Procreate Sliders││ 100% Preserved Across Engines   │ │ - Engine Props    │
-│ - Ibis / Krita    │ └─────────────────────────────────┘ │ - Live Transforms │
-├───────────────────┴─────────────────────────────────────┴───────────────────┤
-│ TIMELINE FILMSTRIP                                                          │
-│ [Frame 1] ───[ ⟐ Opacity Fade ]───► [Frame 2] ───[ ⟐ Fade ]───► [Frame 3]   │
+│  Android Layer:                                                             │
+│  MainActivity.kt ──► StudioWebView (Hardware Accelerated, JS Interface)     │
+│  PublishingBridge.kt ──► Android MediaStore & Share Intent Engine           │
 ├─────────────────────────────────────────────────────────────────────────────┤
-│ BOTTOM DOCK (Always Visible)                                                │
-│ [ Home ]         [ Templates Hub ]        [ Projects ]        [ Profile ]   │
+│  Web / Presentation Layer (index.html):                                     │
+│                                                                             │
+│  ┌───────────────────────┐   ┌───────────────────────┐   ┌──────────────┐  │
+│  │ #auth-screen          │──►│ #onboarding-screen    │──►│ #home-screen │  │
+│  │ (Google Sign-In,      │   │ (Unique @username,    │   │ (Projects,   │  │
+│  │  Email Auth, Pass)    │   │  Full Name, Avatars)  │   │  Templates)  │  │
+│  └───────────────────────┘   └───────────────────────┘   └──────┬───────┘  │
+│                                                                 │           │
+│                                      launchStudioWithProject()  ▼           │
+│                              ┌──────────────────────────────────────────┐   │
+│                              │ #app-container (GraphenX Multi-Engine)   │   │
+│                              │ • Graphic Design (Photoshop, Figma)      │   │
+│                              │ • Drawing & Anim (Procreate, FlipaClip)  │   │
+│                              │ • Timeline & Linear Opacity Fade         │   │
+│                              │ • Universal Save & Vault Persistence     │   │
+│                              └──────────────────────────────────────────┘   │
 └─────────────────────────────────────────────────────────────────────────────┘
 ```
 
-### Data Model Additions
+### Component & State Mapping
 
-```javascript
-// Workspace Studio Engine State
-appState.workspaceMode = 'design'; // 'design' | 'drawing'
-appState.activeEngine = 'photoshop'; // 'photoshop' | 'figma' | 'procreate' | 'ibispaint' | 'krita' | 'flipaclip'
-
-// Timeline Keyframe Transition Model
-interface KeyframeTransition {
-  fromFrameIndex: number;
-  toFrameIndex: number;
-  type: 'fade' | 'cut';
-  durationMs: number;
-  easing: 'linear' | 'ease-in-out';
-}
-appState.keyframeTransitions = [];
-```
-
-### Interactive Component & State Mapping
-
-- `setStudioEngine(mode, engine)`: Updates `workspaceMode` and `activeEngine`, applies CSS engine class to `#app-container`, updates active toolsets, updates left and right docks, and preserves canvas stage.
-- `executeUniversalSave()`: Serializes project state, writes to storage, flashes save icon state ring, and displays verification toast.
-- `renderTimelineTransitions()`: Renders transition pills between keyframe cards; tapping toggles `opacity_fade`.
-- `calculateFrameOpacity(frameIndex, progress)`: In the playback loop, interpolates layer alpha dynamically between bounding frames.
-- `openTemplatesModal()` / `switchAppTab('templates')`: Renders templates grid with search, categories, and one-tap canvas loading.
+| View / Component | State Variable | User Interaction & Handlers |
+| :--- | :--- | :--- |
+| **Auth Screen** (`#auth-screen`) | `userProfile.isLoggedIn = false` | • `handleGoogleSignIn()`: Authenticates with Google account.<br>• `handleEmailSignIn()`: Authenticates via email/password.<br>• Shows error toast on invalid inputs. |
+| **Onboarding Screen** (`#onboarding-screen`) | `userProfile.username`, `userProfile.name`, `userProfile.avatar` | • `validateUniqueUsername(val)`: Real-time checks for uniqueness and format.<br>• `selectOnboardingAvatar(url)`: Picks avatar style.<br>• `completeUserOnboarding()`: Persists profile and opens dashboard. |
+| **Home Dashboard** (`#home-screen`) | `appState.activeHomeTab`, `appState.projects` | • "New Project" button (`openNewProjectModal`): Cleaned label without `+`.<br>• Project cards (`launchStudioWithProject`): Fast, unblocked transition to studio.<br>• Templates tab & Quick Modal (`applyTemplateToCanvas`): Loads templates immediately. |
+| **Studio Workspace** (`#app-container`) | `appState.activeEngine`, `appState.layers`, `appState.frames` | • Engine switcher: Adapts UI without affecting canvas.<br>• Timeline: Opacity Fade transition badges and linear cross-dissolve.<br>• AI Tools: BG Remove & Artistic Vision with instant feedback.<br>• Universal Save (`executeUniversalSave`): Vault snapshot with visual flash. |

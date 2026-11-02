@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>Graphenx</title>
+  <title>GraphenX</title>
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#0a0b10">
   <!-- iOS Safari PWA support -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="Graphenx">
+  <meta name="apple-mobile-web-app-title" content="GraphenX">
   <link rel="apple-touch-icon" href="icon-192.png">
   <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
   <!-- Windows PWA & Edge / Chrome support -->
@@ -23,7 +23,7 @@
     }
   </script>
   <style>
-    /* Graphenx - Glassmorphic Cyber-Minimal Design System */
+    /* GraphenX - Glassmorphic Cyber-Minimal Design System */
     :root {
       --bg-dark: #0a0b10;
       --bg-canvas: #12131a;
@@ -4468,6 +4468,294 @@
       outline: none;
     }
 
+  
+    /* ==========================================================================
+       GRAPHENX AUTHENTICATION & ONBOARDING SYSTEM
+       ========================================================================== */
+    .auth-fullscreen-view {
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      background: radial-gradient(circle at 50% 20%, #151829 0%, #06070a 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+      overflow-y: auto;
+      box-sizing: border-box;
+      backdrop-filter: blur(24px);
+    }
+    .auth-glass-container {
+      width: 100%;
+      max-width: 420px;
+      background: rgba(18, 20, 31, 0.88);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 24px;
+      padding: 32px 28px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.75), 0 0 40px rgba(6, 182, 212, 0.12);
+      backdrop-filter: blur(30px);
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      animation: authCardPop 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @keyframes authCardPop {
+      from { opacity: 0; transform: scale(0.94) translateY(12px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    .auth-brand-header {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+    .auth-logo-badge {
+      width: 54px;
+      height: 54px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, rgba(6, 182, 212, 0.22) 0%, rgba(139, 92, 246, 0.22) 100%);
+      border: 1px solid rgba(6, 182, 212, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 24px rgba(6, 182, 212, 0.25);
+      margin-bottom: 4px;
+    }
+    .auth-brand-title {
+      margin: 0;
+      font-size: 26px;
+      font-weight: 850;
+      letter-spacing: -0.02em;
+      color: #ffffff;
+    }
+    .auth-brand-subtitle {
+      margin: 0;
+      font-size: 12px;
+      color: #94a3b8;
+      line-height: 1.4;
+      max-width: 280px;
+    }
+    .google-signin-btn {
+      width: 100%;
+      height: 48px;
+      border-radius: 12px;
+      background: #ffffff;
+      color: #1f2937;
+      border: 1px solid #e5e7eb;
+      font-size: 14px;
+      font-weight: 650;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .google-signin-btn:hover {
+      background: #f8fafc;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(255, 255, 255, 0.2);
+    }
+    .google-signin-btn:active {
+      transform: scale(0.98);
+    }
+    .auth-divider-line {
+      display: flex;
+      align-items: center;
+      text-align: center;
+      color: #64748b;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin: 2px 0;
+    }
+    .auth-divider-line::before, .auth-divider-line::after {
+      content: '';
+      flex: 1;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .auth-divider-line span {
+      padding: 0 10px;
+    }
+    .auth-email-form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .auth-input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      text-align: left;
+    }
+    .auth-input-group label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #94a3b8;
+    }
+    .auth-input-group input {
+      height: 40px;
+      background: rgba(10, 11, 16, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 10px;
+      padding: 0 12px;
+      color: #ffffff;
+      font-size: 13px;
+      box-sizing: border-box;
+      transition: all 0.18s;
+    }
+    .auth-input-group input:focus {
+      border-color: #06b6d4;
+      outline: none;
+      box-shadow: 0 0 12px rgba(6, 182, 212, 0.3);
+    }
+    .auth-submit-btn {
+      height: 44px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%);
+      color: #ffffff;
+      border: none;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 4px 16px rgba(6, 182, 212, 0.35);
+      transition: all 0.2s;
+    }
+    .auth-submit-btn:hover {
+      box-shadow: 0 6px 22px rgba(6, 182, 212, 0.5);
+      transform: translateY(-1px);
+    }
+    .auth-guest-link {
+      background: transparent;
+      border: none;
+      color: #94a3b8;
+      font-size: 12px;
+      cursor: pointer;
+      text-decoration: underline;
+      padding: 6px;
+      transition: color 0.15s;
+    }
+    .auth-guest-link:hover {
+      color: #f1f5f9;
+    }
+
+    /* ONBOARDING USERNAME SETUP */
+    .onboarding-glass-container {
+      width: 100%;
+      max-width: 440px;
+      background: rgba(18, 20, 31, 0.92);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 24px;
+      padding: 32px 28px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(139, 92, 246, 0.15);
+      backdrop-filter: blur(32px);
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      animation: authCardPop 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .onboarding-step-pill {
+      font-size: 10px;
+      font-weight: 750;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #a855f7;
+      background: rgba(168, 85, 247, 0.15);
+      border: 1px solid rgba(168, 85, 247, 0.3);
+      padding: 3px 10px;
+      border-radius: 999px;
+      align-self: flex-start;
+      margin-bottom: 2px;
+    }
+    .username-input-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+    .username-at-prefix {
+      position: absolute;
+      left: 12px;
+      color: #06b6d4;
+      font-weight: 700;
+      font-size: 15px;
+    }
+    .username-input-wrapper input {
+      padding-left: 30px !important;
+      padding-right: 90px !important;
+      width: 100%;
+    }
+    .username-status-badge {
+      position: absolute;
+      right: 8px;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 3px 7px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.08);
+      color: #94a3b8;
+    }
+    .username-status-badge.available {
+      background: rgba(16, 185, 129, 0.2);
+      color: #10b981;
+      border: 1px solid rgba(16, 185, 129, 0.4);
+    }
+    .username-status-badge.taken {
+      background: rgba(239, 68, 68, 0.2);
+      color: #ef4444;
+      border: 1px solid rgba(239, 68, 68, 0.4);
+    }
+    .username-hint-text {
+      font-size: 11px;
+      color: #64748b;
+    }
+    .avatar-presets-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 8px;
+      margin-top: 4px;
+    }
+    .avatar-preset-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 2px solid rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.05);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.18s;
+      overflow: hidden;
+      padding: 0;
+    }
+    .avatar-preset-btn:hover {
+      transform: scale(1.08);
+      border-color: #06b6d4;
+    }
+    .avatar-preset-btn.active {
+      border-color: #06b6d4;
+      box-shadow: 0 0 12px rgba(6, 182, 212, 0.5);
+      transform: scale(1.08);
+    }
+    .avatar-upload-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 6px;
+    }
+
+    /* Strict Visibility & Click Isolation */
+    #home-screen.hidden, #auth-screen.hidden, #onboarding-screen.hidden, #app-container.hidden {
+      display: none !important;
+      pointer-events: none !important;
+      visibility: hidden !important;
+    }
+
   </style>
 </head>
 <body>
@@ -4483,7 +4771,7 @@
     </div>
   </div>
   <div class="splash-app-title">
-    Graphenx
+    GraphenX
     <span class="brand-badge" style="font-size: 11px; padding: 2px 7px;">Elite</span>
   </div>
   <div class="splash-app-subtitle">Ibis Paint Inking • Vector Layouts • Figma Live Collab</div>
@@ -4495,10 +4783,120 @@
 </div>
 
 <!-- 2. HOME SCREEN & PROJECT HUB -->
-<div id="home-screen" class="hidden">
+
+  <!-- ==========================================================================
+       AUTHENTICATION FULLSCREEN VIEW (isLoggedIn: false by default)
+       ========================================================================== -->
+  <div id="auth-screen" class="auth-fullscreen-view" style="display: none;">
+    <div class="auth-glass-container">
+      <div class="auth-brand-header">
+        <div class="auth-logo-badge">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#06b6d4" stroke-width="2.2">
+            <polygon points="12 2 2 7 12 12 22 7 12 2"/>
+            <polyline points="2 17 12 22 22 17"/>
+            <polyline points="2 12 12 17 22 12"/>
+          </svg>
+        </div>
+        <h1 class="auth-brand-title">Graphen<span style="color: #06b6d4;">X</span></h1>
+        <p class="auth-brand-subtitle">Professional Multi-Engine Creative & Animation Studio</p>
+      </div>
+
+      <!-- Real Google Sign-In Button with Official Brand Assets -->
+      <button id="btn-google-signin" class="google-signin-btn" onclick="signInWithGoogleAccount()">
+        <svg width="20" height="20" viewBox="0 0 24 24">
+          <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.8-2.4 3.65v3.03h3.88c2.27-2.09 3.66-5.17 3.66-9.12z"/>
+          <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.03c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.13C3.25 21.36 7.33 24 12 24z"/>
+          <path fill="#FBBC05" d="M5.28 14.29c-.25-.72-.38-1.49-.38-2.29s.13-1.57.38-2.29V6.58H1.25C.45 8.18 0 9.99 0 12s.45 3.82 1.25 5.42l4.03-3.13z"/>
+          <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.33 0 3.25 2.64 1.25 6.58l4.03 3.13c.95-2.83 3.6-4.96 6.72-4.96z"/>
+        </svg>
+        <span>Continue with Google</span>
+      </button>
+
+      <div class="auth-divider-line">
+        <span>or sign in with email</span>
+      </div>
+
+      <!-- Email & Password Form -->
+      <form class="auth-email-form" onsubmit="handleEmailAuthSubmit(event)">
+        <div class="auth-input-group">
+          <label>Email Address</label>
+          <input type="email" id="auth-email-input" placeholder="creator@graphenx.studio" required>
+        </div>
+        <div class="auth-input-group">
+          <label>Password</label>
+          <input type="password" id="auth-password-input" placeholder="••••••••••••" required>
+        </div>
+        <button type="submit" class="auth-submit-btn">
+          <span>Sign In / Create Account</span>
+        </button>
+      </form>
+
+      <div style="text-align: center; margin-top: 4px;">
+        <button class="auth-guest-link" onclick="continueAsGuestProfile()">
+          Skip & Continue in Offline Guest Mode →
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       DEDICATED ONBOARDING & UNIQUE USERNAME SETUP PAGE
+       ========================================================================== -->
+  <div id="onboarding-screen" class="auth-fullscreen-view" style="display: none;">
+    <div class="onboarding-glass-container">
+      <div style="display: flex; flex-direction: column; gap: 4px;">
+        <span class="onboarding-step-pill">Step 2 of 2 • Creator Identity</span>
+        <h2 style="font-size: 22px; font-weight: 850; color: #fff; margin: 0;">Set Up Your Profile</h2>
+        <p style="font-size: 12px; color: #94a3b8; margin: 0; line-height: 1.4;">
+          Personalize your display identity and claim a unique username for collaboration and sharing.
+        </p>
+      </div>
+
+      <form onsubmit="completeUserOnboarding(event)" style="display: flex; flex-direction: column; gap: 14px;">
+        <!-- Full Name -->
+        <div class="auth-input-group">
+          <label>Full Name / Studio Display Name</label>
+          <input type="text" id="onboarding-name-input" placeholder="e.g. Alex Rivera" required>
+        </div>
+
+        <!-- Unique @username -->
+        <div class="auth-input-group">
+          <label>Unique @username</label>
+          <div class="username-input-wrapper">
+            <span class="username-at-prefix">@</span>
+            <input type="text" id="onboarding-username-input" placeholder="creator_pro" oninput="handleUsernameValidation(this.value)" required>
+            <span id="username-availability-badge" class="username-status-badge available">Available</span>
+          </div>
+          <span id="username-hint-msg" class="username-hint-text">3–20 characters, letters, numbers, and underscores.</span>
+        </div>
+
+        <!-- Avatar Presets -->
+        <div class="auth-input-group">
+          <label>Choose Avatar</label>
+          <div class="avatar-presets-grid" id="onboarding-avatar-presets">
+            <!-- Rendered by JS -->
+          </div>
+          <div class="avatar-upload-row">
+            <input type="file" id="onboarding-custom-avatar-file" accept="image/*" style="display: none;" onchange="handleOnboardingCustomAvatarUpload(event)">
+            <button type="button" class="tool-btn" onclick="document.getElementById('onboarding-custom-avatar-file').click()" style="height: 32px; font-size: 11px;">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+              <span>Upload Custom Photo</span>
+            </button>
+            <span id="onboarding-custom-avatar-name" style="font-size: 10px; color: #94a3b8;">Preset avatar active</span>
+          </div>
+        </div>
+
+        <button type="submit" id="btn-complete-onboarding" class="auth-submit-btn" style="margin-top: 8px;">
+          <span>Launch GraphenX Studio</span>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <div id="home-screen" class="hidden">
   <!-- Sleek Top Safe Header (Status bar clearance, Brand on left, Settings Gear on right) -->
   <header id="home-top-bar">
-    <div class="home-top-left" onclick="switchAppTab('home')" title="Graphenx">
+    <div class="home-top-left" onclick="switchAppTab('home')" title="GraphenX">
       <div class="brand-icon" style="width: 32px; height: 32px; border-radius: 9px; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #06b6d4, #8b5cf6); box-shadow: 0 0 14px rgba(6, 182, 212, 0.45);">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.3">
           <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/>
@@ -4506,7 +4904,7 @@
       </div>
       <div style="display: flex; flex-direction: column;">
         <div style="font-size: 15px; font-weight: 800; color: #fff; letter-spacing: -0.02em; display: flex; align-items: center; gap: 6px;">
-          Graphenx
+          GraphenX
           <span class="badge-pill" style="font-size: 9px; padding: 1px 6px; background: rgba(6, 182, 212, 0.2); color: #06b6d4; border: 1px solid rgba(6, 182, 212, 0.4); border-radius: 9999px;">Elite</span>
         </div>
         <span style="font-size: 10px; color: var(--text-dim); font-weight: 500;">Pro Illustration & AI Studio</span>
@@ -4965,7 +5363,7 @@
             </div>
           </div>
           <button class="btn btn-primary" onclick="event.stopPropagation(); openNewProjectModal()" style="padding: 0 16px; height: 34px; border-radius: 9999px; font-size: 12px; font-weight: 700;">
-            <span>+ Canvas</span>
+            <span>New Project</span>
           </button>
         </div>
 
@@ -5046,11 +5444,11 @@
           </div>
           <button class="btn btn-secondary" onclick="openGroupProjectModal()" style="height: 32px; padding: 0 11px; font-size: 11px; border-radius: 8px; border-color: rgba(16, 185, 129, 0.45); color: #10b981;" title="Figma-Style Group Project with Live Room Code">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-            <span>+ Group</span>
+            <span>Group Studio</span>
           </button>
           <button class="btn btn-primary" onclick="openNewProjectModal()" style="height: 32px; padding: 0 12px; font-size: 11px; border-radius: 8px;" title="Create New Artwork">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-            <span>+ Canvas</span>
+            <span>New Project</span>
           </button>
         </div>
       </div>
@@ -5067,7 +5465,7 @@
       <!-- 1. AUTH LOGIN SECTION (Shown when user is not logged in) -->
       <div id="profile-auth-section" class="profile-auth-card" style="display: none;">
         <div style="text-align: center;">
-          <div style="font-size: 20px; font-weight: 850; color: #fff; letter-spacing: -0.01em;">Sign in to Graphenx</div>
+          <div style="font-size: 20px; font-weight: 850; color: #fff; letter-spacing: -0.01em;">Sign in to GraphenX</div>
           <div style="font-size: 12px; color: var(--text-dim); margin-top: 4px;">Sync artworks, create group canvases, and customize your creator profile</div>
         </div>
 
@@ -5622,7 +6020,7 @@
 
       <!-- App Info -->
       <div style="padding: 12px; background: rgba(0, 0, 0, 0.35); border-radius: 12px; font-size: 11px; color: var(--text-muted); display: flex; flex-direction: column; gap: 4px; border: 1px solid var(--glass-border);">
-        <div style="font-weight: 700; color: #fff;">Graphenx • v1.0.1</div>
+        <div style="font-weight: 700; color: #fff;">GraphenX • v1.0.1</div>
         <div>100% Offline Client • Zero Firebase Account Required</div>
         <div style="color: var(--text-dim);">Multi-platform: Android APK, iOS Safari PWA & Windows Desktop App</div>
       </div>
@@ -5792,7 +6190,7 @@
       <div class="ai-dropdown-menu">
         <div class="ai-dropdown-item" onclick="toggleGeminiCoach()"><span>Gemini Vision Mentor</span></div>
         <div class="ai-dropdown-item" onclick="showKeyboardShortcuts()"><span>Keyboard Shortcuts</span></div>
-        <div class="ai-dropdown-item" onclick="showAboutDialog()"><span>About Graphenx</span></div>
+        <div class="ai-dropdown-item" onclick="showAboutDialog()"><span>About GraphenX</span></div>
       </div>
     </div>
 
@@ -5903,7 +6301,7 @@
         </svg>
       </div>
       <div class="pod-title-pill">
-        <span id="active-project-title-header">Graphenx</span>
+        <span id="active-project-title-header">GraphenX</span>
         <div class="pod-save-indicator" onclick="event.stopPropagation(); triggerManualAutoSave()" title="Auto-saved to device storage. Click to save now.">
           <span class="pod-save-dot"></span>
           <span>SAVED</span>
@@ -5963,7 +6361,7 @@
     <!-- Right Control Pod Section -->
     <div class="pod-controls-group">
       <!-- Universal Save Icon Across All Engines -->
-      <button id="pod-universal-save-btn" class="pod-icon-btn pod-universal-save" onclick="executeUniversalSave()" title="Universal Save to Graphenx Vault">
+      <button id="pod-universal-save-btn" class="pod-icon-btn pod-universal-save" onclick="executeUniversalSave()" title="Universal Save to GraphenX Vault">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
           <polyline points="17 21 17 13 7 13 7 21"/>
@@ -6242,7 +6640,7 @@
           </div>
         </div>
         <button class="btn btn-primary" style="height: 32px; padding: 0 8px; font-size: 10px; font-weight: 800;" onclick="addCurrentColorToIbisSwatches()">
-          <span>+ Add</span>
+          <span>Add</span>
         </button>
       </div>
 
@@ -6620,7 +7018,7 @@
       <div id="panel-dock-swatches" class="ai-dock-panel-body" style="display: none;">
         <div style="display: flex; align-items: center; justify-content: space-between;">
           <span style="font-size: 11px; font-weight: 700; color: #fff;">COLOR SWATCHES & PALETTES</span>
-          <button class="btn" style="height: 22px; font-size: 10px; padding: 0 8px;" onclick="openAddPaletteModal()">+ Palette</button>
+          <button class="btn" style="height: 22px; font-size: 10px; padding: 0 8px;" onclick="openAddPaletteModal()">Add Palette</button>
         </div>
         <div id="ai-dock-swatches-mount" style="display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px; padding: 4px;">
           <!-- Active palette swatches -->
@@ -6799,7 +7197,7 @@
     <div class="modal-header">
       <div class="modal-title" style="display: flex; align-items: center; gap: 8px;">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00c4cc" stroke-width="2.2"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
-        <span>Graphenx Templates Catalog</span>
+        <span>GraphenX Templates Catalog</span>
       </div>
       <div style="display: flex; align-items: center; gap: 8px;">
         <button class="btn btn-secondary" onclick="openCloudApiModal(); closeTemplatesQuickModal();" style="height: 28px; font-size: 10px; color: #00c4cc; border-color: rgba(0, 196, 204, 0.4);">
@@ -7379,7 +7777,7 @@
         </button>
       </div>
       <div style="display: flex; gap: 6px;">
-        <button class="btn btn-primary" style="height: 28px; font-size: 11px; padding: 0 10px;" onclick="addNewLayer()">+ Layer</button>
+        <button class="btn btn-primary" style="height: 28px; font-size: 11px; padding: 0 10px;" onclick="addNewLayer()">New Layer</button>
         <button class="btn btn-icon-only" style="height: 28px; width: 28px;" onclick="closeMobileLayersDrawer()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
       </div>
     </div>
@@ -7426,7 +7824,7 @@
       <button class="mini-icon-btn" onclick="closeGeminiApiKeyModal()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
     </div>
     <p style="font-size: 12px; color: #94a3b8; line-height: 1.5; margin-bottom: 12px;">
-      Graphenx connects with Gemini 2.5 Flash for vision diagnostics and artistic blend mode recommendations. Enter your Gemini API key below or use the AI Studio Secrets panel.
+      GraphenX connects with Gemini 2.5 Flash for vision diagnostics and artistic blend mode recommendations. Enter your Gemini API key below or use the AI Studio Secrets panel.
     </p>
     <div style="display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px;">
       <label style="font-size: 11px; font-weight: 700; color: #cbd5e1;">GEMINI API KEY</label>
@@ -7542,10 +7940,10 @@
 <script>
 // Global Error & Promise Rejection Boundaries
 window.addEventListener('error', function(event) {
-  console.warn('[Graphenx Error Guard]', event.message, 'at', event.filename + ':' + event.lineno);
+  console.warn('[GraphenX Error Guard]', event.message, 'at', event.filename + ':' + event.lineno);
 });
 window.addEventListener('unhandledrejection', function(event) {
-  console.warn('[Graphenx Rejection Guard]', event.reason);
+  console.warn('[GraphenX Rejection Guard]', event.reason);
 });
 
 /**
@@ -7911,7 +8309,7 @@ function drawWelcomeArtwork(ctx) {
   ctx.fillStyle = '#ffffff';
   ctx.font = 'bold 36px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
   ctx.textAlign = 'center';
-  ctx.fillText('Graphenx', CANVAS_WIDTH/2, CANVAS_HEIGHT/2 + 10);
+  ctx.fillText('GraphenX', CANVAS_WIDTH/2, CANVAS_HEIGHT/2 + 10);
 
   ctx.fillStyle = '#94a3b8';
   ctx.font = '500 16px -apple-system, sans-serif';
@@ -9540,7 +9938,7 @@ function startEyedropperFromPalette() {
 function exportPalettesJSON() {
   const active = getActivePalette();
   const exportPayload = {
-    app: "Graphenx",
+    app: "GraphenX",
     version: "2.5",
     exportedAt: new Date().toISOString(),
     activePalette: active ? active.name : "All",
@@ -11917,11 +12315,11 @@ function uint8ToBase64(uint8) {
 }
 
 function generateSVGArtwork() {
-  const title = (appState.activeProjectTitle || "Graphenx Artwork").replace(/[<>&"']/g, '');
+  const title = (appState.activeProjectTitle || "GraphenX Artwork").replace(/[<>&"']/g, '');
   let svg = `<?xml version="1.0" encoding="UTF-8"?>\n`;
   svg += `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 ${CANVAS_WIDTH} ${CANVAS_HEIGHT}" width="${CANVAS_WIDTH}" height="${CANVAS_HEIGHT}">\n`;
   svg += `  <title>${title}</title>\n`;
-  svg += `  <desc>Exported from Graphenx Pro Vector Engine</desc>\n`;
+  svg += `  <desc>Exported from GraphenX Pro Vector Engine</desc>\n`;
   svg += `  <defs>\n`;
   svg += `    <style>\n`;
   svg += `      .layer-group { transition: opacity 0.2s ease; }\n`;
@@ -12002,7 +12400,7 @@ function generateTIFFArtwork() {
   view.setUint32(206, 300, true);
   view.setUint32(210, 1, true);
 
-  const software = "Graphenx Pro 300DPI\0";
+  const software = "GraphenX Pro 300DPI\0";
   for (let i = 0; i < software.length; i++) {
     u8[214 + i] = software.charCodeAt(i);
   }
@@ -12189,7 +12587,7 @@ function generatePSDArtwork() {
 
 function executeActivePublish(action) {
   const meta = FORMAT_METADATA[currentPublishFormat] || FORMAT_METADATA.png;
-  const title = appState.activeProjectTitle || "Graphenx Artwork";
+  const title = appState.activeProjectTitle || "GraphenX Artwork";
   const cleanTitle = title.replace(/\s+/g, '_');
   const fileName = `${cleanTitle}_${Date.now()}.${meta.ext}`;
 
@@ -12271,7 +12669,7 @@ function executeActivePublish(action) {
         const file = new File([blob], fileName, { type: meta.mime });
         navigator.share({
           title: title,
-          text: `Created with Graphenx (${currentPublishFormat.toUpperCase()})`,
+          text: `Created with GraphenX (${currentPublishFormat.toUpperCase()})`,
           files: [file]
         }).catch(() => {});
       } else {
@@ -12447,7 +12845,6 @@ let isSplashDismissed = false;
 function dismissSplashScreenImmediately() {
   if (isSplashDismissed) return;
   isSplashDismissed = true;
-
   if (splashIntervalId) {
     clearInterval(splashIntervalId);
     splashIntervalId = null;
@@ -12456,22 +12853,21 @@ function dismissSplashScreenImmediately() {
     clearTimeout(splashFailsafeTimer);
     splashFailsafeTimer = null;
   }
-
   const splash = document.getElementById('splash-screen');
-  const home = document.getElementById('home-screen');
 
-  if (home) home.classList.remove('hidden');
-  appState.currentScreen = 'home';
+  try { initUserProfileState(); } catch (e) { console.warn('initUserProfileState:', e); }
+  try { checkAutoSaveRecoveryAvailable(); } catch (e) { console.warn('checkAutoSaveRecovery:', e); }
+  try { renderTemplatesGrid('all', ''); } catch (e) { console.warn('renderTemplatesGrid:', e); }
+  try { renderTemplatesPickerGrid('all', ''); } catch (e) { console.warn('renderTemplatesPickerGrid:', e); }
+  try { updateEngineWorkspaceUI(); } catch (e) { console.warn('updateEngineWorkspaceUI:', e); }
 
-  try { switchAppTab('home'); } catch (e) { console.warn("switchAppTab:", e); }
-  try { initUserProfileState(); } catch (e) { console.warn("initUserProfileState:", e); }
-  try { renderHomeProjectsGrid(); } catch (e) { console.warn("renderHomeProjectsGrid:", e); }
-  try { updateTabCounts(); } catch (e) { console.warn("updateTabCounts:", e); }
-  try { checkAutoSaveRecoveryAvailable(); } catch (e) { console.warn("checkAutoSaveRecovery:", e); }
-  try { renderTemplatesGrid('all', ''); } catch (e) { console.warn("renderTemplatesGrid:", e); }
-  try { renderTemplatesPickerGrid('all', ''); } catch (e) { console.warn("renderTemplatesPickerGrid:", e); }
-  try { updateEngineWorkspaceUI(); } catch (e) { console.warn("updateEngineWorkspaceUI:", e); }
-
+  if (!userProfile.isLoggedIn) {
+    showAuthScreen();
+  } else if (!userProfile.hasCompletedOnboarding) {
+    showOnboardingScreen();
+  } else {
+    showHomeScreen();
+  }
   if (splash) {
     splash.classList.add('fade-out');
     setTimeout(() => {
@@ -12504,7 +12900,7 @@ function startSplashScreen() {
     { threshold: 50, text: "Compiling GPU Shader & Blend Pipelines... 50%" },
     { threshold: 75, text: "Loading Palettes & Vector Hub... 75%" },
     { threshold: 95, text: "Mounting Project Galleries... 95%" },
-    { threshold: 100, text: "Graphenx Ready • 100%" }
+    { threshold: 100, text: "GraphenX Ready • 100%" }
   ];
 
   splashIntervalId = setInterval(() => {
@@ -13230,9 +13626,7 @@ function applyTemplateToCanvas(templateId) {
   // Transition UI from Home Screen to Studio Workspace
   const homeScreen = document.getElementById('home-screen');
   const appContainer = document.getElementById('app-container');
-  if (homeScreen) homeScreen.classList.add('hidden');
-  if (appContainer) appContainer.style.display = 'flex';
-  appState.currentScreen = 'studio';
+  showStudioScreen();
 
   // Update header title
   const headerTitle = document.getElementById('active-project-title-header');
@@ -13819,16 +14213,17 @@ function initCloudApiKeys() {
 }
 
 let userProfile = {
-  isLoggedIn: true,
-  name: 'Alex Rivera',
-  username: 'alex_creator',
+  isLoggedIn: false,
+  hasCompletedOnboarding: false,
+  name: '',
+  username: '',
   avatar: '',
-  email: 'alex@creator.studio'
+  email: ''
 };
 
 function initUserProfileState() {
   try {
-    const raw = localStorage.getItem('aether_user_profile_v2');
+    const raw = localStorage.getItem('graphenx_user_profile_v1');
     if (raw) {
       userProfile = Object.assign(userProfile, JSON.parse(raw));
     }
@@ -13985,7 +14380,7 @@ function saveProfileChanges() {
 
 function saveUserProfile() {
   try {
-    localStorage.setItem('aether_user_profile_v2', JSON.stringify(userProfile));
+    localStorage.setItem('graphenx_user_profile_v1', JSON.stringify(userProfile));
   } catch (err) {
     console.warn("User profile save warning:", err);
   }
@@ -15036,7 +15431,7 @@ function renderHomeProjectsGrid() {
           </svg>
         </button>
         <div class="empty-state-title">No Projects Found</div>
-        <div class="empty-state-subtitle">Tap the <b>+</b> button to launch a new blank canvas, keyframe animation, or postcard print template!</div>
+        <div class="empty-state-subtitle">Tap <b>New Project</b> to launch a new blank canvas, keyframe animation, or postcard print template!</div>
       </div>
     `;
     return;
@@ -15251,9 +15646,7 @@ function launchStudioWithProject(proj) {
   // Transition UI from Home Screen to Studio Workspace
   const homeScreen = document.getElementById('home-screen');
   const appContainer = document.getElementById('app-container');
-  if (homeScreen) homeScreen.classList.add('hidden');
-  if (appContainer) appContainer.style.display = 'flex';
-  appState.currentScreen = 'studio';
+  showStudioScreen();
 
   // Strictly toggle visibility of animation timeline and collaborative presence based on project type
   const animTimeline = document.getElementById('animation-timeline');
@@ -15519,9 +15912,7 @@ function saveActiveProjectAndExit() {
   // Return to Home Screen
   const homeScreen = document.getElementById('home-screen');
   const appContainer = document.getElementById('app-container');
-  if (homeScreen) homeScreen.classList.remove('hidden');
-  if (appContainer) appContainer.style.display = 'none';
-  appState.currentScreen = 'home';
+  showHomeScreen();
 
   updateTabCounts();
   renderHomeProjectsGrid();
@@ -17082,13 +17473,13 @@ function executeUniversalSave() {
     console.warn("saveProjectState error:", e);
   }
 
-  // 2. Persist to Graphenx Vault in localStorage
+  // 2. Persist to GraphenX Vault in localStorage
   try {
     const activeLayer = getActiveLayer();
     const thumbData = activeLayer ? activeLayer.canvas.toDataURL('image/jpeg', 0.6) : null;
     const projectMetadata = {
       id: appState.currentProjectId || 'graphenx_vault_' + Date.now(),
-      title: appState.projectName || 'Graphenx Masterwork',
+      title: appState.projectName || 'GraphenX Masterwork',
       engine: appState.activeEngine,
       mode: appState.studioMode,
       timestamp: Date.now(),
@@ -17208,6 +17599,280 @@ document.addEventListener('DOMContentLoaded', () => {
   try { renderTemplatesPickerGrid('all', ''); } catch (e) {}
   try { updateEngineWorkspaceUI(); } catch (e) {}
 });
+
+
+
+/**
+ * ==========================================================================
+ * GRAPHENX SCREEN NAVIGATION & VISIBILITY CONTROLLER
+ * ==========================================================================
+ */
+function showAuthScreen() {
+  const auth = document.getElementById('auth-screen');
+  const onboarding = document.getElementById('onboarding-screen');
+  const home = document.getElementById('home-screen');
+  const studio = document.getElementById('app-container');
+
+  if (home) { home.style.display = 'none'; home.classList.add('hidden'); }
+  if (onboarding) { onboarding.style.display = 'none'; onboarding.classList.add('hidden'); }
+  if (studio) { studio.style.display = 'none'; studio.classList.add('hidden'); }
+  if (auth) {
+    auth.style.display = 'flex';
+    auth.classList.remove('hidden');
+  }
+  appState.currentScreen = 'auth';
+}
+
+function showOnboardingScreen() {
+  const auth = document.getElementById('auth-screen');
+  const onboarding = document.getElementById('onboarding-screen');
+  const home = document.getElementById('home-screen');
+  const studio = document.getElementById('app-container');
+
+  if (auth) { auth.style.display = 'none'; auth.classList.add('hidden'); }
+  if (home) { home.style.display = 'none'; home.classList.add('hidden'); }
+  if (studio) { studio.style.display = 'none'; studio.classList.add('hidden'); }
+  if (onboarding) {
+    onboarding.style.display = 'flex';
+    onboarding.classList.remove('hidden');
+    renderOnboardingAvatars();
+    const nameIn = document.getElementById('onboarding-name-input');
+    const userIn = document.getElementById('onboarding-username-input');
+    if (nameIn && userProfile.name) nameIn.value = userProfile.name;
+    if (userIn && userProfile.username) {
+      userIn.value = userProfile.username;
+      handleUsernameValidation(userProfile.username);
+    }
+  }
+  appState.currentScreen = 'onboarding';
+}
+
+function showHomeScreen() {
+  const auth = document.getElementById('auth-screen');
+  const onboarding = document.getElementById('onboarding-screen');
+  const home = document.getElementById('home-screen');
+  const studio = document.getElementById('app-container');
+
+  if (auth) { auth.style.display = 'none'; auth.classList.add('hidden'); }
+  if (onboarding) { onboarding.style.display = 'none'; onboarding.classList.add('hidden'); }
+  if (studio) { studio.style.display = 'none'; studio.classList.add('hidden'); }
+  if (home) {
+    home.style.display = 'flex';
+    home.classList.remove('hidden');
+  }
+  appState.currentScreen = 'home';
+  try { switchAppTab('home'); } catch (e) {}
+  try { renderHomeProjectsGrid(); } catch (e) {}
+  try { renderTemplatesGrid('all', ''); } catch (e) {}
+  try { updateProfileUI(); } catch (e) {}
+}
+
+function showStudioScreen() {
+  const auth = document.getElementById('auth-screen');
+  const onboarding = document.getElementById('onboarding-screen');
+  const home = document.getElementById('home-screen');
+  const studio = document.getElementById('app-container');
+
+  if (auth) { auth.style.display = 'none'; auth.classList.add('hidden'); }
+  if (onboarding) { onboarding.style.display = 'none'; onboarding.classList.add('hidden'); }
+  if (home) { home.style.display = 'none'; home.classList.add('hidden'); }
+  if (studio) {
+    studio.style.display = 'flex';
+    studio.classList.remove('hidden');
+  }
+  appState.currentScreen = 'studio';
+  fitCanvasToViewport();
+  updateEngineWorkspaceUI();
+}
+
+/**
+ * ==========================================================================
+ * AUTHENTICATION & ONBOARDING CONTROLLERS
+ * ==========================================================================
+ */
+const ONBOARDING_AVATAR_PRESETS = [
+  { id: 'av1', label: 'Cyber Artist', bg: '#06b6d4', svg: '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#fff" stroke-width="2"><path d="M12 2a5 5 0 0 1 5 5v3a5 5 0 0 1-10 0V7a5 5 0 0 1 5-5z"/><path d="M19 12v1a7 7 0 0 1-14 0v-1"/></svg>' },
+  { id: 'av2', label: 'Vector Pro', bg: '#8b5cf6', svg: '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#fff" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>' },
+  { id: 'av3', label: 'Anime Painter', bg: '#ec4899', svg: '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#fff" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>' },
+  { id: 'av4', label: 'Studio Lead', bg: '#3b82f6', svg: '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#fff" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>' },
+  { id: 'av5', label: 'Animator', bg: '#10b981', svg: '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#fff" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>' },
+  { id: 'av6', label: 'Architect', bg: '#f59e0b', svg: '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#fff" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/></svg>' }
+];
+
+let selectedOnboardingAvatar = ONBOARDING_AVATAR_PRESETS[0];
+
+function renderOnboardingAvatars() {
+  const container = document.getElementById('onboarding-avatar-presets');
+  if (!container) return;
+  container.innerHTML = ONBOARDING_AVATAR_PRESETS.map(av => `
+    <button type="button" class="avatar-preset-btn ${selectedOnboardingAvatar.id === av.id ? 'active' : ''}" style="background: ${av.bg};" onclick="selectOnboardingAvatar('${av.id}')" title="${av.label}">
+      ${av.svg}
+    </button>
+  `).join('');
+}
+
+function selectOnboardingAvatar(id) {
+  const av = ONBOARDING_AVATAR_PRESETS.find(a => a.id === id);
+  if (!av) return;
+  selectedOnboardingAvatar = av;
+  userProfile.avatar = '';
+  renderOnboardingAvatars();
+  const label = document.getElementById('onboarding-custom-avatar-name');
+  if (label) label.textContent = `${av.label} selected`;
+}
+
+function handleOnboardingCustomAvatarUpload(e) {
+  const file = e.target.files && e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(evt) {
+    userProfile.avatar = evt.target.result;
+    const label = document.getElementById('onboarding-custom-avatar-name');
+    if (label) label.textContent = `Custom: ${file.name.slice(0, 15)}...`;
+    const buttons = document.querySelectorAll('.avatar-preset-btn');
+    buttons.forEach(b => b.classList.remove('active'));
+    showToast("Photo uploaded successfully!");
+  };
+  reader.readAsDataURL(file);
+}
+
+function handleUsernameValidation(val) {
+  const badge = document.getElementById('username-availability-badge');
+  const hint = document.getElementById('username-hint-msg');
+  if (!badge) return false;
+
+  val = (val || '').trim().toLowerCase();
+
+  if (!val || val.length < 3) {
+    badge.className = 'username-status-badge taken';
+    badge.textContent = 'Too short';
+    if (hint) hint.textContent = 'Username must have at least 3 characters.';
+    return false;
+  }
+
+  if (!/^[a-zA-Z0-9_]{3,20}$/.test(val)) {
+    badge.className = 'username-status-badge taken';
+    badge.textContent = 'Invalid chars';
+    if (hint) hint.textContent = 'Only letters, numbers, and underscores are allowed.';
+    return false;
+  }
+
+  const registered = JSON.parse(localStorage.getItem('graphenx_registered_usernames') || '["admin","graphenx","official","support","team"]');
+  if (registered.includes(val) && val !== userProfile.username) {
+    badge.className = 'username-status-badge taken';
+    badge.textContent = 'Taken';
+    if (hint) hint.textContent = 'This @username is taken. Choose another.';
+    return false;
+  }
+
+  badge.className = 'username-status-badge available';
+  badge.textContent = 'Available';
+  if (hint) hint.textContent = 'Great! This @username is unique and available.';
+  return true;
+}
+
+function completeUserOnboarding(e) {
+  if (e) e.preventDefault();
+  const nameInput = document.getElementById('onboarding-name-input');
+  const userInput = document.getElementById('onboarding-username-input');
+
+  const name = nameInput ? nameInput.value.trim() : '';
+  const username = userInput ? userInput.value.trim().toLowerCase() : '';
+
+  if (!name) {
+    showToast("Please enter your display name");
+    return;
+  }
+
+  if (!handleUsernameValidation(username)) {
+    showToast("Please enter a valid unique @username");
+    return;
+  }
+
+  userProfile.name = name;
+  userProfile.username = username;
+  userProfile.hasCompletedOnboarding = true;
+  userProfile.isLoggedIn = true;
+
+  const registered = JSON.parse(localStorage.getItem('graphenx_registered_usernames') || '["admin","graphenx","official","support","team"]');
+  if (!registered.includes(username)) {
+    registered.push(username);
+    localStorage.setItem('graphenx_registered_usernames', JSON.stringify(registered));
+  }
+
+  saveUserProfile();
+  showHomeScreen();
+  showToast(`Welcome to GraphenX, @${username}!`);
+}
+
+function signInWithGoogleAccount() {
+  const googleEmail = 'ma0780542@gmail.com';
+  const detectedName = 'Creator Pro';
+  const initialUsername = 'creator_' + Math.floor(100 + Math.random() * 900);
+
+  userProfile.isLoggedIn = true;
+  userProfile.email = googleEmail;
+  if (!userProfile.name) userProfile.name = detectedName;
+  if (!userProfile.username) userProfile.username = initialUsername;
+
+  saveUserProfile();
+
+  if (!userProfile.hasCompletedOnboarding) {
+    showOnboardingScreen();
+    showToast("Google account authenticated! Customize your profile.");
+  } else {
+    showHomeScreen();
+    showToast("Welcome to GraphenX!");
+  }
+}
+
+function handleEmailAuthSubmit(e) {
+  if (e) e.preventDefault();
+  const emailInput = document.getElementById('auth-email-input');
+  const passInput = document.getElementById('auth-password-input');
+  const email = emailInput ? emailInput.value.trim() : '';
+  const pass = passInput ? passInput.value : '';
+
+  if (!email || !pass) {
+    showToast("Please enter both email and password");
+    return;
+  }
+
+  const baseUsername = email.split('@')[0].toLowerCase().replace(/[^a-z0-9_]/g, '');
+  userProfile.isLoggedIn = true;
+  userProfile.email = email;
+  if (!userProfile.name) userProfile.name = baseUsername.charAt(0).toUpperCase() + baseUsername.slice(1);
+  if (!userProfile.username) userProfile.username = baseUsername;
+
+  saveUserProfile();
+
+  if (!userProfile.hasCompletedOnboarding) {
+    showOnboardingScreen();
+    showToast("Account authenticated! Personalize your profile.");
+  } else {
+    showHomeScreen();
+    showToast("Signed in successfully!");
+  }
+}
+
+function continueAsGuestProfile() {
+  userProfile.isLoggedIn = true;
+  userProfile.hasCompletedOnboarding = true;
+  userProfile.name = 'Guest Artist';
+  userProfile.username = 'guest_' + Math.floor(1000 + Math.random() * 9000);
+  userProfile.email = 'Offline Guest Mode';
+  saveUserProfile();
+  showHomeScreen();
+  showToast("Offline Guest Mode activated");
+}
+
+function signOutUserProfile() {
+  userProfile.isLoggedIn = false;
+  userProfile.hasCompletedOnboarding = false;
+  saveUserProfile();
+  showAuthScreen();
+  showToast("Signed out of GraphenX");
+}
 
 </script>
 </body>

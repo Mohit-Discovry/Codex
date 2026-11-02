@@ -22,6 +22,6 @@ dependencyResolutionManagement {
   }
 }
 
-rootProject.name = "Graphenx"
+rootProject.name = "GraphenX"
 
 include(":app")
