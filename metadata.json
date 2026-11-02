@@ -1,6 +1,6 @@
 {
-  "name": "AetherStudio Elite",
-  "description": "Professional drawing engine, vector layout hub, keyframe animation timeline, and Gemini Vision Coach.",
+  "name": "Graphenx",
+  "description": "Multi-engine creative studio featuring Photoshop, Figma, Procreate, Ibis Paint, Krita, FlipaClip workspaces, vector layout hub, and keyframe timeline.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

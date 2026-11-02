@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>AetherStudio Elite</title>
+  <title>Graphenx</title>
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#0a0b10">
   <!-- iOS Safari PWA support -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="AetherStudio">
+  <meta name="apple-mobile-web-app-title" content="Graphenx">
   <link rel="apple-touch-icon" href="icon-192.png">
   <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
   <!-- Windows PWA & Edge / Chrome support -->
@@ -23,7 +23,7 @@
     }
   </script>
   <style>
-    /* AetherStudio Elite - Glassmorphic Cyber-Minimal Design System */
+    /* Graphenx - Glassmorphic Cyber-Minimal Design System */
     :root {
       --bg-dark: #0a0b10;
       --bg-canvas: #12131a;
@@ -1078,28 +1078,30 @@
 
     /* Modal Dialogs (Design Hub Assets) */
     .modal-backdrop {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.65);
-      backdrop-filter: blur(8px);
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.78);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       display: flex;
       align-items: center;
       justify-content: center;
-      z-index: 100;
-      padding: 16px;
+      z-index: 200;
+      padding: max(env(safe-area-inset-top, 0px), 12px) max(env(safe-area-inset-right, 0px), 12px) max(env(safe-area-inset-bottom, 0px), 12px) max(env(safe-area-inset-left, 0px), 12px);
+      box-sizing: border-box;
     }
 
     .modal-card {
       width: 580px;
-      max-width: 95vw;
-      max-height: 85vh;
+      max-width: calc(100vw - 24px) !important;
+      max-height: calc(100vh - 36px) !important;
+      max-height: calc(100dvh - 36px) !important;
       display: flex;
       flex-direction: column;
       overflow: hidden;
       animation: floatIn 0.2s ease-out;
+      box-sizing: border-box;
+      border-radius: var(--radius-lg);
     }
 
     .modal-header {
@@ -1723,7 +1725,11 @@
       background: radial-gradient(circle at 50% 10%, #151828 0%, #07080e 100%);
       display: flex;
       flex-direction: column;
-      overflow: hidden;
+      overflow-x: hidden;
+      overflow-y: hidden;
+      width: 100%;
+      max-width: 100vw;
+      box-sizing: border-box;
       transition: opacity 0.3s ease;
     }
 
@@ -1733,21 +1739,23 @@
 
     /* Sleek Top Safe Header (Status bar clearance, Brand on left, Settings Gear on right) */
     #home-top-bar {
-      min-height: calc(56px + max(env(safe-area-inset-top, 0px), 32px));
-      padding-top: max(env(safe-area-inset-top, 0px), 32px);
-      padding-left: 20px;
-      padding-right: 20px;
+      min-height: calc(52px + max(env(safe-area-inset-top, 0px), 28px));
+      padding-top: max(env(safe-area-inset-top, 0px), 28px);
+      padding-left: max(env(safe-area-inset-left, 0px), 16px);
+      padding-right: max(env(safe-area-inset-right, 0px), 16px);
       padding-bottom: 12px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      background: rgba(14, 16, 24, 0.88);
+      background: rgba(14, 16, 24, 0.92);
       backdrop-filter: blur(24px);
       -webkit-backdrop-filter: blur(24px);
       border-bottom: 1px solid var(--glass-border);
       flex-shrink: 0;
       position: relative;
       z-index: 10;
+      width: 100%;
+      box-sizing: border-box;
     }
 
     .home-top-left {
@@ -2199,9 +2207,9 @@
     /* CapCut & Canva Style Expandable Studio Sidebar */
     .canva-sidebar-rail {
       position: absolute;
-      top: 68px;
-      left: 10px;
-      bottom: 24px;
+      top: calc(max(env(safe-area-inset-top, 0px), 14px) + 56px);
+      left: max(env(safe-area-inset-left, 0px), 8px);
+      bottom: max(env(safe-area-inset-bottom, 0px), 20px);
       width: 52px;
       background: rgba(14, 16, 26, 0.94);
       backdrop-filter: blur(20px);
@@ -2241,11 +2249,11 @@
     }
     .canva-tool-flyout {
       position: absolute;
-      top: 68px;
-      left: 70px;
-      bottom: 24px;
+      top: calc(max(env(safe-area-inset-top, 0px), 14px) + 56px);
+      left: calc(max(env(safe-area-inset-left, 0px), 8px) + 58px);
+      bottom: max(env(safe-area-inset-bottom, 0px), 20px);
       width: 260px;
-      max-width: calc(100vw - 85px);
+      max-width: calc(100vw - 80px);
       background: rgba(16, 18, 30, 0.96);
       backdrop-filter: blur(24px);
       -webkit-backdrop-filter: blur(24px);
@@ -2489,6 +2497,27 @@
       justify-content: space-between;
       flex-wrap: wrap;
       gap: 12px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    @media (max-width: 540px) {
+      .home-action-header-row {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+      }
+      .home-action-header-row > div:last-child {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        width: 100%;
+      }
+      .home-search-box {
+        flex: 1;
+        min-width: 0 !important;
+        width: auto !important;
+      }
     }
 
     .home-section-title-group {
@@ -3651,11 +3680,12 @@
        ========================================================================== */
     .studio-top-pod {
       position: absolute;
-      top: 10px;
-      left: 10px;
-      right: 10px;
+      top: max(env(safe-area-inset-top, 0px), 14px);
+      left: max(env(safe-area-inset-left, 0px), 10px);
+      right: max(env(safe-area-inset-right, 0px), 10px);
       height: 52px;
-      background: rgba(12, 15, 28, 0.84);
+      max-width: calc(100vw - 20px);
+      background: rgba(12, 15, 28, 0.88);
       backdrop-filter: blur(28px);
       -webkit-backdrop-filter: blur(28px);
       border: 1px solid rgba(6, 182, 212, 0.35);
@@ -3664,10 +3694,48 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 16px;
+      padding: 0 14px;
       z-index: 95;
       user-select: none;
       transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      box-sizing: border-box;
+      gap: 6px;
+    }
+
+    @media (max-width: 768px) {
+      .studio-top-pod {
+        top: max(env(safe-area-inset-top, 0px), 12px);
+        left: max(env(safe-area-inset-left, 0px), 6px);
+        right: max(env(safe-area-inset-right, 0px), 6px);
+        max-width: calc(100vw - 12px);
+        height: 48px;
+        padding: 0 8px;
+        overflow-x: auto;
+        scrollbar-width: none;
+      }
+      .studio-top-pod::-webkit-scrollbar {
+        display: none;
+      }
+      .pod-brand-badge .pod-title-pill {
+        display: none;
+      }
+      .pod-icon-btn {
+        width: 32px;
+        height: 32px;
+        flex-shrink: 0;
+      }
+      .pod-pill-btn {
+        height: 30px;
+        padding: 0 10px;
+        font-size: 11px;
+        flex-shrink: 0;
+      }
+      #btn-top-analyze-canvas span {
+        display: none;
+      }
+      #pod-sym-btn, #pod-rulers-btn {
+        display: none;
+      }
     }
 
     .studio-top-pod:hover {
@@ -3818,9 +3886,9 @@
     /* Levitating Left Dock */
     .studio-left-dock {
       position: absolute;
-      top: 72px;
-      left: 10px;
-      bottom: 12px;
+      top: calc(max(env(safe-area-inset-top, 0px), 14px) + 58px);
+      left: max(env(safe-area-inset-left, 0px), 8px);
+      bottom: max(env(safe-area-inset-bottom, 0px), 12px);
       width: 68px;
       background: rgba(12, 15, 28, 0.86);
       backdrop-filter: blur(28px);
@@ -4141,6 +4209,265 @@
       50% { top: 92%; opacity: 1; }
       100% { top: 0%; opacity: 0.85; }
     }
+  
+    /* ========================================================
+       GRAPHENX STUDIO ENGINES & WORKSPACE DYNAMICS
+       ======================================================== */
+    .engine-switcher-container {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      background: rgba(15, 17, 26, 0.78);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 999px;
+      padding: 2px 4px;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+    }
+    .engine-mode-tabs {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+    }
+    .engine-mode-pill {
+      background: transparent;
+      border: none;
+      color: #94a3b8;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      white-space: nowrap;
+    }
+    .engine-mode-pill:hover {
+      color: #f1f5f9;
+      background: rgba(255, 255, 255, 0.05);
+    }
+    .engine-mode-pill.active {
+      background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+      color: #ffffff;
+      box-shadow: 0 2px 8px rgba(37, 99, 235, 0.45);
+    }
+    .engine-dropdown-menu {
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      min-width: 240px;
+      background: rgba(15, 17, 26, 0.97);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 14px;
+      padding: 6px;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(24px);
+      z-index: 1200;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      animation: engineFadeIn 0.16s ease-out;
+    }
+    @keyframes engineFadeIn {
+      from { opacity: 0; transform: translateY(-6px) scale(0.97); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .engine-menu-header {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #64748b;
+      padding: 6px 10px 4px 10px;
+    }
+    .engine-menu-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 10px;
+      border-radius: 8px;
+      color: #e2e8f0;
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      border: 1px solid transparent;
+      background: transparent;
+      text-align: left;
+      width: 100%;
+    }
+    .engine-menu-item:hover {
+      background: rgba(255, 255, 255, 0.06);
+      color: #ffffff;
+    }
+    .engine-menu-item.active {
+      background: rgba(59, 130, 246, 0.18);
+      border-color: rgba(59, 130, 246, 0.45);
+      color: #60a5fa;
+      font-weight: 600;
+    }
+    .engine-menu-item .engine-badge {
+      font-size: 9px;
+      padding: 2px 6px;
+      border-radius: 4px;
+      margin-left: auto;
+      font-weight: 600;
+      background: rgba(255, 255, 255, 0.08);
+      color: #94a3b8;
+    }
+    .engine-menu-item.active .engine-badge {
+      background: rgba(59, 130, 246, 0.3);
+      color: #93c5fd;
+    }
+
+    /* Universal Save Icon & Tactile Flash */
+    .pod-universal-save {
+      color: #38bdf8 !important;
+      background: rgba(56, 189, 248, 0.12) !important;
+      border: 1px solid rgba(56, 189, 248, 0.28) !important;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    }
+    .pod-universal-save:hover {
+      background: rgba(56, 189, 248, 0.22) !important;
+      box-shadow: 0 0 12px rgba(56, 189, 248, 0.4) !important;
+      transform: translateY(-1px);
+    }
+    .save-success-flash {
+      animation: saveFlashPulse 0.75s ease-out !important;
+    }
+    @keyframes saveFlashPulse {
+      0% { background: #10b981 !important; color: #ffffff !important; transform: scale(1.15); box-shadow: 0 0 16px #10b981; }
+      50% { background: #059669 !important; color: #ffffff !important; transform: scale(1.05); }
+      100% { background: rgba(56, 189, 248, 0.12) !important; color: #38bdf8 !important; transform: scale(1); }
+    }
+
+    /* Timeline Transition Badges (Opacity Fade linear tween) */
+    .timeline-transition-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+      padding: 2px 7px;
+      border-radius: 6px;
+      font-size: 9px;
+      font-weight: 600;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #94a3b8;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      margin: 0 3px;
+      user-select: none;
+      flex-shrink: 0;
+    }
+    .timeline-transition-badge:hover {
+      background: rgba(255, 255, 255, 0.12);
+      color: #f1f5f9;
+      transform: scale(1.05);
+    }
+    .timeline-transition-badge.active-fade {
+      background: rgba(139, 92, 246, 0.26);
+      border-color: rgba(139, 92, 246, 0.65);
+      color: #c4b5fd;
+      box-shadow: 0 0 12px rgba(139, 92, 246, 0.35);
+    }
+
+    /* Procreate Floating Sliders HUD */
+    .procreate-dock {
+      position: fixed;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      z-index: 125;
+      pointer-events: auto;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+    .procreate-slider-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      background: rgba(15, 17, 26, 0.88);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 20px;
+      padding: 10px 5px;
+      backdrop-filter: blur(20px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.55);
+      width: 36px;
+    }
+    .procreate-slider-track {
+      writing-mode: vertical-lr;
+      direction: rtl;
+      width: 6px;
+      height: 96px;
+      accent-color: #f59e0b;
+      cursor: pointer;
+    }
+    .procreate-slider-label {
+      font-size: 8px;
+      font-weight: 700;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* Figma Properties Panel */
+    .figma-panel {
+      position: fixed;
+      right: 14px;
+      top: 76px;
+      width: 220px;
+      background: rgba(15, 17, 26, 0.94);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 14px;
+      padding: 12px;
+      backdrop-filter: blur(24px);
+      box-shadow: 0 14px 36px rgba(0, 0, 0, 0.65);
+      z-index: 125;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      transition: all 0.2s ease;
+    }
+    .figma-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 11px;
+      font-weight: 700;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding-bottom: 6px;
+    }
+    .figma-prop-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 11px;
+      color: #cbd5e1;
+    }
+    .figma-input {
+      width: 68px;
+      background: rgba(0, 0, 0, 0.45);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 6px;
+      padding: 4px 6px;
+      color: #ffffff;
+      font-size: 11px;
+      text-align: center;
+    }
+    .figma-input:focus {
+      border-color: #a855f7;
+      outline: none;
+    }
+
   </style>
 </head>
 <body>
@@ -4156,7 +4483,7 @@
     </div>
   </div>
   <div class="splash-app-title">
-    AetherStudio
+    Graphenx
     <span class="brand-badge" style="font-size: 11px; padding: 2px 7px;">Elite</span>
   </div>
   <div class="splash-app-subtitle">Ibis Paint Inking • Vector Layouts • Figma Live Collab</div>
@@ -4171,7 +4498,7 @@
 <div id="home-screen" class="hidden">
   <!-- Sleek Top Safe Header (Status bar clearance, Brand on left, Settings Gear on right) -->
   <header id="home-top-bar">
-    <div class="home-top-left" onclick="switchAppTab('home')" title="AetherStudio Elite">
+    <div class="home-top-left" onclick="switchAppTab('home')" title="Graphenx">
       <div class="brand-icon" style="width: 32px; height: 32px; border-radius: 9px; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #06b6d4, #8b5cf6); box-shadow: 0 0 14px rgba(6, 182, 212, 0.45);">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.3">
           <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/>
@@ -4179,7 +4506,7 @@
       </div>
       <div style="display: flex; flex-direction: column;">
         <div style="font-size: 15px; font-weight: 800; color: #fff; letter-spacing: -0.02em; display: flex; align-items: center; gap: 6px;">
-          AetherStudio
+          Graphenx
           <span class="badge-pill" style="font-size: 9px; padding: 1px 6px; background: rgba(6, 182, 212, 0.2); color: #06b6d4; border: 1px solid rgba(6, 182, 212, 0.4); border-radius: 9999px;">Elite</span>
         </div>
         <span style="font-size: 10px; color: var(--text-dim); font-weight: 500;">Pro Illustration & AI Studio</span>
@@ -4322,18 +4649,114 @@
         </div>
       </section>
 
-      <!-- 3. PhotoRoom Template Shelves: Marketplaces -->
+      <!-- 3. Canva Viral Designs & Social Templates -->
       <section class="photoroom-shelf-section">
         <div class="photoroom-shelf-header">
           <div class="photoroom-shelf-title">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2.2"><path d="m2 7 4.41-4.41A2 2 0 0 1 7.83 2h8.34a2 2 0 0 1 1.42.59L22 7"/><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><path d="M15 22v-4a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v4"/><rect width="20" height="5" x="2" y="7" rx="1"/></svg>
-            <span>Marketplaces & Products</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00c4cc" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><path d="m4.93 4.93 4.24 4.24"/><path d="m14.83 9.17 4.24-4.24"/><path d="m14.83 14.83 4.24 4.24"/><path d="m9.17 14.83-4.24 4.24"/></svg>
+            <span style="color: #00c4cc;">Canva Viral Templates (Social & Ads)</span>
           </div>
-          <span class="photoroom-shelf-see-all" onclick="switchAppTab('templates'); filterTemplatesCategory('marketplace')">See All →</span>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <button class="btn btn-secondary" onclick="openCloudApiModal()" style="height: 24px; font-size: 10px; padding: 0 8px; border-radius: 9999px; color: #00c4cc; border-color: rgba(0, 196, 204, 0.4);">
+              API Keys
+            </button>
+            <span class="photoroom-shelf-see-all" onclick="switchAppTab('templates'); filterTemplatesCategory('canva')">See All Canva →</span>
+          </div>
         </div>
 
         <div class="photoroom-shelf-scroll">
-          <div class="photoroom-template-card" onclick="applyTemplateToCanvas('tpl_amazon')">
+          <div class="photoroom-template-card" onclick="applyTemplateToCanvas('tpl_canva_promo')">
+            <div class="photoroom-template-preview" style="background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);">
+              <div style="position: absolute; top: 6px; left: 6px; background: #00c4cc; color: #000; font-size: 8px; font-weight: 800; padding: 1px 6px; border-radius: 9999px;">CANVA</div>
+              <div style="width: 50px; height: 50px; border-radius: 50%; border: 2px solid #06b6d4; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 16px rgba(6, 182, 212, 0.4);">
+                <span style="font-size: 9px; font-weight: 900; color: #fff;">PROMO</span>
+              </div>
+            </div>
+            <div class="photoroom-template-info">
+              <div class="photoroom-template-name">Modern Minimalist Promo</div>
+              <div class="photoroom-template-dim">1080 × 1080 • Square Post</div>
+            </div>
+          </div>
+
+          <div class="photoroom-template-card" onclick="applyTemplateToCanvas('tpl_canva_story')">
+            <div class="photoroom-template-preview" style="background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 50%, #3b82f6 100%);">
+              <div style="position: absolute; top: 6px; left: 6px; background: #00c4cc; color: #000; font-size: 8px; font-weight: 800; padding: 1px 6px; border-radius: 9999px;">CANVA</div>
+              <div style="width: 36px; height: 64px; border-radius: 8px; border: 1.5px solid rgba(255,255,255,0.8); display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.25);">
+                <span style="font-size: 9px; font-weight: 900; color: #fde047;">FLASH</span>
+              </div>
+            </div>
+            <div class="photoroom-template-info">
+              <div class="photoroom-template-name">Flash Sale Story 9:16</div>
+              <div class="photoroom-template-dim">1080 × 1920 • Story</div>
+            </div>
+          </div>
+
+          <div class="photoroom-template-card" onclick="applyTemplateToCanvas('tpl_canva_yt_thumb')">
+            <div class="photoroom-template-preview" style="background: linear-gradient(135deg, #09090b 0%, #18181b 100%);">
+              <div style="position: absolute; top: 6px; left: 6px; background: #ff0000; color: #fff; font-size: 8px; font-weight: 800; padding: 1px 6px; border-radius: 9999px;">YOUTUBE</div>
+              <div style="width: 68px; height: 38px; border-radius: 6px; background: #ef4444; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(239, 68, 68, 0.5);">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              </div>
+            </div>
+            <div class="photoroom-template-info">
+              <div class="photoroom-template-name">Viral YouTube Thumbnail</div>
+              <div class="photoroom-template-dim">1280 × 720 • 16:9 CTR</div>
+            </div>
+          </div>
+
+          <div class="photoroom-template-card" onclick="applyTemplateToCanvas('tpl_canva_tiktok')">
+            <div class="photoroom-template-preview" style="background: #09090b;">
+              <div style="position: absolute; top: 6px; left: 6px; background: #00f2fe; color: #000; font-size: 8px; font-weight: 800; padding: 1px 6px; border-radius: 9999px;">TIKTOK</div>
+              <div style="width: 36px; height: 64px; border-radius: 8px; border: 1.5px solid #25f4ee; display: flex; align-items: center; justify-content: center; box-shadow: 2px 2px 0 #fe2c55;">
+                <span style="font-size: 9px; font-weight: 800; color: #fff;">REEL</span>
+              </div>
+            </div>
+            <div class="photoroom-template-info">
+              <div class="photoroom-template-name">TikTok / Reels Cover</div>
+              <div class="photoroom-template-dim">1080 × 1920 • Cover</div>
+            </div>
+          </div>
+
+          <div class="photoroom-template-card" onclick="applyTemplateToCanvas('tpl_canva_carousel')">
+            <div class="photoroom-template-preview" style="background: linear-gradient(135deg, #18181b, #27272a);">
+              <div style="position: absolute; top: 6px; left: 6px; background: #00c4cc; color: #000; font-size: 8px; font-weight: 800; padding: 1px 6px; border-radius: 9999px;">CANVA</div>
+              <div style="width: 44px; height: 55px; border-radius: 8px; border: 1px dashed #a855f7; display: flex; align-items: center; justify-content: center;">
+                <span style="font-size: 9px; font-weight: 900; color: #a855f7;">SWIPE</span>
+              </div>
+            </div>
+            <div class="photoroom-template-info">
+              <div class="photoroom-template-name">Carousel Infographic</div>
+              <div class="photoroom-template-dim">1080 × 1350 • 4:5 Feed</div>
+            </div>
+          </div>
+
+          <div class="photoroom-template-card" onclick="applyTemplateToCanvas('tpl_canva_flyer')">
+            <div class="photoroom-template-preview" style="background: linear-gradient(135deg, #022c22, #064e3b);">
+              <div style="position: absolute; top: 6px; left: 6px; background: #10b981; color: #fff; font-size: 8px; font-weight: 800; padding: 1px 6px; border-radius: 9999px;">CANVA</div>
+              <div style="width: 44px; height: 60px; border-radius: 6px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center;">
+                <span style="font-size: 9px; font-weight: 900; color: #6ee7b7;">FLYER</span>
+              </div>
+            </div>
+            <div class="photoroom-template-info">
+              <div class="photoroom-template-name">Live Event Flyer</div>
+              <div class="photoroom-template-dim">1200 × 1800 • Poster</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. PhotoRoom Studio E-Commerce & Product Podiums -->
+      <section class="photoroom-shelf-section">
+        <div class="photoroom-shelf-header">
+          <div class="photoroom-shelf-title">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2.2"><path d="m2 7 4.41-4.41A2 2 0 0 1 7.83 2h8.34a2 2 0 0 1 1.42.59L22 7"/><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><path d="M15 22v-4a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v4"/><rect width="20" height="5" x="2" y="7" rx="1"/></svg>
+            <span style="color: #f59e0b;">PhotoRoom Pro E-Commerce & Studio Podiums</span>
+          </div>
+          <span class="photoroom-shelf-see-all" onclick="switchAppTab('templates'); filterTemplatesCategory('photoroom')">See All PhotoRoom →</span>
+        </div>
+
+        <div class="photoroom-shelf-scroll">
+          <div class="photoroom-template-card" onclick="applyTemplateToCanvas('tpl_pr_amazon')">
             <div class="photoroom-template-preview" style="background: #ffffff;">
               <div style="width: 50px; height: 50px; border-radius: 12px; background: #f3f4f6; border: 1px solid #e5e7eb; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.15);">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#111827" stroke-width="2"><rect width="16" height="16" x="4" y="4" rx="2"/></svg>
@@ -4341,23 +4764,47 @@
             </div>
             <div class="photoroom-template-info">
               <div class="photoroom-template-name">Amazon White Studio</div>
-              <div class="photoroom-template-dim">2048 × 2048 • 1:1</div>
+              <div class="photoroom-template-dim">2048 × 2048 • Pure 255</div>
             </div>
           </div>
 
-          <div class="photoroom-template-card" onclick="applyTemplateToCanvas('tpl_shopify')">
-            <div class="photoroom-template-preview" style="background: linear-gradient(180deg, #f8fafc 0%, #e2e8f0 100%);">
+          <div class="photoroom-template-card" onclick="applyTemplateToCanvas('tpl_pr_shopify')">
+            <div class="photoroom-template-preview" style="background: linear-gradient(180deg, #f8fafc 0%, #cbd5e1 100%);">
               <div style="width: 52px; height: 52px; border-radius: 14px; background: #ffffff; display: flex; align-items: center; justify-content: center; box-shadow: 0 18px 24px -6px rgba(0,0,0,0.25);">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"/></svg>
               </div>
             </div>
             <div class="photoroom-template-info">
-              <div class="photoroom-template-name">Shopify Soft Shadow</div>
-              <div class="photoroom-template-dim">1500 × 1500 • Clean</div>
+              <div class="photoroom-template-name">Shopify Soft Marble Stage</div>
+              <div class="photoroom-template-dim">1500 × 1500 • 3D Podium</div>
             </div>
           </div>
 
-          <div class="photoroom-template-card" onclick="applyTemplateToCanvas('tpl_etsy')">
+          <div class="photoroom-template-card" onclick="applyTemplateToCanvas('tpl_pr_beauty')">
+            <div class="photoroom-template-preview" style="background: linear-gradient(180deg, #fdf4ff 0%, #fae8ff 100%);">
+              <div style="width: 48px; height: 48px; border-radius: 50%; background: #fff; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 16px rgba(236,72,153,0.2);">
+                <span style="font-size: 10px; font-weight: 800; color: #ec4899;">GLOW</span>
+              </div>
+            </div>
+            <div class="photoroom-template-info">
+              <div class="photoroom-template-name">Pastel Beauty Clean</div>
+              <div class="photoroom-template-dim">1500 × 1500 • Cosmetics</div>
+            </div>
+          </div>
+
+          <div class="photoroom-template-card" onclick="applyTemplateToCanvas('tpl_pr_luxury')">
+            <div class="photoroom-template-preview" style="background: radial-gradient(circle, #1e293b 0%, #020617 100%);">
+              <div style="width: 48px; height: 48px; border-radius: 12px; background: #000; border: 1.5px solid #eab308; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 12px rgba(234, 179, 8, 0.3);">
+                <span style="font-size: 10px; font-weight: 800; color: #facc15;">GOLD</span>
+              </div>
+            </div>
+            <div class="photoroom-template-info">
+              <div class="photoroom-template-name">Luxury Obsidian Black</div>
+              <div class="photoroom-template-dim">2048 × 2048 • Jewelry</div>
+            </div>
+          </div>
+
+          <div class="photoroom-template-card" onclick="applyTemplateToCanvas('tpl_pr_etsy')">
             <div class="photoroom-template-preview" style="background: linear-gradient(135deg, #78350f, #451a03);">
               <div style="width: 48px; height: 48px; border-radius: 10px; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.25); display: flex; align-items: center; justify-content: center;">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fde68a" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
@@ -4365,11 +4812,11 @@
             </div>
             <div class="photoroom-template-info">
               <div class="photoroom-template-name">Etsy Artisan Wood</div>
-              <div class="photoroom-template-dim">2000 × 1600 • Warm</div>
+              <div class="photoroom-template-dim">2000 × 1600 • Handcrafted</div>
             </div>
           </div>
 
-          <div class="photoroom-template-card" onclick="applyTemplateToCanvas('tpl_depop')">
+          <div class="photoroom-template-card" onclick="applyTemplateToCanvas('tpl_pr_depop')">
             <div class="photoroom-template-preview" style="background: linear-gradient(135deg, #ff0055, #ff5500);">
               <div style="width: 48px; height: 48px; border-radius: 12px; background: #fff; display: flex; align-items: center; justify-content: center; box-shadow: 0 12px 20px rgba(0,0,0,0.3);">
                 <span style="font-weight: 900; font-size: 14px; color: #ff0055;">Y2K</span>
@@ -4383,62 +4830,123 @@
         </div>
       </section>
 
-      <!-- 4. PhotoRoom Template Shelves: Social Media -->
+      <!-- 5. Pinterest Aesthetics & Guides -->
       <section class="photoroom-shelf-section">
         <div class="photoroom-shelf-header">
           <div class="photoroom-shelf-title">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ec4899" stroke-width="2.2"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
-            <span>Social Media & Stories</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#e60023" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><path d="m8 12 3 3 5-5"/></svg>
+            <span style="color: #e60023;">Pinterest Aesthetic Moodboards & Pins</span>
           </div>
-          <span class="photoroom-shelf-see-all" onclick="switchAppTab('templates'); filterTemplatesCategory('social')">See All →</span>
+          <span class="photoroom-shelf-see-all" onclick="switchAppTab('templates'); filterTemplatesCategory('pinterest')">See All Pinterest →</span>
         </div>
 
         <div class="photoroom-shelf-scroll">
-          <div class="photoroom-template-card" onclick="applyTemplateToCanvas('tpl_ig_story')">
-            <div class="photoroom-template-preview" style="background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045);">
-              <div style="width: 36px; height: 64px; border-radius: 8px; border: 1.5px solid rgba(255,255,255,0.7); display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.2);">
-                <span style="font-size: 10px; font-weight: 800; color: #fff;">9:16</span>
+          <div class="photoroom-template-card" onclick="applyTemplateToCanvas('tpl_pin_aesthetic')">
+            <div class="photoroom-template-preview" style="background: linear-gradient(180deg, #fffbeb 0%, #fef3c7 100%);">
+              <div style="width: 36px; height: 54px; border-radius: 6px; border: 1px solid #d97706; display: flex; align-items: center; justify-content: center; background: #fff;">
+                <span style="font-size: 8px; font-weight: 800; color: #b45309;">2:3</span>
               </div>
             </div>
             <div class="photoroom-template-info">
-              <div class="photoroom-template-name">Instagram Story</div>
-              <div class="photoroom-template-dim">1080 × 1920 • 9:16</div>
+              <div class="photoroom-template-name">Warm Minimal Moodboard</div>
+              <div class="photoroom-template-dim">1000 × 1500 • Aesthetic</div>
             </div>
           </div>
 
-          <div class="photoroom-template-card" onclick="applyTemplateToCanvas('tpl_yt_thumb')">
-            <div class="photoroom-template-preview" style="background: linear-gradient(135deg, #1e1b4b, #312e81);">
-              <div style="width: 68px; height: 38px; border-radius: 6px; background: rgba(255,0,0,0.85); display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(255,0,0,0.4);">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          <div class="photoroom-template-card" onclick="applyTemplateToCanvas('tpl_pin_recipe')">
+            <div class="photoroom-template-preview" style="background: #ffffff;">
+              <div style="width: 38px; height: 56px; border-radius: 6px; background: #fff7ed; border: 1.5px solid #ea580c; display: flex; align-items: center; justify-content: center;">
+                <span style="font-size: 8px; font-weight: 800; color: #c2410c;">RECIPE</span>
               </div>
             </div>
             <div class="photoroom-template-info">
-              <div class="photoroom-template-name">YouTube Thumbnail</div>
-              <div class="photoroom-template-dim">1280 × 720 • 16:9</div>
+              <div class="photoroom-template-name">Artisan Recipe Card</div>
+              <div class="photoroom-template-dim">1000 × 1500 • Food Pin</div>
             </div>
           </div>
 
-          <div class="photoroom-template-card" onclick="applyTemplateToCanvas('tpl_tiktok')">
-            <div class="photoroom-template-preview" style="background: #010101;">
-              <div style="width: 36px; height: 64px; border-radius: 8px; border: 1.5px solid #25f4ee; display: flex; align-items: center; justify-content: center; box-shadow: 2px 2px 0 #fe2c55;">
-                <span style="font-size: 9px; font-weight: 800; color: #fff;">REEL</span>
+          <div class="photoroom-template-card" onclick="applyTemplateToCanvas('tpl_pin_travel')">
+            <div class="photoroom-template-preview" style="background: linear-gradient(180deg, #f0fdf4 0%, #dcfce7 100%);">
+              <div style="width: 38px; height: 56px; border-radius: 6px; background: #fff; border: 1px solid #16a34a; display: flex; align-items: center; justify-content: center;">
+                <span style="font-size: 8px; font-weight: 800; color: #15803d;">TOKYO</span>
               </div>
             </div>
             <div class="photoroom-template-info">
-              <div class="photoroom-template-name">TikTok / Reel</div>
-              <div class="photoroom-template-dim">1080 × 1920 • Cover</div>
+              <div class="photoroom-template-name">Tokyo Travel Guide</div>
+              <div class="photoroom-template-dim">1000 × 1500 • Itinerary</div>
             </div>
           </div>
 
-          <div class="photoroom-template-card" onclick="applyTemplateToCanvas('tpl_linkedin')">
-            <div class="photoroom-template-preview" style="background: linear-gradient(135deg, #1e293b, #0f172a);">
-              <div style="width: 48px; height: 48px; border-radius: 50%; background: #0077b5; display: flex; align-items: center; justify-content: center; border: 2px solid #fff;">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          <div class="photoroom-template-card" onclick="applyTemplateToCanvas('tpl_pin_planner')">
+            <div class="photoroom-template-preview" style="background: #ffffff;">
+              <div style="width: 38px; height: 56px; border-radius: 6px; background: #f5f3ff; border: 1px solid #8b5cf6; display: flex; align-items: center; justify-content: center;">
+                <span style="font-size: 8px; font-weight: 800; color: #6d28d9;">PLAN</span>
               </div>
             </div>
             <div class="photoroom-template-info">
-              <div class="photoroom-template-name">LinkedIn Headshot</div>
-              <div class="photoroom-template-dim">1200 × 1200 • Pro</div>
+              <div class="photoroom-template-name">Daily Productivity Checklist</div>
+              <div class="photoroom-template-dim">1000 × 1500 • Planner</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 6. Google Creative & Universal Ads -->
+      <section class="photoroom-shelf-section">
+        <div class="photoroom-shelf-header">
+          <div class="photoroom-shelf-title">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4285f4" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+            <span style="color: #4285f4;">Google Creative Display & Ads</span>
+          </div>
+          <span class="photoroom-shelf-see-all" onclick="switchAppTab('templates'); filterTemplatesCategory('google')">See All Google →</span>
+        </div>
+
+        <div class="photoroom-shelf-scroll">
+          <div class="photoroom-template-card" onclick="applyTemplateToCanvas('tpl_google_med_rect')">
+            <div class="photoroom-template-preview" style="background: #ffffff;">
+              <div style="width: 54px; height: 44px; border-radius: 6px; border: 1.5px solid #4285f4; display: flex; align-items: center; justify-content: center; background: #eff6ff;">
+                <span style="font-size: 9px; font-weight: 800; color: #1d4ed8;">300×250</span>
+              </div>
+            </div>
+            <div class="photoroom-template-info">
+              <div class="photoroom-template-name">Medium Rectangle Ad</div>
+              <div class="photoroom-template-dim">1200 × 1000 • IAB Banner</div>
+            </div>
+          </div>
+
+          <div class="photoroom-template-card" onclick="applyTemplateToCanvas('tpl_google_leaderboard')">
+            <div class="photoroom-template-preview" style="background: linear-gradient(90deg, #1e293b 0%, #0f172a 100%);">
+              <div style="width: 72px; height: 20px; border-radius: 4px; background: #34a853; display: flex; align-items: center; justify-content: center;">
+                <span style="font-size: 8px; font-weight: 900; color: #fff;">728×90</span>
+              </div>
+            </div>
+            <div class="photoroom-template-info">
+              <div class="photoroom-template-name">Desktop Leaderboard</div>
+              <div class="photoroom-template-dim">2184 × 270 • Top Banner</div>
+            </div>
+          </div>
+
+          <div class="photoroom-template-card" onclick="applyTemplateToCanvas('tpl_google_skyscraper')">
+            <div class="photoroom-template-preview" style="background: linear-gradient(180deg, #0f172a 0%, #1e1b4b 100%);">
+              <div style="width: 26px; height: 64px; border-radius: 4px; background: #4285f4; display: flex; align-items: center; justify-content: center;">
+                <span style="font-size: 8px; font-weight: 900; color: #fff; writing-mode: vertical-rl;">300×600</span>
+              </div>
+            </div>
+            <div class="photoroom-template-info">
+              <div class="photoroom-template-name">Skyscraper Banner</div>
+              <div class="photoroom-template-dim">900 × 1800 • Sidebar Ad</div>
+            </div>
+          </div>
+
+          <div class="photoroom-template-card" onclick="applyTemplateToCanvas('tpl_google_hero')">
+            <div class="photoroom-template-preview" style="background: radial-gradient(circle at 50% 20%, #172554 0%, #030712 100%);">
+              <div style="width: 68px; height: 38px; border-radius: 6px; border: 1px solid #60a5fa; display: flex; align-items: center; justify-content: center;">
+                <span style="font-size: 9px; font-weight: 800; color: #93c5fd;">HERO</span>
+              </div>
+            </div>
+            <div class="photoroom-template-info">
+              <div class="photoroom-template-name">Web Hero Header</div>
+              <div class="photoroom-template-dim">1920 × 1080 • Cloud 16:9</div>
             </div>
           </div>
         </div>
@@ -4466,13 +4974,13 @@
             <span>⏹️ Square (2048 × 2048)</span>
           </button>
           <button class="preset-chip-btn" onclick="quickCreatePresetCanvas('story', 1080, 1920, 'Story 9:16')">
-            <span>📱 Story (1080 × 1920)</span>
+            <span>Story (1080 × 1920)</span>
           </button>
           <button class="preset-chip-btn" onclick="quickCreatePresetCanvas('4k', 3840, 2160, '4K Masterpiece')">
-            <span>🖥️ 4K Ultra HD</span>
+            <span>4K Ultra HD</span>
           </button>
           <button class="preset-chip-btn" onclick="openNewProjectModal()">
-            <span>📐 Custom Size...</span>
+            <span>Custom Size...</span>
           </button>
         </div>
       </section>
@@ -4486,22 +4994,31 @@
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2.2"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
             <span>Templates Hub</span>
           </div>
-          <div class="home-section-desc">E-Commerce, Marketplaces, Social Media & Portrait presets</div>
+          <div class="home-section-desc">Editable Canva, PhotoRoom, Pinterest & Google smart multi-layer templates</div>
         </div>
 
-        <div class="home-search-box" style="width: 100%; max-width: 240px;">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--text-dim)" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-          <input type="text" id="templates-search-input" placeholder="Search templates..." oninput="filterTemplatesSearch(this.value)">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <div class="home-search-box" style="width: 100%; max-width: 220px;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--text-dim)" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            <input type="text" id="templates-search-input" placeholder="Search Canva, Pinterest, Google..." oninput="filterTemplatesSearch(this.value)">
+          </div>
+          <button class="btn btn-primary" onclick="openCloudApiModal()" style="height: 32px; padding: 0 12px; font-size: 11px; font-weight: 750; background: linear-gradient(135deg, #00c4cc, #7d2ae8); border: none; border-radius: 8px; white-space: nowrap; box-shadow: 0 4px 12px rgba(0, 196, 204, 0.35);" title="Connect Canva & Cloud APIs to Sync Live Templates">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg>
+            <span>Connect Canva APIs</span>
+          </button>
         </div>
       </div>
 
-      <!-- Category Filter Chips -->
+      <!-- Category Filter Chips (Canva, PhotoRoom, Pinterest, Google, etc.) -->
       <div class="category-chips-bar">
-        <button id="chip-all" class="category-pill-chip active" onclick="filterTemplatesCategory('all')">✨ All Templates</button>
-        <button id="chip-marketplace" class="category-pill-chip" onclick="filterTemplatesCategory('marketplace')">🛍️ Marketplaces</button>
-        <button id="chip-social" class="category-pill-chip" onclick="filterTemplatesCategory('social')">📱 Social Media</button>
-        <button id="chip-portraits" class="category-pill-chip" onclick="filterTemplatesCategory('portraits')">👤 Portraits & Headshots</button>
-        <button id="chip-ecommerce" class="category-pill-chip" onclick="filterTemplatesCategory('ecommerce')">🏷️ Staging & Podiums</button>
+        <button id="chip-all" class="category-pill-chip active" onclick="filterTemplatesCategory('all')">All Templates</button>
+        <button id="chip-canva" class="category-pill-chip" onclick="filterTemplatesCategory('canva')">Canva Originals</button>
+        <button id="chip-photoroom" class="category-pill-chip" onclick="filterTemplatesCategory('photoroom')">PhotoRoom Pro</button>
+        <button id="chip-pinterest" class="category-pill-chip" onclick="filterTemplatesCategory('pinterest')">Pinterest Pins</button>
+        <button id="chip-google" class="category-pill-chip" onclick="filterTemplatesCategory('google')">Google & Ads</button>
+        <button id="chip-marketplace" class="category-pill-chip" onclick="filterTemplatesCategory('marketplace')">E-Commerce & FBA</button>
+        <button id="chip-social" class="category-pill-chip" onclick="filterTemplatesCategory('social')">Social & Reels</button>
+        <button id="chip-portraits" class="category-pill-chip" onclick="filterTemplatesCategory('portraits')">Portraits & Covers</button>
       </div>
 
       <!-- Templates Dynamic Grid -->
@@ -4550,7 +5067,7 @@
       <!-- 1. AUTH LOGIN SECTION (Shown when user is not logged in) -->
       <div id="profile-auth-section" class="profile-auth-card" style="display: none;">
         <div style="text-align: center;">
-          <div style="font-size: 20px; font-weight: 850; color: #fff; letter-spacing: -0.01em;">Sign in to AetherStudio</div>
+          <div style="font-size: 20px; font-weight: 850; color: #fff; letter-spacing: -0.01em;">Sign in to Graphenx</div>
           <div style="font-size: 12px; color: var(--text-dim); margin-top: 4px;">Sync artworks, create group canvases, and customize your creator profile</div>
         </div>
 
@@ -4592,7 +5109,7 @@
         <div class="profile-header-card">
           <!-- User Profile Picture imported from phone library or default -->
           <div id="profile-display-avatar" class="profile-avatar-circle" onclick="openEditProfileModal()" title="Click to change profile picture">
-            <span id="profile-avatar-fallback">🎨</span>
+            <span id="profile-avatar-fallback"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>
             <img id="profile-avatar-img" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover; display: none;" alt="User Avatar">
           </div>
 
@@ -4747,7 +5264,7 @@
       <!-- Avatar Preview & Upload from phone library -->
       <div style="text-align: center;">
         <div class="avatar-preview-box" id="edit-avatar-preview-box">
-          <span id="edit-avatar-fallback-icon" style="font-size: 32px;">🎨</span>
+          <span id="edit-avatar-fallback-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>
           <img id="edit-avatar-preview-img" style="display: none; width: 100%; height: 100%; object-fit: cover; border-radius: 50%;" alt="Avatar Preview">
         </div>
         <input type="file" id="avatar-file-input" accept="image/*" style="display: none;" onchange="handleAvatarFileChosen(event)">
@@ -4839,6 +5356,108 @@
         <button class="btn btn-primary" style="height: 34px; padding: 0 20px; font-weight: 700; background: linear-gradient(135deg, #10b981, #059669);" onclick="launchGroupCollaborativeProject()">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
           <span>Launch Group Canvas</span>
+        </button>
+      </div>
+    </div>
+<!-- SMART TEMPLATE EDITOR MODAL (Canva / PhotoRoom live layer editing) -->
+<div id="template-editor-modal" class="modal-backdrop" style="display: none;" onclick="if(event.target === this) closeTemplateEditorModal()">
+  <div class="modal-card glass-panel" style="width: 480px; max-width: calc(100vw - 24px);">
+    <div class="modal-header">
+      <div class="modal-title">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2.2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+        <span>Edit Template Text & Style</span>
+      </div>
+      <button class="mini-icon-btn" onclick="closeTemplateEditorModal()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="modal-body" style="padding: 18px; display: flex; flex-direction: column; gap: 14px;">
+      <div>
+        <label style="font-size: 11px; font-weight: 700; color: var(--text-dim); text-transform: uppercase;">Headline Text</label>
+        <input type="text" id="tpl-edit-headline" class="coach-input-box" style="height: 38px; color: #fff; padding: 0 10px; width: 100%; margin-top: 5px; font-weight: 700; font-size: 13px;" placeholder="e.g. SUMMER SALE">
+      </div>
+      <div>
+        <label style="font-size: 11px; font-weight: 700; color: var(--text-dim); text-transform: uppercase;">Subtitle / Description</label>
+        <input type="text" id="tpl-edit-subtitle" class="coach-input-box" style="height: 38px; color: #fff; padding: 0 10px; width: 100%; margin-top: 5px;" placeholder="e.g. 50% Off All Items • Limited Time">
+      </div>
+      <div style="display: flex; gap: 12px; align-items: flex-end;">
+        <div style="flex: 1;">
+          <label style="font-size: 11px; font-weight: 700; color: var(--text-dim); text-transform: uppercase;">Badge / Tag</label>
+          <input type="text" id="tpl-edit-badge" class="coach-input-box" style="height: 38px; color: #fff; padding: 0 10px; width: 100%; margin-top: 5px;" placeholder="e.g. NEW ARRIVAL">
+        </div>
+        <div style="width: 110px;">
+          <label style="font-size: 11px; font-weight: 700; color: var(--text-dim); text-transform: uppercase;">Accent Color</label>
+          <input type="color" id="tpl-edit-accent" style="width: 100%; height: 38px; margin-top: 5px; border-radius: 8px; border: 1px solid var(--glass-border); cursor: pointer; background: transparent;">
+        </div>
+      </div>
+      <div style="font-size: 11px; color: var(--text-dim); line-height: 1.4;">
+        <i>Tip: Your personal drawings on the top artwork layer are safely preserved when you update template text!</i>
+      </div>
+      <div style="display: flex; justify-content: flex-end; gap: 8px; margin-top: 6px;">
+        <button class="btn" style="height: 34px; padding: 0 16px;" onclick="closeTemplateEditorModal()">Cancel</button>
+        <button class="btn btn-primary" style="height: 34px; padding: 0 20px; font-weight: 700;" onclick="saveTemplateEditorChanges()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          <span>Apply to Canvas</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CANVA & CLOUD API CONNECTORS MODAL -->
+<div id="cloud-api-modal" class="modal-backdrop" style="display: none;" onclick="if(event.target === this) closeCloudApiModal()">
+  <div class="modal-card glass-panel" style="width: 520px; max-width: calc(100vw - 24px);">
+    <div class="modal-header">
+      <div class="modal-title" style="display: flex; align-items: center; gap: 8px;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00c4cc" stroke-width="2.2"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg>
+        <span>Canva & Cloud API Connectors</span>
+      </div>
+      <button class="mini-icon-btn" onclick="closeCloudApiModal()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="modal-body" style="padding: 18px; display: flex; flex-direction: column; gap: 14px; max-height: 75vh; overflow-y: auto;">
+      <div style="background: rgba(0, 196, 204, 0.08); border: 1px solid rgba(0, 196, 204, 0.25); border-radius: 12px; padding: 12px; display: flex; align-items: center; justify-content: space-between;">
+        <div>
+          <div style="font-size: 13px; font-weight: 800; color: #00c4cc;">Canva Connect & Universal Cloud Sync</div>
+          <div style="font-size: 11px; color: var(--text-dim); margin-top: 2px;">Enter your API keys or use the included Cloud Demo Access to unlock live editable templates.</div>
+        </div>
+        <span id="canva-api-status-badge" style="font-size: 10px; font-weight: 800; padding: 3px 8px; border-radius: 9999px; background: rgba(16, 185, 129, 0.2); color: #34d399; white-space: nowrap;">READY</span>
+      </div>
+
+      <!-- Canva Connect API Key -->
+      <div>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+          <label style="font-size: 11px; font-weight: 700; color: #fff; text-transform: uppercase;">Canva Connect API Key / Token</label>
+          <button type="button" class="btn btn-secondary" onclick="fillDemoCanvaApiKey()" style="height: 22px; font-size: 9px; padding: 0 8px; border-radius: 9999px; color: #00c4cc; border-color: rgba(0, 196, 204, 0.4);">
+            Use Demo Key
+          </button>
+        </div>
+        <input type="password" id="api-key-canva" class="coach-input-box" style="height: 38px; color: #fff; padding: 0 10px; width: 100%; font-family: monospace; font-size: 12px;" placeholder="cnv_live_sec_... or Canva Developer Access Token">
+        <div style="font-size: 10px; color: var(--text-dim); margin-top: 3px;">Supports Canva Connect REST API v1 tokens for real-time brand kits and layouts.</div>
+      </div>
+
+      <!-- Unsplash / Pexels Stock API Key -->
+      <div>
+        <label style="font-size: 11px; font-weight: 700; color: #fff; text-transform: uppercase;">Unsplash / Pexels Stock Photos API Key</label>
+        <input type="password" id="api-key-unsplash" class="coach-input-box" style="height: 38px; color: #fff; padding: 0 10px; width: 100%; font-family: monospace; font-size: 12px; margin-top: 4px;" placeholder="Client-ID ... for high-res royalty-free mockups">
+      </div>
+
+      <!-- Pinterest & Google Creative Cloud API Key -->
+      <div>
+        <label style="font-size: 11px; font-weight: 700; color: #fff; text-transform: uppercase;">Pinterest & Google Creative Cloud API Key</label>
+        <input type="password" id="api-key-pinterest" class="coach-input-box" style="height: 38px; color: #fff; padding: 0 10px; width: 100%; font-family: monospace; font-size: 12px; margin-top: 4px;" placeholder="AI Studio / Pinterest Developer token">
+      </div>
+
+      <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 10px; padding: 10px; font-size: 11px; color: var(--text-dim); line-height: 1.4;">
+        Keys are stored securely in your local browser sandbox (<code style="color: #a78bfa;">localStorage</code>). Tapping "Save & Sync Cloud Templates" immediately downloads and instantiates full multi-layer vector and raster editable Canva templates directly into your catalog!
+      </div>
+
+      <div style="display: flex; justify-content: flex-end; gap: 8px; margin-top: 6px;">
+        <button class="btn" style="height: 36px; padding: 0 16px;" onclick="closeCloudApiModal()">Cancel</button>
+        <button class="btn btn-primary" style="height: 36px; padding: 0 20px; font-weight: 700; background: linear-gradient(135deg, #00c4cc, #7d2ae8); border: none; box-shadow: 0 4px 14px rgba(0, 196, 204, 0.4);" onclick="saveAndSyncCloudTemplates()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          <span>Save & Sync Cloud Templates</span>
         </button>
       </div>
     </div>
@@ -5003,7 +5622,7 @@
 
       <!-- App Info -->
       <div style="padding: 12px; background: rgba(0, 0, 0, 0.35); border-radius: 12px; font-size: 11px; color: var(--text-muted); display: flex; flex-direction: column; gap: 4px; border: 1px solid var(--glass-border);">
-        <div style="font-weight: 700; color: #fff;">AetherStudio Elite • v1.0.1</div>
+        <div style="font-weight: 700; color: #fff;">Graphenx • v1.0.1</div>
         <div>100% Offline Client • Zero Firebase Account Required</div>
         <div style="color: var(--text-dim);">Multi-platform: Android APK, iOS Safari PWA & Windows Desktop App</div>
       </div>
@@ -5045,16 +5664,16 @@
         <label style="font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Backdrop Replacement</label>
         <div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center;">
           <button class="preset-chip-btn active" id="bg-chip-transparent" onclick="setAiResultBackdrop('transparent')">
-            <span>🏁 Transparent</span>
+            <span>Transparent</span>
           </button>
           <button class="preset-chip-btn" id="bg-chip-white" onclick="setAiResultBackdrop('#ffffff')">
-            <span>⚪ Clean White</span>
+            <span>Clean White</span>
           </button>
           <button class="preset-chip-btn" id="bg-chip-gradient" onclick="setAiResultBackdrop('gradient')">
-            <span>🌈 Studio Gradient</span>
+            <span>Studio Gradient</span>
           </button>
           <button class="preset-chip-btn" id="bg-chip-dark" onclick="setAiResultBackdrop('#0a0b10')">
-            <span>🌑 Dark Studio</span>
+            <span>Dark Studio</span>
           </button>
           <input type="color" id="ai-custom-bg-color" value="#06b6d4" onchange="setAiResultBackdrop(this.value)" style="width: 32px; height: 32px; border-radius: 8px; border: 1px solid var(--glass-border); background: transparent; cursor: pointer;" title="Custom Backdrop Color">
         </div>
@@ -5136,7 +5755,7 @@
         <div class="ai-dropdown-item" onclick="applyLayerBlur()"><span>Gaussian Soft Blur</span></div>
         <div class="ai-dropdown-item" onclick="applyGlowEffect()"><span>Neon Outer Glow</span></div>
         <div class="ai-dropdown-divider"></div>
-        <div class="ai-dropdown-item" onclick="askGeminiBlendRecommendation()"><span>✨ Gemini AI Blend Advisor...</span></div>
+        <div class="ai-dropdown-item" onclick="askGeminiBlendRecommendation()"><span>Gemini AI Blend Advisor...</span></div>
       </div>
     </div>
 
@@ -5173,7 +5792,7 @@
       <div class="ai-dropdown-menu">
         <div class="ai-dropdown-item" onclick="toggleGeminiCoach()"><span>Gemini Vision Mentor</span></div>
         <div class="ai-dropdown-item" onclick="showKeyboardShortcuts()"><span>Keyboard Shortcuts</span></div>
-        <div class="ai-dropdown-item" onclick="showAboutDialog()"><span>About AetherStudio Elite</span></div>
+        <div class="ai-dropdown-item" onclick="showAboutDialog()"><span>About Graphenx</span></div>
       </div>
     </div>
 
@@ -5186,7 +5805,7 @@
         <span>Save & Home</span>
       </button>
       <div class="workspace-mode-badge" onclick="toggleWorkspaceMode()" title="Switch Workspace Layout">
-        <span>📱 Minimal Phone</span>
+        <span>Minimal Phone</span>
       </div>
     </div>
   </nav>
@@ -5284,7 +5903,7 @@
         </svg>
       </div>
       <div class="pod-title-pill">
-        <span id="active-project-title-header">AetherStudio Elite</span>
+        <span id="active-project-title-header">Graphenx</span>
         <div class="pod-save-indicator" onclick="event.stopPropagation(); triggerManualAutoSave()" title="Auto-saved to device storage. Click to save now.">
           <span class="pod-save-dot"></span>
           <span>SAVED</span>
@@ -5343,9 +5962,43 @@
 
     <!-- Right Control Pod Section -->
     <div class="pod-controls-group">
+      <!-- Universal Save Icon Across All Engines -->
+      <button id="pod-universal-save-btn" class="pod-icon-btn pod-universal-save" onclick="executeUniversalSave()" title="Universal Save to Graphenx Vault">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
+          <polyline points="17 21 17 13 7 13 7 21"/>
+          <polyline points="7 3 7 8 15 8"/>
+        </svg>
+      </button>
+
+      <!-- Always-Visible Templates Hub Quick Launcher -->
+      <button id="pod-templates-btn" class="pod-pill-btn" onclick="openTemplatesQuickModal()" title="Browse & Apply Templates (Canva, PhotoRoom, Pinterest, Google)" style="background: rgba(0, 196, 204, 0.15); border: 1px solid rgba(0, 196, 204, 0.4); color: #00c4cc;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+        <span>Templates</span>
+      </button>
+
+      <!-- Top-Right Engine Selector (Graphic Design vs Drawing & Animation) -->
+      <div id="studio-mode-switcher-group" class="engine-switcher-container">
+        <div class="engine-mode-tabs">
+          <button id="mode-tab-design" class="engine-mode-pill active" onclick="switchStudioMode('design')">
+            <span>Graphic Design</span>
+          </button>
+          <button id="mode-tab-drawing" class="engine-mode-pill" onclick="switchStudioMode('drawing')">
+            <span>Drawing & Animation</span>
+          </button>
+        </div>
+
+        <div class="engine-menu-wrapper" style="position: relative;">
+          <button id="engine-overflow-btn" class="pod-icon-btn" onclick="toggleEngineMenu(event)" title="Select Engine Workspace">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="1.5"/><circle cx="19" cy="12" r="1.5"/><circle cx="5" cy="12" r="1.5"/></svg>
+          </button>
+          <div id="engine-dropdown-menu" class="engine-dropdown-menu glass-panel" style="display: none;"></div>
+        </div>
+      </div>
+
       <button id="btn-top-analyze-canvas" class="pod-pill-btn pod-btn-ai" onclick="analyzeCanvasArtisticVision()" title="Analyze Canvas with Gemini Vision (Composition, Lighting, Color Theory)">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/><path d="M12 2a10 10 0 0 1 10 10"/></svg>
-        <span>Analyze Canvas</span>
+        <span>Analyze</span>
       </button>
 
       <button class="pod-pill-btn pod-btn-publish" onclick="openPublishingModal()" title="Export SVG, PSD Layers, TIFF 300DPI, PNG, JPG">
@@ -5461,13 +6114,23 @@
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#06b6d4" stroke-width="2.2"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
         <span style="color: #06b6d4;">AI Pro</span>
       </button>
+
+      <button class="canva-rail-btn" id="canva-btn-edit-tpl" onclick="openTemplateEditorModal()" title="Edit Template Text, Badges & Colors (Canva Style)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+        <span>Edit Tpl</span>
+      </button>
+
+      <button class="canva-rail-btn" id="canva-btn-cloud-api" onclick="openCloudApiModal()" title="Canva & Cloud API Connectors">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00c4cc" stroke-width="2.2"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg>
+        <span style="color: #00c4cc;">API Keys</span>
+      </button>
     </div>
 
     <!-- Canva / CapCut Flyout Drawer Panel -->
     <div id="canva-tool-flyout" class="canva-tool-flyout">
       <div class="canva-flyout-header">
         <div id="canva-flyout-title" class="canva-flyout-title">
-          <span>🎨 Elements & Shapes</span>
+          <span>Elements & Shapes</span>
         </div>
         <button class="mini-icon-btn" onclick="closeCanvaFlyout()">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -5530,7 +6193,7 @@
     <div id="ibis-color-studio">
       <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 8px;">
         <div style="display: flex; align-items: center; gap: 8px;">
-          <span style="font-size: 16px;">🎨</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/></svg>
           <span style="font-size: 13px; font-weight: 800; color: #fff;">Ibis Color Studio</span>
         </div>
         <button class="mini-icon-btn" onclick="toggleIbisColorStudio()" title="Close">
@@ -5639,6 +6302,34 @@
         <!-- Rendered layers are dynamically stacked here -->
         <canvas id="drawing-canvas"></canvas>
         <canvas id="overlay-canvas"></canvas>
+
+        <!-- Interactive Canva-Style On-Canvas Selection & Live Transform Overlay -->
+        <div id="canva-selection-overlay" ondblclick="promptEditSelectedCanvaElement(event)" style="display: none; position: absolute; pointer-events: auto; border: 2.5px solid #00c4cc; box-shadow: 0 0 0 1px rgba(0,0,0,0.6), 0 0 16px rgba(0, 196, 204, 0.6); border-radius: 4px; z-index: 50; cursor: move; touch-action: none;">
+          <!-- 4 Corner Drag Handles -->
+          <div class="canva-handle" style="position: absolute; top: -6px; left: -6px; width: 12px; height: 12px; background: #fff; border: 2px solid #00c4cc; border-radius: 3px; cursor: nwse-resize;"></div>
+          <div class="canva-handle" style="position: absolute; top: -6px; right: -6px; width: 12px; height: 12px; background: #fff; border: 2px solid #00c4cc; border-radius: 3px; cursor: nesw-resize;"></div>
+          <div class="canva-handle" style="position: absolute; bottom: -6px; left: -6px; width: 12px; height: 12px; background: #fff; border: 2px solid #00c4cc; border-radius: 3px; cursor: nesw-resize;"></div>
+          <div class="canva-handle" style="position: absolute; bottom: -6px; right: -6px; width: 12px; height: 12px; background: #fff; border: 2px solid #00c4cc; border-radius: 3px; cursor: nwse-resize;"></div>
+
+          <!-- Canva Floating Mini Action Bar -->
+          <div id="canva-element-toolbar" style="position: absolute; top: -48px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 5px; background: #13141f; border: 1px solid rgba(0, 196, 204, 0.4); padding: 4px 8px; border-radius: 9999px; box-shadow: 0 8px 24px rgba(0,0,0,0.7); white-space: nowrap; z-index: 60; pointer-events: auto;">
+            <button type="button" class="btn" style="height: 26px; padding: 0 10px; font-size: 11px; font-weight: 750; background: #00c4cc; color: #000; border: none; border-radius: 9999px;" onclick="promptEditSelectedCanvaElement(event)">
+              Edit
+            </button>
+            <button type="button" class="btn btn-secondary" style="height: 26px; padding: 0 8px; font-size: 11px; border-radius: 9999px;" onclick="changeSelectedElementColor(event)">
+              Color
+            </button>
+            <button type="button" class="btn btn-secondary" style="height: 26px; width: 28px; padding: 0; font-size: 11px; font-weight: 800; border-radius: 9999px;" onclick="adjustSelectedElementFontSize(1.15, event)" title="Increase Font Size">
+              A+
+            </button>
+            <button type="button" class="btn btn-secondary" style="height: 26px; width: 28px; padding: 0; font-size: 11px; font-weight: 800; border-radius: 9999px;" onclick="adjustSelectedElementFontSize(0.85, event)" title="Decrease Font Size">
+              A-
+            </button>
+            <button type="button" class="mini-icon-btn" style="height: 24px; width: 24px; border-radius: 50%;" onclick="deselectCanvaElement(event)" title="Done / Deselect">
+              ✕
+            </button>
+          </div>
+        </div>
       </div>
 
       <!-- Figma-style Collaborative Remote Live Cursors Layer -->
@@ -5694,7 +6385,7 @@
           <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 3px;">
             <span style="font-size: 10px; font-weight: 700; color: var(--text-dim);">Hover to Preview Modes</span>
             <button id="btn-auto-cycle-blend" class="btn" style="height: 20px; font-size: 9px; padding: 0 6px; gap: 3px;" onclick="toggleAutoBlendCycling()">
-              <span>▶ Auto Cycle</span>
+              <span>Auto Cycle</span>
             </button>
           </div>
           <div class="blend-quick-strip" id="layer-blend-quick-strip">
@@ -5716,7 +6407,7 @@
         <!-- Gemini AI Blend Advisor Trigger -->
         <button class="btn btn-ai" style="height: 26px; width: 100%; font-size: 10px; margin-top: 6px; padding: 0 8px; justify-content: center;" onclick="askGeminiBlendRecommendation()">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
-          <span>✨ Ask Gemini: Suggest Blend Mode</span>
+          <span>Ask Gemini: Suggest Blend Mode</span>
         </button>
 
         <!-- Layer Independent Opacity Slider -->
@@ -5856,7 +6547,7 @@
           <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 4px;">
             <span style="font-size: 11px; color: #94a3b8;">Blending Mode:</span>
             <button class="btn" style="height: 20px; font-size: 9px; padding: 0 6px;" onclick="toggleAutoBlendCycling()">
-              <span>▶ Auto Cycle</span>
+              <span>Auto Cycle</span>
             </button>
           </div>
           <select id="ai-prop-blend-select" class="ai-control-select" style="width: 100%; height: 28px;" onchange="changeLayerBlendMode(this.value)" onmouseenter="startActiveLayerBlendCycle()" onmouseleave="stopActiveLayerBlendCycle()">
@@ -5891,7 +6582,7 @@
           <!-- AI Blend Advisor Button -->
           <button class="btn btn-ai" style="height: 28px; width: 100%; font-size: 11px; margin-top: 4px; justify-content: center;" onclick="askGeminiBlendRecommendation()">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
-            <span>✨ Gemini AI Blend Advisor</span>
+            <span>Gemini AI Blend Advisor</span>
           </button>
         </div>
 
@@ -6006,7 +6697,7 @@
   </div>
 
   <!-- Keyframe Timeline Engine (Locked at Base of Viewport) -->
-  <footer id="timeline-panel" class="glass-panel">
+  <footer id="timeline-panel" class="glass-panel" data-timeline="animation-timeline" style="display: none;">
     <div class="timeline-header">
       <div class="timeline-title-group">
         <span class="sidebar-title" style="color: var(--primary);">
@@ -6046,11 +6737,102 @@
           <span>Clone</span>
         </button>
 
+        <button class="btn" style="height: 28px; padding: 0 8px; font-size: 11px; color: #a78bfa; border-color: rgba(167, 139, 250, 0.4);" onclick="applyOpacityFadeAcrossAllFrames()" title="Interpolate layer opacity linearly across all frames">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          <span>Linear Opacity Fade</span>
+        </button>
+
         <button class="btn" style="height: 28px; padding: 0 8px; font-size: 11px;" onclick="deleteActiveKeyframe()" title="Delete Frame">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/></svg>
         </button>
       </div>
     </div>
+
+    <!-- Active Filmstrip of Keyframes with Opacity Fade Transition Badges -->
+    <div id="timeline-frames-track" class="timeline-frames-track"></div>
+  </footer>
+
+  
+<!-- PROCREATE FLOATING DUAL SLIDERS DOCK (Size & Opacity Gestures) -->
+<div id="procreate-floating-sliders" class="procreate-dock" style="display: none;">
+  <div class="procreate-slider-card">
+    <div class="procreate-slider-track">
+      <input type="range" id="procreate-size-slider" min="1" max="150" value="8" orient="vertical" oninput="setProcreateBrushSize(this.value)">
+    </div>
+    <span class="procreate-slider-label">SIZE</span>
+  </div>
+  <div class="procreate-slider-card">
+    <div class="procreate-slider-track">
+      <input type="range" id="procreate-opacity-slider" min="1" max="100" value="100" orient="vertical" oninput="setProcreateBrushOpacity(this.value)">
+    </div>
+    <span class="procreate-slider-label">OPACITY</span>
+  </div>
+</div>
+
+<!-- FIGMA PROPERTIES & VECTOR INSPECTOR DOCK -->
+<div id="figma-properties-panel" class="figma-panel glass-panel" style="display: none;">
+  <div class="figma-panel-header">
+    <div style="display: flex; align-items: center; gap: 6px;">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#a259ff" stroke-width="2"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="9" rx="1"/><rect x="3" y="12" width="7" height="9" rx="1"/><circle cx="17.5" cy="16.5" r="3.5"/></svg>
+      <span style="font-size: 11px; font-weight: 800; color: #fff;">Figma Inspector</span>
+    </div>
+    <button class="mini-icon-btn" onclick="document.getElementById('figma-properties-panel').style.display='none'">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+  <div style="padding: 10px; display: flex; flex-direction: column; gap: 8px;">
+    <div style="font-size: 10px; font-weight: 700; color: var(--text-dim); text-transform: uppercase;">Vector & Layout Props</div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px;">
+      <div class="figma-prop-chip"><span>W</span> <input type="number" id="figma-w-input" value="1080" onchange="resizeActiveCanvas(this.value, document.getElementById('figma-h-input').value)"></div>
+      <div class="figma-prop-chip"><span>H</span> <input type="number" id="figma-h-input" value="1080" onchange="resizeActiveCanvas(document.getElementById('figma-w-input').value, this.value)"></div>
+    </div>
+    <div style="display: flex; gap: 6px; margin-top: 4px;">
+      <button class="btn btn-secondary" style="flex: 1; height: 26px; font-size: 10px;" onclick="setIbisPaintTool('pen')">Pen (P)</button>
+      <button class="btn btn-secondary" style="flex: 1; height: 26px; font-size: 10px;" onclick="setIbisPaintTool('lasso')">Vector Select</button>
+    </div>
+  </div>
+</div>
+
+<!-- UNIVERSAL TEMPLATES PICKER MODAL (Guaranteed 100% Accessible Anywhere) -->
+<div id="templates-picker-modal" class="modal-backdrop" style="display: none;" onclick="if(event.target === this) closeTemplatesQuickModal()">
+  <div class="modal-card glass-panel" style="width: 780px; max-width: calc(100vw - 24px); max-height: 85vh; display: flex; flex-direction: column;">
+    <div class="modal-header">
+      <div class="modal-title" style="display: flex; align-items: center; gap: 8px;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00c4cc" stroke-width="2.2"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+        <span>Graphenx Templates Catalog</span>
+      </div>
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <button class="btn btn-secondary" onclick="openCloudApiModal(); closeTemplatesQuickModal();" style="height: 28px; font-size: 10px; color: #00c4cc; border-color: rgba(0, 196, 204, 0.4);">
+          API Connectors
+        </button>
+        <button class="mini-icon-btn" onclick="closeTemplatesQuickModal()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div style="padding: 12px 18px 0 18px; display: flex; flex-direction: column; gap: 10px;">
+      <div class="home-search-box" style="width: 100%;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--text-dim)" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        <input type="text" id="quick-templates-search-input" placeholder="Search Canva, PhotoRoom, Pinterest, Google templates..." oninput="filterQuickTemplatesSearch(this.value)">
+      </div>
+
+      <div class="category-chips-bar" style="margin-bottom: 4px;">
+        <button class="category-pill-chip active" id="quick-chip-all" onclick="filterQuickTemplatesCat('all')">All Templates</button>
+        <button class="category-pill-chip" id="quick-chip-canva" onclick="filterQuickTemplatesCat('canva')">Canva</button>
+        <button class="category-pill-chip" id="quick-chip-photoroom" onclick="filterQuickTemplatesCat('photoroom')">PhotoRoom</button>
+        <button class="category-pill-chip" id="quick-chip-pinterest" onclick="filterQuickTemplatesCat('pinterest')">Pinterest</button>
+        <button class="category-pill-chip" id="quick-chip-google" onclick="filterQuickTemplatesCat('google')">Google Ads</button>
+        <button class="category-pill-chip" id="quick-chip-marketplace" onclick="filterQuickTemplatesCat('marketplace')">E-Commerce</button>
+        <button class="category-pill-chip" id="quick-chip-social" onclick="filterQuickTemplatesCat('social')">Social & Stories</button>
+      </div>
+    </div>
+
+    <div id="quick-templates-grid" class="templates-grid" style="padding: 14px 18px; overflow-y: auto; flex: 1;">
+      <!-- Populated dynamically -->
+    </div>
+  </div>
+</div>
 
   <!-- Floating Brush Properties Panel -->
   <div id="brush-properties-panel" class="glass-panel" style="display: none;">
@@ -6593,7 +7375,7 @@
       <div style="display: flex; align-items: center; gap: 8px;">
         <span style="font-size: 14px; font-weight: 700; color: #fff;">Layers & Blends</span>
         <button class="btn" style="height: 22px; font-size: 10px; padding: 0 6px;" onclick="toggleAutoBlendCycling()">
-          <span>▶ Cycle Blends</span>
+          <span>Cycle Blends</span>
         </button>
       </div>
       <div style="display: flex; gap: 6px;">
@@ -6623,7 +7405,7 @@
   <div id="ai-blend-modal" class="ai-blend-modal hidden">
     <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
       <div style="display: flex; align-items: center; gap: 8px;">
-        <span style="font-size: 18px;">✨</span>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
         <span style="font-size: 14px; font-weight: 700; color: #fff;">Gemini AI Blend Mode Advisor</span>
       </div>
       <button class="mini-icon-btn" onclick="closeAIBlendModal()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
@@ -6644,7 +7426,7 @@
       <button class="mini-icon-btn" onclick="closeGeminiApiKeyModal()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
     </div>
     <p style="font-size: 12px; color: #94a3b8; line-height: 1.5; margin-bottom: 12px;">
-      AetherStudio connects with Gemini 2.5 Flash for vision diagnostics and artistic blend mode recommendations. Enter your Gemini API key below or use the AI Studio Secrets panel.
+      Graphenx connects with Gemini 2.5 Flash for vision diagnostics and artistic blend mode recommendations. Enter your Gemini API key below or use the AI Studio Secrets panel.
     </p>
     <div style="display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px;">
       <label style="font-size: 11px; font-weight: 700; color: #cbd5e1;">GEMINI API KEY</label>
@@ -6723,13 +7505,13 @@
       <div style="font-size: 10px; font-weight: 700; color: #cbd5e1; text-transform: uppercase; margin-bottom: 8px; letter-spacing: 0.5px;">Quick Professional Format Presets</div>
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 8px;">
         <button class="btn" style="height: 32px; font-size: 11px; justify-content: center; gap: 6px;" onclick="exportSVGDirect()">
-          <span>📐 Export SVG</span>
+          <span>Export SVG</span>
         </button>
         <button class="btn" style="height: 32px; font-size: 11px; justify-content: center; gap: 6px;" onclick="exportPSDDirect()">
-          <span>🎨 Export PSD</span>
+          <span>Export PSD</span>
         </button>
         <button class="btn" style="height: 32px; font-size: 11px; justify-content: center; gap: 6px;" onclick="exportTIFFDirect()">
-          <span>🖨️ Export TIFF 300DPI</span>
+          <span>Export TIFF 300DPI</span>
         </button>
       </div>
     </div>
@@ -6760,10 +7542,10 @@
 <script>
 // Global Error & Promise Rejection Boundaries
 window.addEventListener('error', function(event) {
-  console.warn('[AetherStudio Error Guard]', event.message, 'at', event.filename + ':' + event.lineno);
+  console.warn('[Graphenx Error Guard]', event.message, 'at', event.filename + ':' + event.lineno);
 });
 window.addEventListener('unhandledrejection', function(event) {
-  console.warn('[AetherStudio Rejection Guard]', event.reason);
+  console.warn('[Graphenx Rejection Guard]', event.reason);
 });
 
 /**
@@ -6878,7 +7660,16 @@ const appState = {
   // Lasso Selection
   lassoPoints: [],
   lassoActive: false,
-  lassoSelectedCanvas: null
+  lassoSelectedCanvas: null,
+
+  // Interactive Canva Template Selection & Drag
+  templateElements: [],
+  selectedTemplateElement: null,
+  isDraggingCanvaElement: false,
+  canvaDragStartX: 0,
+  canvaDragStartY: 0,
+  canvaElemOrigX: 0,
+  canvaElemOrigY: 0
 };
 
 // Global Utilities
@@ -6912,6 +7703,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
     // Initialize User Profile & Account Authentication
     initUserProfileState();
+    initCloudApiKeys();
 
     // Create initial demo artwork
     createInitialProjectState();
@@ -6955,15 +7747,41 @@ function initEngine() {
 function fitCanvasToViewport() {
   const vp = document.getElementById('canvas-viewport');
   if (!vp || !canvasStage) return;
-  const vpWidth = (vp.clientWidth > 0 ? vp.clientWidth : window.innerWidth) - 40;
-  const vpHeight = (vp.clientHeight > 0 ? vp.clientHeight : window.innerHeight) - 40;
-  if (vpWidth <= 0 || vpHeight <= 0) return;
-  
-  const scaleX = vpWidth / CANVAS_WIDTH;
-  const scaleY = vpHeight / CANVAS_HEIGHT;
-  appState.zoom = Math.min(scaleX, scaleY, 1.0);
-  if (appState.zoom < 0.25) appState.zoom = 0.25;
-  
+  const vw = (vp.clientWidth > 0 ? vp.clientWidth : window.innerWidth);
+  const vh = (vp.clientHeight > 0 ? vp.clientHeight : window.innerHeight);
+  if (vw <= 0 || vh <= 0) return;
+
+  const isLandscape = CANVAS_WIDTH >= CANVAS_HEIGHT;
+
+  if (isLandscape) {
+    // Landscape / Horizontal: Cover the screen edge-to-edge with the canvas
+    const scaleCover = Math.max(vw / CANVAS_WIDTH, vh / CANVAS_HEIGHT);
+    const scaleFit = Math.min(vw / CANVAS_WIDTH, vh / CANVAS_HEIGHT);
+    // Fill screen seamlessly
+    appState.zoom = Math.max(scaleFit, Math.min(scaleCover, 3.5));
+    appState.panX = 0;
+    appState.panY = 0;
+  } else {
+    // Vertical / Portrait: Don't make the canvas touch the controls and tools!
+    // Clearances so the canvas never touches the top floating pod, bottom dock, or left tools
+    const topSafe = 88;
+    const bottomSafe = 88;
+    const leftSafe = 76;
+    const rightSafe = 18;
+
+    const safeW = Math.max(120, vw - leftSafe - rightSafe);
+    const safeH = Math.max(120, vh - topSafe - bottomSafe);
+
+    const scaleX = safeW / CANVAS_WIDTH;
+    const scaleY = safeH / CANVAS_HEIGHT;
+    appState.zoom = Math.min(scaleX, scaleY);
+    if (appState.zoom < 0.15) appState.zoom = 0.15;
+
+    // Center canvas in the safe zone away from all buttons and controls
+    appState.panX = Math.round((leftSafe - rightSafe) / 2);
+    appState.panY = Math.round((topSafe - bottomSafe) / 2);
+  }
+
   applyCanvasTransform();
 }
 
@@ -6980,8 +7798,6 @@ function adjustZoom(delta) {
 }
 
 function resetCanvasTransform() {
-  appState.panX = 0;
-  appState.panY = 0;
   fitCanvasToViewport();
 }
 
@@ -7095,7 +7911,7 @@ function drawWelcomeArtwork(ctx) {
   ctx.fillStyle = '#ffffff';
   ctx.font = 'bold 36px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
   ctx.textAlign = 'center';
-  ctx.fillText('AetherStudio Elite', CANVAS_WIDTH/2, CANVAS_HEIGHT/2 + 10);
+  ctx.fillText('Graphenx', CANVAS_WIDTH/2, CANVAS_HEIGHT/2 + 10);
 
   ctx.fillStyle = '#94a3b8';
   ctx.font = '500 16px -apple-system, sans-serif';
@@ -8071,14 +8887,83 @@ function setStabilization(val) {
   showToast(`Stabilizer Level ${val}`);
 }
 
+let isTwoFingerGesturing = false;
+let initialPinchDistance = 0;
+let initialPinchZoom = 1.0;
+let initialPinchCenter = { x: 0, y: 0 };
+let initialPanOffset = { x: 0, y: 0 };
+
 function setupTouchAndMouseHandling() {
   const vp = document.getElementById('canvas-viewport');
+  if (!vp) return;
+
+  // Two-Finger Pinch Zoom and Pan on Touchscreens
+  vp.addEventListener('touchstart', (e) => {
+    if (e.touches && e.touches.length >= 2) {
+      e.preventDefault();
+      isTwoFingerGesturing = true;
+      appState.isDrawing = false;
+      if (overlayCtx) overlayCtx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+
+      const t1 = e.touches[0];
+      const t2 = e.touches[1];
+      initialPinchDistance = Math.hypot(t2.clientX - t1.clientX, t2.clientY - t1.clientY);
+      initialPinchZoom = appState.zoom;
+      initialPinchCenter = {
+        x: (t1.clientX + t2.clientX) / 2,
+        y: (t1.clientY + t2.clientY) / 2
+      };
+      initialPanOffset = { x: appState.panX, y: appState.panY };
+    }
+  }, { passive: false });
+
+  vp.addEventListener('touchmove', (e) => {
+    if (isTwoFingerGesturing && e.touches && e.touches.length >= 2) {
+      e.preventDefault();
+      const t1 = e.touches[0];
+      const t2 = e.touches[1];
+      const currentDist = Math.hypot(t2.clientX - t1.clientX, t2.clientY - t1.clientY);
+      if (initialPinchDistance > 10) {
+        const pinchRatio = currentDist / initialPinchDistance;
+        appState.zoom = Math.max(0.15, Math.min(6.0, initialPinchZoom * pinchRatio));
+
+        const currentCenter = {
+          x: (t1.clientX + t2.clientX) / 2,
+          y: (t1.clientY + t2.clientY) / 2
+        };
+        appState.panX = initialPanOffset.x + (currentCenter.x - initialPinchCenter.x);
+        appState.panY = initialPanOffset.y + (currentCenter.y - initialPinchCenter.y);
+        applyCanvasTransform();
+      }
+    }
+  }, { passive: false });
+
+  const endPinchGesture = (e) => {
+    if (isTwoFingerGesturing && (!e.touches || e.touches.length < 2)) {
+      isTwoFingerGesturing = false;
+      initialPinchDistance = 0;
+    }
+  };
+  vp.addEventListener('touchend', endPinchGesture, { passive: false });
+  vp.addEventListener('touchcancel', endPinchGesture, { passive: false });
 
   // Pointer Events support Stylus, Apple Pencil, Mouse, Touch with zero delay
-  vp.addEventListener('pointerdown', handlePointerDown);
-  window.addEventListener('pointermove', handlePointerMove);
-  window.addEventListener('pointerup', handlePointerUp);
-  window.addEventListener('pointercancel', handlePointerUp);
+  vp.addEventListener('pointerdown', (e) => {
+    if (isTwoFingerGesturing) return;
+    handlePointerDown(e);
+  });
+  window.addEventListener('pointermove', (e) => {
+    if (isTwoFingerGesturing) return;
+    handlePointerMove(e);
+  });
+  window.addEventListener('pointerup', (e) => {
+    if (isTwoFingerGesturing) return;
+    handlePointerUp(e);
+  });
+  window.addEventListener('pointercancel', (e) => {
+    if (isTwoFingerGesturing) return;
+    handlePointerUp(e);
+  });
 
   // Wheel zoom
   vp.addEventListener('wheel', (e) => {
@@ -8174,6 +9059,26 @@ function handlePointerDown(e) {
 
   const coords = getCanvasCoordinates(e);
 
+  // Interactive Canva Template Element Direct Touch/Click Selection & Move
+  if (appState.activeTemplate && appState.templateElements && appState.templateElements.length > 0) {
+    const hitElem = findHitTemplateElement(coords.x, coords.y);
+    if (hitElem) {
+      selectCanvaElement(hitElem);
+      appState.isDraggingCanvaElement = true;
+      appState.canvaDragStartX = coords.x;
+      appState.canvaDragStartY = coords.y;
+      appState.canvaElemOrigX = (hitElem.id === 'headline' ? (appState.activeTemplate.headCustomX !== undefined ? appState.activeTemplate.headCustomX : appState.activeTemplate.width / 2) :
+                               (hitElem.id === 'subtitle' ? (appState.activeTemplate.subCustomX !== undefined ? appState.activeTemplate.subCustomX : appState.activeTemplate.width / 2) :
+                               (appState.activeTemplate.badgeCustomX !== undefined ? appState.activeTemplate.badgeCustomX : hitElem.x)));
+      appState.canvaElemOrigY = (hitElem.id === 'headline' ? (appState.activeTemplate.headCustomY !== undefined ? appState.activeTemplate.headCustomY : (hitElem.y + hitElem.height / 2)) :
+                               (hitElem.id === 'subtitle' ? (appState.activeTemplate.subCustomY !== undefined ? appState.activeTemplate.subCustomY : (hitElem.y + hitElem.height / 2)) :
+                               (appState.activeTemplate.badgeCustomY !== undefined ? appState.activeTemplate.badgeCustomY : hitElem.y)));
+      return;
+    } else if (appState.selectedTemplateElement && (appState.currentTool === 'select' || appState.currentTool === 'text')) {
+      deselectCanvaElement();
+    }
+  }
+
   if (appState.currentTool === 'fill') {
     executeFloodFill(Math.round(coords.x), Math.round(coords.y));
     return;
@@ -8242,6 +9147,26 @@ function handlePointerMove(e) {
 
   const coords = getCanvasCoordinates(e);
 
+  // Live Dragging of Selected Canva Element
+  if (appState.isDraggingCanvaElement && appState.selectedTemplateElement && appState.activeTemplate) {
+    const dx = coords.x - appState.canvaDragStartX;
+    const dy = coords.y - appState.canvaDragStartY;
+    const targetX = Math.round(appState.canvaElemOrigX + dx);
+    const targetY = Math.round(appState.canvaElemOrigY + dy);
+    if (appState.selectedTemplateElement.id === 'headline') {
+      appState.activeTemplate.headCustomX = targetX;
+      appState.activeTemplate.headCustomY = targetY;
+    } else if (appState.selectedTemplateElement.id === 'subtitle') {
+      appState.activeTemplate.subCustomX = targetX;
+      appState.activeTemplate.subCustomY = targetY;
+    } else if (appState.selectedTemplateElement.id === 'badge') {
+      appState.activeTemplate.badgeCustomX = targetX;
+      appState.activeTemplate.badgeCustomY = targetY;
+    }
+    redrawActiveTemplateLayers();
+    return;
+  }
+
   if (appState.lassoActive) {
     appState.lassoPoints.push({ x: coords.x, y: coords.y });
     drawLassoOverlay();
@@ -8288,6 +9213,12 @@ function handlePointerMove(e) {
 }
 
 function handlePointerUp(e) {
+  if (appState.isDraggingCanvaElement) {
+    appState.isDraggingCanvaElement = false;
+    saveHistoryState();
+    return;
+  }
+
   if (appState.isPanning) {
     appState.isPanning = false;
     return;
@@ -8609,7 +9540,7 @@ function startEyedropperFromPalette() {
 function exportPalettesJSON() {
   const active = getActivePalette();
   const exportPayload = {
-    app: "AetherStudio Elite",
+    app: "Graphenx",
     version: "2.5",
     exportedAt: new Date().toISOString(),
     activePalette: active ? active.name : "All",
@@ -10000,13 +10931,21 @@ function roundRect(ctx, x, y, width, height, radius) {
  * KEYFRAME TIMELINE ENGINE (Addable Animations & Onion Skin)
  * -------------------------------------------------------------
  */
+/**
+ * -------------------------------------------------------------
+ * ANIMATION TIMELINE WITH OPACITY FADE TRANSITIONS
+ * -------------------------------------------------------------
+ */
 function renderTimelineFilmstrip() {
   const container = document.getElementById('timeline-frames-track');
+  if (!container) return;
   container.innerHTML = '';
 
   appState.frames.forEach((frame, idx) => {
+    // 1. Frame thumbnail card
     const card = document.createElement('div');
     card.className = 'frame-card' + (idx === appState.activeFrameIndex ? ' active' : '');
+    card.setAttribute('data-frame-index', idx);
     card.onclick = () => switchToKeyframe(idx);
 
     const num = document.createElement('span');
@@ -10019,7 +10958,7 @@ function renderTimelineFilmstrip() {
     thumbC.width = 64;
     thumbC.height = 36;
     const tCtx = thumbC.getContext('2d');
-    
+
     // Composite snapshot of this frame
     frame.layers.forEach(l => {
       const parentGroup = l.groupId && frame.groups ? frame.groups.find(g => g.id === l.groupId) : null;
@@ -10029,14 +10968,151 @@ function renderTimelineFilmstrip() {
         tCtx.drawImage(l.canvas, 0, 0, 64, 36);
       }
     });
-    thumbView.appendChild(thumbC);
 
+    thumbView.appendChild(thumbC);
     card.appendChild(num);
     card.appendChild(thumbView);
     container.appendChild(card);
+
+    // 2. Opacity Fade Transition badge connector between consecutive keyframes
+    if (idx < appState.frames.length - 1) {
+      const isFade = !!frame.fadeTransition;
+      const badge = document.createElement('div');
+      badge.className = 'timeline-transition-badge' + (isFade ? ' active-fade' : '');
+      badge.setAttribute('data-transition-index', idx);
+      badge.title = isFade
+        ? `Linear Opacity Fade ON (F${idx + 1} to F${idx + 2}) - Click to switch to Cut`
+        : `Direct Cut (F${idx + 1} to F${idx + 2}) - Click to enable Opacity Fade`;
+      badge.onclick = (e) => {
+        e.stopPropagation();
+        toggleKeyframeFadeTransition(idx);
+      };
+      badge.innerHTML = `
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
+        <span>${isFade ? 'Fade' : 'Cut'}</span>
+      `;
+      container.appendChild(badge);
+    }
   });
 
-  document.getElementById('active-frame-counter').textContent = `Frame ${appState.activeFrameIndex + 1} / ${appState.frames.length}`;
+  const counter = document.getElementById('active-frame-counter');
+  if (counter) {
+    counter.textContent = `Frame ${appState.activeFrameIndex + 1} / ${appState.frames.length}`;
+  }
+}
+
+function toggleKeyframeFadeTransition(frameIndex) {
+  if (!appState.frames || !appState.frames[frameIndex]) return;
+  appState.frames[frameIndex].fadeTransition = !appState.frames[frameIndex].fadeTransition;
+  renderTimelineFilmstrip();
+  const isOn = appState.frames[frameIndex].fadeTransition;
+  showToast(`Keyframe F${frameIndex + 1} -> F${frameIndex + 2}: ${isOn ? 'Opacity Fade (Linear Tween) Enabled' : 'Direct Cut Enabled'}`);
+}
+
+function applyOpacityFadeAcrossAllFrames() {
+  if (!appState.frames || appState.frames.length <= 1) {
+    showToast("Need multiple keyframes to toggle transitions");
+    return;
+  }
+  const allOn = appState.frames.slice(0, -1).every(f => f.fadeTransition);
+  const target = !allOn;
+  appState.frames.forEach((f, idx) => {
+    if (idx < appState.frames.length - 1) {
+      f.fadeTransition = target;
+    }
+  });
+  renderTimelineFilmstrip();
+  showToast(target ? "Linear Opacity Fade enabled across all keyframes" : "Reset all keyframes to Direct Cut");
+}
+
+function interpolateKeyframeLinearFade(fromIdx, toIdx, progress) {
+  const fromFrame = appState.frames[fromIdx];
+  const toFrame = appState.frames[toIdx];
+  if (!fromFrame || !toFrame) return;
+
+  const activeLayer = getActiveLayer();
+  if (!activeLayer) return;
+
+  if (!window._animFadeA) {
+    window._animFadeA = document.createElement('canvas');
+    window._animFadeA.width = CANVAS_WIDTH;
+    window._animFadeA.height = CANVAS_HEIGHT;
+  }
+  if (!window._animFadeB) {
+    window._animFadeB = document.createElement('canvas');
+    window._animFadeB.width = CANVAS_WIDTH;
+    window._animFadeB.height = CANVAS_HEIGHT;
+  }
+
+  const ctxA = window._animFadeA.getContext('2d');
+  const ctxB = window._animFadeB.getContext('2d');
+  ctxA.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+  ctxB.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+
+  fromFrame.layers.forEach(l => {
+    if (l.visible) {
+      ctxA.globalAlpha = l.opacity;
+      ctxA.drawImage(l.canvas, 0, 0);
+    }
+  });
+
+  toFrame.layers.forEach(l => {
+    if (l.visible) {
+      ctxB.globalAlpha = l.opacity;
+      ctxB.drawImage(l.canvas, 0, 0);
+    }
+  });
+
+  const ctx = activeLayer.ctx;
+  ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+  ctx.globalAlpha = Math.max(0, Math.min(1, 1 - progress));
+  ctx.drawImage(window._animFadeA, 0, 0);
+  ctx.globalAlpha = Math.max(0, Math.min(1, progress));
+  ctx.drawImage(window._animFadeB, 0, 0);
+  ctx.globalAlpha = 1.0;
+}
+
+function bakeLinearOpacityFadeInbetweens(fromIdx, toIdx, steps = 3) {
+  if (fromIdx < 0 || toIdx >= appState.frames.length || fromIdx >= toIdx) return;
+  const frameA = appState.frames[fromIdx];
+  const frameB = appState.frames[toIdx];
+
+  for (let s = 1; s <= steps; s++) {
+    const progress = s / (steps + 1);
+    const newFrame = {
+      id: 'frame_' + Date.now() + '_' + s,
+      layers: [],
+      fadeTransition: true
+    };
+
+    frameA.layers.forEach((lA, layerIdx) => {
+      const lB = frameB.layers[layerIdx] || lA;
+      const interpAlpha = (lA.opacity * (1 - progress)) + (lB.opacity * progress);
+      const c = document.createElement('canvas');
+      c.width = CANVAS_WIDTH;
+      c.height = CANVAS_HEIGHT;
+      const ctx = c.getContext('2d');
+      ctx.globalAlpha = 1 - progress;
+      ctx.drawImage(lA.canvas, 0, 0);
+      ctx.globalAlpha = progress;
+      ctx.drawImage(lB.canvas, 0, 0);
+
+      newFrame.layers.push({
+        id: 'layer_' + Date.now() + '_' + layerIdx,
+        name: lA.name + ` (Fade ${(progress * 100).toFixed(0)}%)`,
+        visible: true,
+        opacity: interpAlpha,
+        blendMode: lA.blendMode || 'source-over',
+        canvas: c,
+        ctx: ctx
+      });
+    });
+
+    appState.frames.splice(fromIdx + s, 0, newFrame);
+  }
+
+  renderTimelineFilmstrip();
+  showToast(`Generated ${steps} linear opacity tween frames between F${fromIdx + 1} and F${toIdx + 1}`);
 }
 
 function switchToKeyframe(index) {
@@ -10841,11 +11917,11 @@ function uint8ToBase64(uint8) {
 }
 
 function generateSVGArtwork() {
-  const title = (appState.activeProjectTitle || "AetherStudio Artwork").replace(/[<>&"']/g, '');
+  const title = (appState.activeProjectTitle || "Graphenx Artwork").replace(/[<>&"']/g, '');
   let svg = `<?xml version="1.0" encoding="UTF-8"?>\n`;
   svg += `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 ${CANVAS_WIDTH} ${CANVAS_HEIGHT}" width="${CANVAS_WIDTH}" height="${CANVAS_HEIGHT}">\n`;
   svg += `  <title>${title}</title>\n`;
-  svg += `  <desc>Exported from AetherStudio Elite Pro Vector Engine</desc>\n`;
+  svg += `  <desc>Exported from Graphenx Pro Vector Engine</desc>\n`;
   svg += `  <defs>\n`;
   svg += `    <style>\n`;
   svg += `      .layer-group { transition: opacity 0.2s ease; }\n`;
@@ -10926,7 +12002,7 @@ function generateTIFFArtwork() {
   view.setUint32(206, 300, true);
   view.setUint32(210, 1, true);
 
-  const software = "AetherStudio Elite Pro 300DPI\0";
+  const software = "Graphenx Pro 300DPI\0";
   for (let i = 0; i < software.length; i++) {
     u8[214 + i] = software.charCodeAt(i);
   }
@@ -11113,7 +12189,7 @@ function generatePSDArtwork() {
 
 function executeActivePublish(action) {
   const meta = FORMAT_METADATA[currentPublishFormat] || FORMAT_METADATA.png;
-  const title = appState.activeProjectTitle || "AetherStudio Artwork";
+  const title = appState.activeProjectTitle || "Graphenx Artwork";
   const cleanTitle = title.replace(/\s+/g, '_');
   const fileName = `${cleanTitle}_${Date.now()}.${meta.ext}`;
 
@@ -11195,7 +12271,7 @@ function executeActivePublish(action) {
         const file = new File([blob], fileName, { type: meta.mime });
         navigator.share({
           title: title,
-          text: `Created with AetherStudio Elite ✨ (${currentPublishFormat.toUpperCase()})`,
+          text: `Created with Graphenx (${currentPublishFormat.toUpperCase()})`,
           files: [file]
         }).catch(() => {});
       } else {
@@ -11392,6 +12468,9 @@ function dismissSplashScreenImmediately() {
   try { renderHomeProjectsGrid(); } catch (e) { console.warn("renderHomeProjectsGrid:", e); }
   try { updateTabCounts(); } catch (e) { console.warn("updateTabCounts:", e); }
   try { checkAutoSaveRecoveryAvailable(); } catch (e) { console.warn("checkAutoSaveRecovery:", e); }
+  try { renderTemplatesGrid('all', ''); } catch (e) { console.warn("renderTemplatesGrid:", e); }
+  try { renderTemplatesPickerGrid('all', ''); } catch (e) { console.warn("renderTemplatesPickerGrid:", e); }
+  try { updateEngineWorkspaceUI(); } catch (e) { console.warn("updateEngineWorkspaceUI:", e); }
 
   if (splash) {
     splash.classList.add('fade-out');
@@ -11425,7 +12504,7 @@ function startSplashScreen() {
     { threshold: 50, text: "Compiling GPU Shader & Blend Pipelines... 50%" },
     { threshold: 75, text: "Loading Palettes & Vector Hub... 75%" },
     { threshold: 95, text: "Mounting Project Galleries... 95%" },
-    { threshold: 100, text: "AetherStudio Elite Ready • 100%" }
+    { threshold: 100, text: "Graphenx Ready • 100%" }
   ];
 
   splashIntervalId = setInterval(() => {
@@ -11481,31 +12560,490 @@ let currentAiBackdropMode = 'transparent';
 let currentTemplateCategory = 'all';
 let currentTemplateSearch = '';
 
-// Pre-configured PhotoRoom & Studio Staging Templates
+// Pre-configured Worldwide Canva, PhotoRoom, Pinterest & Google Smart Editable Templates
 const APP_TEMPLATES = [
-  // Marketplaces
-  { id: 'tpl_amazon', category: 'marketplace', title: 'Amazon White Studio', dim: '2048 × 2048', width: 2048, height: 2048, bg: '#ffffff', textColor: '#111827', tag: 'Amazon FBA', desc: 'Compliant pure white background with subtle grounded shadow.' },
-  { id: 'tpl_shopify', category: 'marketplace', title: 'Shopify Soft Shadow', dim: '1500 × 1500', width: 1500, height: 1500, bg: 'linear-gradient(180deg, #f8fafc 0%, #e2e8f0 100%)', textColor: '#1e293b', tag: 'Shopify Pro', desc: 'Modern neutral gradient with soft bottom floor drop shadow.' },
-  { id: 'tpl_etsy', category: 'marketplace', title: 'Etsy Artisan Wood', dim: '2000 × 1600', width: 2000, height: 1600, bg: 'linear-gradient(135deg, #78350f, #451a03)', textColor: '#fef3c7', tag: 'Handmade', desc: 'Rustic warm walnut wood backdrop for crafts and vintage goods.' },
-  { id: 'tpl_depop', category: 'marketplace', title: 'Depop Fashion Pop', dim: '1080 × 1080', width: 1080, height: 1080, bg: 'linear-gradient(135deg, #ff0055, #ff5500)', textColor: '#ffffff', tag: 'Y2K Street', desc: 'High-contrast fashion backdrop for streetwear and apparel.' },
-  
-  // Social Media
-  { id: 'tpl_ig_story', category: 'social', title: 'Instagram Story', dim: '1080 × 1920', width: 1080, height: 1920, bg: 'linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045)', textColor: '#ffffff', tag: '9:16 Vertical', desc: 'Vibrant Instagram gradient optimized for stories and reels.' },
-  { id: 'tpl_yt_thumb', category: 'social', title: 'YouTube Thumbnail', dim: '1280 × 720', width: 1280, height: 720, bg: 'linear-gradient(135deg, #1e1b4b, #312e81)', textColor: '#ffffff', tag: '16:9 Thumbnail', desc: 'High-click-through rate cinematic indigo canvas.' },
-  { id: 'tpl_tiktok', category: 'social', title: 'TikTok / Reel Stage', dim: '1080 × 1920', width: 1080, height: 1920, bg: '#09090b', textColor: '#ffffff', tag: 'Full HD Reel', desc: 'OLED pure dark backdrop with neon cyan and magenta edge highlights.' },
-  { id: 'tpl_sq_post', category: 'social', title: 'Square Feed Showcase', dim: '1080 × 1080', width: 1080, height: 1080, bg: 'linear-gradient(135deg, #0f172a, #1e1e2e)', textColor: '#ffffff', tag: '1:1 Square', desc: 'Universal clean dark slate for feed carousels and announcements.' },
+  // 1. CANVA ORIGINALS
+  {
+    id: 'tpl_canva_promo',
+    category: 'canva',
+    platform: 'Canva',
+    platformBadgeColor: '#00c4cc',
+    title: 'Canva Modern Minimalist Promo',
+    dim: '1080 × 1080',
+    width: 1080,
+    height: 1080,
+    bg: 'linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%)',
+    textColor: '#ffffff',
+    tag: 'Canva Post',
+    desc: 'High-converting social promo with geometric arch, badge & bold headline.',
+    headline: 'SUMMER DROP 2026',
+    subtitle: 'LIMITED EDITION • 40% OFF STOREWIDE',
+    badge: 'NEW ARRIVAL',
+    accentColor: '#06b6d4',
+    layoutStyle: 'promo_arch'
+  },
+  {
+    id: 'tpl_canva_story',
+    category: 'canva',
+    platform: 'Canva',
+    platformBadgeColor: '#00c4cc',
+    title: 'Canva Flash Sale Story',
+    dim: '1080 × 1920',
+    width: 1080,
+    height: 1920,
+    bg: 'linear-gradient(135deg, #ec4899 0%, #8b5cf6 50%, #3b82f6 100%)',
+    textColor: '#ffffff',
+    tag: 'Canva Story',
+    desc: 'Vibrant vertical 9:16 story with energetic typography and swipe up callout.',
+    headline: 'FLASH SALE 24H',
+    subtitle: 'UP TO 70% OFF • TAP LINK IN BIO TO SHOP',
+    badge: 'ONLY TODAY',
+    accentColor: '#fde047',
+    layoutStyle: 'story_flash'
+  },
+  {
+    id: 'tpl_canva_yt_thumb',
+    category: 'canva',
+    platform: 'Canva',
+    platformBadgeColor: '#ff0000',
+    title: 'Canva Viral YouTube Thumbnail',
+    dim: '1280 × 720',
+    width: 1280,
+    height: 720,
+    bg: 'linear-gradient(135deg, #09090b 0%, #18181b 100%)',
+    textColor: '#ffffff',
+    tag: 'YouTube 16:9',
+    desc: 'High-CTR YouTube thumbnail with dynamic cyber angled banner and glow tag.',
+    headline: 'HOW TO GROW FAST',
+    subtitle: 'STEP-BY-STEP COMPLETE MASTERCLASS 2026',
+    badge: '100% SECRET',
+    accentColor: '#ef4444',
+    layoutStyle: 'youtube_banner'
+  },
+  {
+    id: 'tpl_canva_tiktok',
+    category: 'canva',
+    platform: 'Canva',
+    platformBadgeColor: '#00f2fe',
+    title: 'Canva TikTok / Reels Cover',
+    dim: '1080 × 1920',
+    width: 1080,
+    height: 1920,
+    bg: '#050508',
+    textColor: '#ffffff',
+    tag: 'TikTok Stage',
+    desc: 'OLED dark vertical cover stage with dual neon cyan and magenta rim lights.',
+    headline: 'TOP 5 CREATIVE HACKS',
+    subtitle: 'SAVE THIS POST FOR LATER • WATCH TILL END',
+    badge: 'VIRAL REEL',
+    accentColor: '#06b6d4',
+    layoutStyle: 'neon_reel'
+  },
+  {
+    id: 'tpl_canva_quote',
+    category: 'canva',
+    platform: 'Canva',
+    platformBadgeColor: '#00c4cc',
+    title: 'Canva Aesthetic Quote Card',
+    dim: '1080 × 1080',
+    width: 1080,
+    height: 1080,
+    bg: 'linear-gradient(135deg, #fbf7ee 0%, #ede5d8 100%)',
+    textColor: '#1c1917',
+    tag: 'Canva Quote',
+    desc: 'Warm beige aesthetic card with elegant serif quotation styling.',
+    headline: 'CREATE WITHOUT LIMITS',
+    subtitle: 'Great design begins with the courage to make a mark.',
+    badge: 'DAILY INSPIRATION',
+    accentColor: '#b45309',
+    layoutStyle: 'quote_box'
+  },
+  {
+    id: 'tpl_canva_flyer',
+    category: 'canva',
+    platform: 'Canva',
+    platformBadgeColor: '#00c4cc',
+    title: 'Canva Business Launch Flyer',
+    dim: '1200 × 1600',
+    width: 1200,
+    height: 1600,
+    bg: 'linear-gradient(135deg, #18181b 0%, #27272a 100%)',
+    textColor: '#ffffff',
+    tag: 'Canva Flyer',
+    desc: 'Corporate event flyer with luxury gold framing and clean layout divisions.',
+    headline: 'GRAND LAUNCH EVENT',
+    subtitle: 'FRIDAY, NOV 14 • CITY CENTER AUDITORIUM',
+    badge: 'RSVP OPEN',
+    accentColor: '#f59e0b',
+    layoutStyle: 'luxury_flyer'
+  },
+  {
+    id: 'tpl_canva_pitch',
+    category: 'canva',
+    platform: 'Canva',
+    platformBadgeColor: '#00c4cc',
+    title: 'Canva Pitch Deck Slide',
+    dim: '1920 × 1080',
+    width: 1920,
+    height: 1080,
+    bg: 'linear-gradient(135deg, #020617 0%, #0f172a 100%)',
+    textColor: '#ffffff',
+    tag: 'Pitch Deck',
+    desc: 'Presentation title slide with tech blueprint grid and status indicators.',
+    headline: 'GLOBAL VENTURES 2026',
+    subtitle: 'Quarterly Strategic Growth & Architectural Roadmap',
+    badge: 'CONFIDENTIAL',
+    accentColor: '#38bdf8',
+    layoutStyle: 'pitch_deck'
+  },
 
-  // Portraits & Headshots
-  { id: 'tpl_linkedin', category: 'portraits', title: 'LinkedIn Headshot', dim: '1200 × 1200', width: 1200, height: 1200, bg: 'linear-gradient(135deg, #1e293b, #0f172a)', textColor: '#ffffff', tag: 'Corporate', desc: 'Sleek executive charcoal vignette for professional profiles.' },
-  { id: 'tpl_neon_aura', category: 'portraits', title: 'Studio Neon Aura', dim: '1080 × 1350', width: 1080, height: 1350, bg: 'linear-gradient(135deg, #050510, #180828)', textColor: '#ffffff', tag: 'Cyber Aura', desc: 'Dramatic studio backlight with dual neon cyan/violet rims.' },
-  { id: 'tpl_id_photo', category: 'portraits', title: 'Passport / ID Compliant', dim: '600 × 600', width: 600, height: 600, bg: '#3b82f6', textColor: '#ffffff', tag: 'Official ID', desc: 'Clean sky-blue standard backdrop for official documents and badges.' },
-  { id: 'tpl_magazine', category: 'portraits', title: 'Editorial Magazine Cover', dim: '1200 × 1600', width: 1200, height: 1600, bg: '#18181b', textColor: '#ffffff', tag: 'Editorial', desc: 'Fashion magazine staging with high contrast vignette.' },
+  // 2. PHOTOROOM PRO TEMPLATES
+  {
+    id: 'tpl_pr_amazon',
+    category: 'photoroom',
+    platform: 'PhotoRoom',
+    platformBadgeColor: '#ff9900',
+    title: 'PhotoRoom Amazon Pure White Studio',
+    dim: '2048 × 2048',
+    width: 2048,
+    height: 2048,
+    bg: '#ffffff',
+    textColor: '#111827',
+    tag: 'Amazon FBA',
+    desc: 'Compliant 255/255/255 pure white studio with soft realistic contact shadow.',
+    headline: 'PRODUCT SHOWCASE',
+    subtitle: 'Amazon Main Image Compliant • 100% Pure White',
+    badge: 'FBA READY',
+    accentColor: '#f59e0b',
+    layoutStyle: 'amazon_white'
+  },
+  {
+    id: 'tpl_pr_podium',
+    category: 'photoroom',
+    platform: 'PhotoRoom',
+    platformBadgeColor: '#8b5cf6',
+    title: 'PhotoRoom 3D Marble Podium',
+    dim: '2048 × 2048',
+    width: 2048,
+    height: 2048,
+    bg: 'linear-gradient(180deg, #f1f5f9 0%, #cbd5e1 100%)',
+    textColor: '#0f172a',
+    tag: '3D Stage',
+    desc: 'Elevated circular stone pedestal with soft directional studio lighting.',
+    headline: 'PREMIUM ESSENTIALS',
+    subtitle: 'Hand-crafted luxury goods staged on Italian marble',
+    badge: '3D PODIUM',
+    accentColor: '#6366f1',
+    layoutStyle: 'podium_stage'
+  },
+  {
+    id: 'tpl_pr_neon_void',
+    category: 'photoroom',
+    platform: 'PhotoRoom',
+    platformBadgeColor: '#ec4899',
+    title: 'PhotoRoom Cyberpunk Dark Neon Void',
+    dim: '1920 × 1080',
+    width: 1920,
+    height: 1080,
+    bg: '#05050a',
+    textColor: '#ffffff',
+    tag: 'Neon Void',
+    desc: 'Stealth black OLED staging with futuristic perspective floor grid.',
+    headline: 'CYBER TECH RELEASE',
+    subtitle: 'High-contrast spotlight with dual neon cyan/magenta rims',
+    badge: 'STUDIO PRO',
+    accentColor: '#06b6d4',
+    layoutStyle: 'neon_void'
+  },
+  {
+    id: 'tpl_pr_pastel',
+    category: 'photoroom',
+    platform: 'PhotoRoom',
+    platformBadgeColor: '#f472b6',
+    title: 'PhotoRoom Pastel Dream Cosmetics',
+    dim: '1400 × 1400',
+    width: 1400,
+    height: 1400,
+    bg: 'linear-gradient(135deg, #fdf4ff 0%, #fae8ff 100%)',
+    textColor: '#4c1d95',
+    tag: 'Beauty Studio',
+    desc: 'Soft warm lavender and pastel pink studio for skincare and cosmetics.',
+    headline: 'GLOW BOTANICALS',
+    subtitle: 'Pure organic radiance crafted from nature',
+    badge: '100% VEGAN',
+    accentColor: '#ec4899',
+    layoutStyle: 'pastel_beauty'
+  },
+  {
+    id: 'tpl_pr_wood',
+    category: 'photoroom',
+    platform: 'PhotoRoom',
+    platformBadgeColor: '#b45309',
+    title: 'PhotoRoom Rustic Walnut Craft',
+    dim: '2000 × 1600',
+    width: 2000,
+    height: 1600,
+    bg: 'linear-gradient(135deg, #78350f 0%, #451a03 100%)',
+    textColor: '#fef3c7',
+    tag: 'Artisan Wood',
+    desc: 'Rich walnut woodgrain plank texture for handmade crafts and heritage goods.',
+    headline: 'ARTISAN HERITAGE',
+    subtitle: 'Handmade with passion • Sustainable organic timber',
+    badge: 'HANDCRAFTED',
+    accentColor: '#fbbf24',
+    layoutStyle: 'walnut_wood'
+  },
+  {
+    id: 'tpl_pr_stockx',
+    category: 'photoroom',
+    platform: 'PhotoRoom',
+    platformBadgeColor: '#10b981',
+    title: 'PhotoRoom StockX Sneaker Showcase',
+    dim: '1600 × 1200',
+    width: 1600,
+    height: 1200,
+    bg: 'linear-gradient(135deg, #18181b 0%, #09090b 100%)',
+    textColor: '#ffffff',
+    tag: 'Sneakers',
+    desc: 'Industrial concrete backdrop with dynamic diagonal street accents.',
+    headline: 'LIMITED SNEAKER DROP',
+    subtitle: 'VERIFIED AUTHENTIC • CONDITION: DEADSTOCK',
+    badge: 'VERIFIED',
+    accentColor: '#10b981',
+    layoutStyle: 'streetwear_stage'
+  },
+  {
+    id: 'tpl_pr_magazine',
+    category: 'photoroom',
+    platform: 'PhotoRoom',
+    platformBadgeColor: '#000000',
+    title: 'PhotoRoom Editorial Vogue Cover',
+    dim: '1200 × 1600',
+    width: 1200,
+    height: 1600,
+    bg: '#0c0d14',
+    textColor: '#ffffff',
+    tag: 'Magazine',
+    desc: 'Fashion editorial cover staging with bold masthead and luxury margins.',
+    headline: 'AETHER VOGUE',
+    subtitle: 'THE ARCHITECTURE OF VISION • ISSUE 48 • FALL 2026',
+    badge: 'SPECIAL EDITION',
+    accentColor: '#e2e8f0',
+    layoutStyle: 'magazine_cover'
+  },
+  {
+    id: 'tpl_pr_passport',
+    category: 'photoroom',
+    platform: 'PhotoRoom',
+    platformBadgeColor: '#3b82f6',
+    title: 'PhotoRoom Passport & ID Compliant',
+    dim: '600 × 600',
+    width: 600,
+    height: 600,
+    bg: '#2563eb',
+    textColor: '#ffffff',
+    tag: 'Official ID',
+    desc: 'Standard royal blue backdrop meeting official biometric ID requirements.',
+    headline: 'BIOMETRIC PHOTO ID',
+    subtitle: 'Universal Standard Portrait Compliance',
+    badge: 'OFFICIAL',
+    accentColor: '#60a5fa',
+    layoutStyle: 'passport_id'
+  },
 
-  // Staging & E-Commerce
-  { id: 'tpl_podium', category: 'ecommerce', title: 'Marble Podium Stage', dim: '2048 × 2048', width: 2048, height: 2048, bg: 'linear-gradient(180deg, #e2e8f0 0%, #cbd5e1 100%)', textColor: '#0f172a', tag: 'Luxury Podium', desc: 'Elevated circular marble stage with realistic studio lighting.' },
-  { id: 'tpl_pastel', category: 'ecommerce', title: 'Pastel Dream Studio', dim: '1400 × 1400', width: 1400, height: 1400, bg: 'linear-gradient(135deg, #fdf4ff, #fae8ff)', textColor: '#4c1d95', tag: 'Cosmetics', desc: 'Soft warm lavender and pastel pink studio for beauty products.' },
-  { id: 'tpl_dark_void', category: 'ecommerce', title: 'Cinematic Dark Void', dim: '1920 × 1080', width: 1920, height: 1080, bg: '#0a0a0a', textColor: '#ffffff', tag: 'Cinematic', desc: 'Moody stealth black staging with subtle spotlight focus.' },
-  { id: 'tpl_cyber_grid', category: 'ecommerce', title: 'Cyberpunk Neon Stage', dim: '1600 × 1200', width: 1600, height: 1200, bg: 'linear-gradient(135deg, #030712, #0f172a)', textColor: '#38bdf8', tag: 'Tech Gadget', desc: 'Futuristic perspective floor grid for electronic device showcases.' }
+  // 3. PINTEREST PINS & AESTHETIC TEMPLATES
+  {
+    id: 'tpl_pin_boho',
+    category: 'pinterest',
+    platform: 'Pinterest',
+    platformBadgeColor: '#e60023',
+    title: 'Pinterest Warm Boho Moodboard',
+    dim: '1000 × 1500',
+    width: 1000,
+    height: 1500,
+    bg: 'linear-gradient(180deg, #fefce8 0%, #fef3c7 100%)',
+    textColor: '#451a03',
+    tag: 'Pinterest 2:3',
+    desc: 'Collage photo card frames with warm aesthetic pins and tape accents.',
+    headline: 'MEDITERRANEAN DREAMS',
+    subtitle: 'Summer Architecture & Warm Coastal Inspiration',
+    badge: 'SAVE PIN',
+    accentColor: '#d97706',
+    layoutStyle: 'pinterest_collage'
+  },
+  {
+    id: 'tpl_pin_recipe',
+    category: 'pinterest',
+    platform: 'Pinterest',
+    platformBadgeColor: '#e60023',
+    title: 'Pinterest Artisan Recipe Card',
+    dim: '1000 × 1500',
+    width: 1000,
+    height: 1500,
+    bg: '#fafaf9',
+    textColor: '#1c1917',
+    tag: 'Food Recipe',
+    desc: 'Step-by-step cooking guide with photo hero space and ingredients card.',
+    headline: 'CRUSTY ARTISAN SOURDOUGH',
+    subtitle: '5 Simple Pantry Ingredients • Beginner Friendly',
+    badge: 'RECIPE PIN',
+    accentColor: '#ea580c',
+    layoutStyle: 'recipe_pin'
+  },
+  {
+    id: 'tpl_pin_workout',
+    category: 'pinterest',
+    platform: 'Pinterest',
+    platformBadgeColor: '#e60023',
+    title: 'Pinterest 15-Min Fitness Guide',
+    dim: '1000 × 1500',
+    width: 1000,
+    height: 1500,
+    bg: 'linear-gradient(135deg, #09090b 0%, #18181b 100%)',
+    textColor: '#ffffff',
+    tag: 'Fitness Routine',
+    desc: 'High-energy workout routine breakdown with numbered exercise rows.',
+    headline: 'FULL BODY BURNER',
+    subtitle: '15-Minute No Equipment High Intensity Routine',
+    badge: 'WORKOUT',
+    accentColor: '#f97316',
+    layoutStyle: 'workout_pin'
+  },
+  {
+    id: 'tpl_pin_travel',
+    category: 'pinterest',
+    platform: 'Pinterest',
+    platformBadgeColor: '#e60023',
+    title: 'Pinterest 48h City Travel Guide',
+    dim: '1000 × 1500',
+    width: 1000,
+    height: 1500,
+    bg: 'linear-gradient(180deg, #f0fdf4 0%, #dcfce7 100%)',
+    textColor: '#14532d',
+    tag: 'Travel Itinerary',
+    desc: 'City weekend itinerary with polaroid photo box, map pin & tips card.',
+    headline: '48 HOURS IN TOKYO',
+    subtitle: 'The Ultimate Hidden Cafes & Aesthetic Neighborhoods',
+    badge: 'TRAVEL GUIDE',
+    accentColor: '#16a34a',
+    layoutStyle: 'travel_pin'
+  },
+  {
+    id: 'tpl_pin_planner',
+    category: 'pinterest',
+    platform: 'Pinterest',
+    platformBadgeColor: '#e60023',
+    title: 'Pinterest Daily Productivity Checklist',
+    dim: '1000 × 1500',
+    width: 1000,
+    height: 1500,
+    bg: '#ffffff',
+    textColor: '#0f172a',
+    tag: 'Productivity',
+    desc: 'Ruled notepad lines with checkmark boxes and inspirational header.',
+    headline: 'TODAY IS A FRESH START',
+    subtitle: 'Priorities • Daily Habits • Gratitude Checklist',
+    badge: 'DAILY PLAN',
+    accentColor: '#8b5cf6',
+    layoutStyle: 'planner_pin'
+  },
+
+  // 4. GOOGLE & UNIVERSAL ADS
+  {
+    id: 'tpl_google_med_rect',
+    category: 'google',
+    platform: 'Google',
+    platformBadgeColor: '#4285f4',
+    title: 'Google Display Medium Rectangle (300×250)',
+    dim: '1200 × 1000',
+    width: 1200,
+    height: 1000,
+    bg: '#ffffff',
+    textColor: '#1e293b',
+    tag: 'Google Ads',
+    desc: 'Google IAB compliant display ad banner with call-to-action button.',
+    headline: 'BUILD SMARTER AI APPS',
+    subtitle: 'Deploy with Google AI Studio in minutes • Start Free',
+    badge: 'GOOGLE ADS',
+    accentColor: '#4285f4',
+    layoutStyle: 'google_ad_rect'
+  },
+  {
+    id: 'tpl_google_leaderboard',
+    category: 'google',
+    platform: 'Google',
+    platformBadgeColor: '#4285f4',
+    title: 'Google Display Leaderboard (728×90)',
+    dim: '2184 × 270',
+    width: 2184,
+    height: 270,
+    bg: 'linear-gradient(90deg, #1e293b 0%, #0f172a 100%)',
+    textColor: '#ffffff',
+    tag: 'Leaderboard',
+    desc: 'Wide desktop banner with brand badge, bold offer headline & CTA pill.',
+    headline: 'SCALE YOUR CREATIVE WORKFLOW',
+    subtitle: 'Start your 14-day free team trial • No credit card required',
+    badge: 'GOOGLE ADS',
+    accentColor: '#34a853',
+    layoutStyle: 'google_leaderboard'
+  },
+  {
+    id: 'tpl_google_skyscraper',
+    category: 'google',
+    platform: 'Google',
+    platformBadgeColor: '#4285f4',
+    title: 'Google Skyscraper Display Ad (300×600)',
+    dim: '900 × 1800',
+    width: 900,
+    height: 1800,
+    bg: 'linear-gradient(180deg, #0f172a 0%, #1e1b4b 100%)',
+    textColor: '#ffffff',
+    tag: 'Skyscraper',
+    desc: 'Tall vertical display unit with 3 feature highlights and bottom button.',
+    headline: 'TRANSFORM YOUR STUDIO',
+    subtitle: 'Next-gen illustration, vector layout & multi-layer timeline',
+    badge: 'SPECIAL OFFER',
+    accentColor: '#4285f4',
+    layoutStyle: 'google_skyscraper'
+  },
+  {
+    id: 'tpl_google_hero',
+    category: 'google',
+    platform: 'Google',
+    platformBadgeColor: '#4285f4',
+    title: 'Google Cloud Web Hero Header',
+    dim: '1920 × 1080',
+    width: 1920,
+    height: 1080,
+    bg: 'radial-gradient(circle at 50% 20%, #172554 0%, #030712 100%)',
+    textColor: '#ffffff',
+    tag: 'Web Hero',
+    desc: 'Modern tech website hero banner with floating glass cards and glow nodes.',
+    headline: 'THE FUTURE OF CREATIVE APPS',
+    subtitle: 'Unified vector canvas, keyframe animations & real-time collaboration',
+    badge: 'ENTERPRISE READY',
+    accentColor: '#60a5fa',
+    layoutStyle: 'web_hero'
+  },
+  {
+    id: 'tpl_google_classroom',
+    category: 'google',
+    platform: 'Google',
+    platformBadgeColor: '#ea4335',
+    title: 'Google Classroom Subject Banner',
+    dim: '1600 × 400',
+    width: 1600,
+    height: 400,
+    bg: 'linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%)',
+    textColor: '#ffffff',
+    tag: 'Classroom',
+    desc: 'Classroom header banner with subject geometry, teacher badge and room info.',
+    headline: 'ADVANCED GRAPHIC ARTS 101',
+    subtitle: 'Fall Semester 2026 • Room 304 • Prof. Rivera',
+    badge: 'CLASSROOM',
+    accentColor: '#facc15',
+    layoutStyle: 'classroom_banner'
+  }
 ];
 
 function switchAppTab(tab) {
@@ -11567,18 +13105,28 @@ function renderTemplatesGrid(category, search) {
 
   let list = APP_TEMPLATES;
   if (category && category !== 'all') {
-    list = list.filter(t => t.category === category);
+    if (category === 'canva' || category === 'photoroom' || category === 'pinterest' || category === 'google') {
+      list = list.filter(t => t.platform.toLowerCase() === category);
+    } else {
+      list = list.filter(t => t.category === category);
+    }
   }
   if (search) {
-    list = list.filter(t => t.title.toLowerCase().includes(search) || t.desc.toLowerCase().includes(search) || t.tag.toLowerCase().includes(search));
+    list = list.filter(t => 
+      t.title.toLowerCase().includes(search) || 
+      t.desc.toLowerCase().includes(search) || 
+      t.tag.toLowerCase().includes(search) ||
+      t.platform.toLowerCase().includes(search) ||
+      (t.headline && t.headline.toLowerCase().includes(search))
+    );
   }
 
   if (list.length === 0) {
     grid.innerHTML = `
       <div style="grid-column: 1 / -1; padding: 40px 20px; text-align: center; color: var(--text-dim);">
-        <div style="font-size: 28px; margin-bottom: 8px;">🔍</div>
+        <div style="margin-bottom: 8px;"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--text-dim)" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></div>
         <div style="font-size: 14px; font-weight: 700; color: #fff;">No Templates Found</div>
-        <div style="font-size: 11px;">Try searching for another keyword or browse "All Templates"</div>
+        <div style="font-size: 11px;">Try searching for another keyword or browse "All World Templates"</div>
       </div>
     `;
     return;
@@ -11588,12 +13136,20 @@ function renderTemplatesGrid(category, search) {
   list.forEach(tpl => {
     html += `
       <div class="photoroom-template-card" onclick="applyTemplateToCanvas('${tpl.id}')" style="flex: unset;">
-        <div class="photoroom-template-preview" style="background: ${tpl.bg}; height: 115px;">
-          <div style="position: absolute; top: 8px; right: 8px; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); padding: 2px 7px; border-radius: 9999px; font-size: 9px; font-weight: 800; color: #fff;">
+        <div class="photoroom-template-preview" style="background: ${tpl.bg}; height: 120px;">
+          <div style="position: absolute; top: 8px; left: 8px; background: ${tpl.platformBadgeColor || 'var(--primary)'}; padding: 2px 7px; border-radius: 9999px; font-size: 9px; font-weight: 800; color: #fff; box-shadow: 0 2px 6px rgba(0,0,0,0.3);">
+            ${tpl.platform}
+          </div>
+          <div style="position: absolute; top: 8px; right: 8px; background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); padding: 2px 7px; border-radius: 9999px; font-size: 9px; font-weight: 800; color: #fff;">
             ${tpl.dim}
           </div>
-          <div style="width: 52px; height: 52px; border-radius: 12px; background: rgba(255,255,255,0.2); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.3); display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 20px rgba(0,0,0,0.25);">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="${tpl.textColor === '#ffffff' ? '#ffffff' : '#1e293b'}" stroke-width="2.2"><rect width="18" height="18" x="3" y="3" rx="2"/></svg>
+          <div style="text-align: center; padding: 0 12px; z-index: 2;">
+            <div style="font-size: 12px; font-weight: 900; color: ${tpl.textColor}; text-shadow: 0 2px 8px rgba(0,0,0,0.4); line-height: 1.2;">
+              ${escapeHtml(tpl.headline || tpl.title)}
+            </div>
+            <div style="font-size: 9px; color: ${tpl.textColor}; opacity: 0.85; margin-top: 3px;">
+              ${escapeHtml(tpl.badge || tpl.tag)}
+            </div>
           </div>
         </div>
         <div class="photoroom-template-info">
@@ -11602,8 +13158,9 @@ function renderTemplatesGrid(category, search) {
             <span style="font-size: 9px; font-weight: 700; color: var(--primary);">${tpl.tag}</span>
           </div>
           <div style="font-size: 10px; color: var(--text-dim); line-height: 1.3; height: 26px; overflow: hidden; text-overflow: ellipsis;">${tpl.desc}</div>
-          <button class="btn btn-primary" style="height: 28px; font-size: 11px; margin-top: 6px; width: 100%; font-weight: 700;" onclick="event.stopPropagation(); applyTemplateToCanvas('${tpl.id}')">
-            <span>Use Template</span>
+          <button class="btn btn-primary" style="height: 28px; font-size: 11px; margin-top: 6px; width: 100%; font-weight: 700; gap: 4px;" onclick="event.stopPropagation(); applyTemplateToCanvas('${tpl.id}')">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+            <span>Use & Edit Template</span>
           </button>
         </div>
       </div>
@@ -11618,61 +13175,647 @@ function applyTemplateToCanvas(templateId) {
   const w = tpl.width;
   const h = tpl.height;
 
+  appState.activeTemplate = JSON.parse(JSON.stringify(tpl));
   reconfigureCanvasDimensions(w, h);
 
   const newProj = {
     id: 'proj_' + Date.now(),
-    title: tpl.title + ' Staged',
-    type: 'illustration',
+    title: tpl.title + ' (Editable)',
+    type: 'template',
     width: w,
     height: h,
-    layerCount: 1,
+    layerCount: 5,
     lastEdited: Date.now(),
-    thumbnail: generateProceduralThumbnail('illustration', w, h, '#8b5cf6', '#06b6d4')
+    thumbnail: generateProceduralThumbnail('template', w, h, tpl.accentColor || '#8b5cf6', '#06b6d4')
   };
 
   appState.projects.unshift(newProj);
   appState.activeProjectId = newProj.id;
   appState.activeProjectTitle = newProj.title;
-  appState.activeProjectType = 'illustration';
+  appState.activeProjectType = 'template';
 
+  // Stop any active simulations
+  stopFigmaCollaborativeMode();
+
+  // Create authentic 5-layer Canva / PhotoRoom editable stack
+  const frame1 = { id: 1, layers: [], groups: [] };
+
+  const bgLayer = new StudioLayer(appState.layerIdCounter++, `${tpl.platform} Background`, w, h, null);
+  const shapesLayer = new StudioLayer(appState.layerIdCounter++, "Shapes & Elements", w, h, null);
+  const headlineLayer = new StudioLayer(appState.layerIdCounter++, "Headline Text", w, h, null);
+  const subtitleLayer = new StudioLayer(appState.layerIdCounter++, "Subtitle & CTA", w, h, null);
+  const drawLayer = new StudioLayer(appState.layerIdCounter++, "Your Inking / Artwork", w, h, null);
+
+  frame1.layers.push(bgLayer);
+  frame1.layers.push(shapesLayer);
+  frame1.layers.push(headlineLayer);
+  frame1.layers.push(subtitleLayer);
+  frame1.layers.push(drawLayer);
+
+  appState.frames = [frame1];
+  appState.activeFrameIndex = 0;
+  appState.layers = frame1.layers;
+  appState.groups = frame1.groups;
+  appState.activeLayerId = drawLayer.id; // User's active drawing layer on top!
+
+  renderTemplateLayers(tpl, bgLayer, shapesLayer, headlineLayer, subtitleLayer);
+
+  mountLayerDOMElements();
+  renderCompositeCanvas();
+  renderTimelineFilmstrip();
+  renderLayerUIList();
+  saveHistoryState();
   saveProjectsToStorage(true);
 
-  // Paint template background on active base layer
-  if (appState.layers && appState.layers.length > 0) {
-    const baseLayer = appState.layers[0];
-    if (baseLayer && baseLayer.ctx) {
-      if (tpl.bg.includes('gradient')) {
-        const grad = baseLayer.ctx.createLinearGradient(0, 0, w, h);
-        if (tpl.category === 'marketplace') {
-          grad.addColorStop(0, '#f8fafc');
-          grad.addColorStop(1, '#e2e8f0');
-        } else if (tpl.category === 'social') {
-          grad.addColorStop(0, '#833ab4');
-          grad.addColorStop(0.5, '#fd1d1d');
-          grad.addColorStop(1, '#fcb045');
-        } else {
-          grad.addColorStop(0, '#1e293b');
-          grad.addColorStop(1, '#0f172a');
-        }
-        baseLayer.ctx.fillStyle = grad;
-      } else {
-        baseLayer.ctx.fillStyle = tpl.bg;
-      }
-      baseLayer.ctx.fillRect(0, 0, w, h);
-      renderCompositeCanvas();
+  // Transition UI from Home Screen to Studio Workspace
+  const homeScreen = document.getElementById('home-screen');
+  const appContainer = document.getElementById('app-container');
+  if (homeScreen) homeScreen.classList.add('hidden');
+  if (appContainer) appContainer.style.display = 'flex';
+  appState.currentScreen = 'studio';
+
+  // Update header title
+  const headerTitle = document.getElementById('active-project-title-header');
+  if (headerTitle) headerTitle.textContent = newProj.title;
+
+  // Animation timeline strictly hidden
+  const animTimeline = document.getElementById('animation-timeline');
+  if (animTimeline) animTimeline.style.display = 'none';
+
+  fitCanvasToViewport();
+  showToast(`Loaded Editable ${tpl.title}! Tap "Edit Tpl" to customize text & colors.`);
+}
+
+function renderTemplateLayers(tpl, bgLayer, shapesLayer, headlineLayer, subtitleLayer) {
+  const w = tpl.width;
+  const h = tpl.height;
+
+  // 1. Render Background
+  const bCtx = bgLayer.ctx;
+  bCtx.clearRect(0, 0, w, h);
+
+  if (tpl.bg.includes('gradient')) {
+    const grad = bCtx.createLinearGradient(0, 0, w, h);
+    if (tpl.layoutStyle === 'walnut_wood') {
+      grad.addColorStop(0, '#59290a');
+      grad.addColorStop(1, '#2c1202');
+    } else if (tpl.category === 'social' || tpl.layoutStyle === 'story_flash') {
+      grad.addColorStop(0, '#833ab4');
+      grad.addColorStop(0.5, '#fd1d1d');
+      grad.addColorStop(1, '#fcb045');
+    } else if (tpl.category === 'photoroom' && tpl.layoutStyle === 'pastel_beauty') {
+      grad.addColorStop(0, '#fdf4ff');
+      grad.addColorStop(1, '#fae8ff');
+    } else if (tpl.layoutStyle === 'podium_stage') {
+      grad.addColorStop(0, '#f8fafc');
+      grad.addColorStop(1, '#cbd5e1');
+    } else if (tpl.layoutStyle === 'pinterest_collage') {
+      grad.addColorStop(0, '#fffbeb');
+      grad.addColorStop(1, '#fef3c7');
+    } else {
+      grad.addColorStop(0, '#0f172a');
+      grad.addColorStop(1, '#1e1b4b');
+    }
+    bCtx.fillStyle = grad;
+    bCtx.fillRect(0, 0, w, h);
+  } else {
+    bCtx.fillStyle = tpl.bg;
+    bCtx.fillRect(0, 0, w, h);
+  }
+
+  // Walnut wood plank lines if artisan wood
+  if (tpl.layoutStyle === 'walnut_wood') {
+    bCtx.strokeStyle = 'rgba(0, 0, 0, 0.25)';
+    bCtx.lineWidth = 4;
+    const plankH = h / 6;
+    for (let i = 1; i < 6; i++) {
+      bCtx.beginPath();
+      bCtx.moveTo(0, i * plankH);
+      bCtx.lineTo(w, i * plankH);
+      bCtx.stroke();
     }
   }
 
-  // Launch studio
-  const home = document.getElementById('home-screen');
-  if (home) home.classList.add('hidden');
-  const studio = document.getElementById('app-container');
-  if (studio) studio.style.display = 'flex';
-  appState.currentScreen = 'studio';
+  // 2. Render Graphic Elements / Shapes
+  const sCtx = shapesLayer.ctx;
+  sCtx.clearRect(0, 0, w, h);
+  sCtx.save();
 
-  fitCanvasToViewport();
-  showToast(`Loaded ${tpl.title} (${w} × ${h})!`);
+  if (tpl.layoutStyle === 'podium_stage') {
+    // 3D Realistic illuminated marble podium
+    const podW = w * 0.65;
+    const podH = podW * 0.45;
+    const podX = w / 2;
+    const podY = h * 0.72;
+
+    // Ground soft shadow
+    sCtx.fillStyle = 'rgba(0, 0, 0, 0.18)';
+    sCtx.beginPath();
+    sCtx.ellipse(podX, podY + podH * 0.35, podW * 0.62, podH * 0.28, 0, 0, Math.PI * 2);
+    sCtx.fill();
+
+    // Podium Base Cylinder
+    sCtx.fillStyle = '#e2e8f0';
+    sCtx.beginPath();
+    sCtx.ellipse(podX, podY + 30, podW / 2, podH / 2, 0, 0, Math.PI * 2);
+    sCtx.fill();
+
+    // Top Marble Pedestal
+    const podGrad = sCtx.createLinearGradient(podX - podW / 2, podY - podH / 2, podX + podW / 2, podY + podH / 2);
+    podGrad.addColorStop(0, '#ffffff');
+    podGrad.addColorStop(0.5, '#f1f5f9');
+    podGrad.addColorStop(1, '#e2e8f0');
+    sCtx.fillStyle = podGrad;
+    sCtx.beginPath();
+    sCtx.ellipse(podX, podY, podW / 2, podH / 2, 0, 0, Math.PI * 2);
+    sCtx.fill();
+    sCtx.strokeStyle = '#ffffff';
+    sCtx.lineWidth = 3;
+    sCtx.stroke();
+  } else if (tpl.layoutStyle === 'pinterest_collage') {
+    // Polaroid Style Photo Framing
+    const frameW = w * 0.75;
+    const frameH = h * 0.45;
+    const frameX = (w - frameW) / 2;
+    const frameY = h * 0.35;
+
+    sCtx.fillStyle = '#ffffff';
+    sCtx.shadowColor = 'rgba(0, 0, 0, 0.15)';
+    sCtx.shadowBlur = 24;
+    sCtx.shadowOffsetY = 12;
+    sCtx.fillRect(frameX, frameY, frameW, frameH);
+    sCtx.shadowColor = 'transparent';
+
+    sCtx.fillStyle = '#f5f5f4';
+    sCtx.fillRect(frameX + 16, frameY + 16, frameW - 32, frameH - 64);
+  } else if (tpl.layoutStyle === 'promo_arch') {
+    // Geometric Modern Arch
+    const archW = w * 0.7;
+    const archH = h * 0.55;
+    const archX = (w - archW) / 2;
+    const archY = h * 0.28;
+
+    sCtx.fillStyle = 'rgba(255, 255, 255, 0.06)';
+    sCtx.strokeStyle = tpl.accentColor || '#06b6d4';
+    sCtx.lineWidth = 3;
+    sCtx.beginPath();
+    sCtx.roundRect(archX, archY, archW, archH, [archW / 2, archW / 2, 0, 0]);
+    sCtx.fill();
+    sCtx.stroke();
+  } else if (tpl.layoutStyle === 'google_ad_rect' || tpl.layoutStyle === 'google_leaderboard') {
+    // Google 4-Color Accent Strip
+    const barH = 6;
+    const segW = w / 4;
+    const colors = ['#4285f4', '#ea4335', '#fbbc05', '#34a853'];
+    for (let c = 0; c < 4; c++) {
+      sCtx.fillStyle = colors[c];
+      sCtx.fillRect(c * segW, 0, segW, barH);
+    }
+  }
+  sCtx.restore();
+
+  // 3. Render Headline Layer
+  const hCtx = headlineLayer.ctx;
+  hCtx.clearRect(0, 0, w, h);
+  hCtx.save();
+  hCtx.textAlign = 'center';
+  hCtx.textBaseline = 'middle';
+
+  const headlineText = tpl.headline || tpl.title;
+  const isDark = tpl.textColor === '#ffffff' || !tpl.textColor;
+  hCtx.fillStyle = tpl.textColor || '#ffffff';
+  if (isDark) {
+    hCtx.shadowColor = 'rgba(0, 0, 0, 0.6)';
+    hCtx.shadowBlur = 14;
+    hCtx.shadowOffsetY = 4;
+  }
+
+  // Dynamic Headline font scaling
+  const fontSize = tpl.headFontSize || Math.max(24, Math.min(84, Math.round(w * 0.065)));
+  hCtx.font = `900 ${fontSize}px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif`;
+  const defaultHeadY = (tpl.layoutStyle === 'youtube_banner' || tpl.layoutStyle === 'google_leaderboard') ? h * 0.42 : h * 0.16;
+  const headX = tpl.headCustomX !== undefined ? tpl.headCustomX : w / 2;
+  const headY = tpl.headCustomY !== undefined ? tpl.headCustomY : defaultHeadY;
+  hCtx.fillText(headlineText, headX, headY);
+  const headMetrics = hCtx.measureText(headlineText);
+  hCtx.restore();
+
+  // 4. Render Subtitle & CTA Layer
+  const subCtx = subtitleLayer.ctx;
+  subCtx.clearRect(0, 0, w, h);
+  subCtx.save();
+  subCtx.textAlign = 'center';
+
+  // Badge pill
+  let badgeElem = null;
+  if (tpl.badge) {
+    const badgeText = tpl.badge.toUpperCase();
+    const badgeFontSize = Math.max(12, Math.round(fontSize * 0.32));
+    subCtx.font = `800 ${badgeFontSize}px -apple-system, sans-serif`;
+    const badgeMetrics = subCtx.measureText(badgeText);
+    const pillW = badgeMetrics.width + 24;
+    const pillH = Math.max(22, Math.round(fontSize * 0.5));
+    const pillX = tpl.badgeCustomX !== undefined ? tpl.badgeCustomX : (w - pillW) / 2;
+    const pillY = tpl.badgeCustomY !== undefined ? tpl.badgeCustomY : (headY - fontSize * 0.85);
+
+    subCtx.fillStyle = tpl.accentColor || '#06b6d4';
+    subCtx.beginPath();
+    subCtx.roundRect(pillX, pillY, pillW, pillH, 9999);
+    subCtx.fill();
+
+    subCtx.fillStyle = '#ffffff';
+    subCtx.fillText(badgeText, pillX + pillW / 2, pillY + pillH * 0.68);
+
+    badgeElem = {
+      id: 'badge',
+      type: 'badge',
+      label: 'Badge Tag',
+      field: 'badge',
+      colorField: 'accentColor',
+      text: tpl.badge,
+      x: pillX,
+      y: pillY,
+      width: pillW,
+      height: pillH
+    };
+  }
+
+  // Subtitle
+  let subElem = null;
+  if (tpl.subtitle) {
+    const subFontSize = tpl.subFontSize || Math.max(13, Math.round(fontSize * 0.38));
+    subCtx.font = `600 ${subFontSize}px -apple-system, sans-serif`;
+    subCtx.fillStyle = tpl.subColor || (isDark ? 'rgba(255, 255, 255, 0.85)' : 'rgba(15, 23, 42, 0.85)');
+    const subX = tpl.subCustomX !== undefined ? tpl.subCustomX : w / 2;
+    const subY = tpl.subCustomY !== undefined ? tpl.subCustomY : (headY + fontSize * 0.82);
+    subCtx.fillText(tpl.subtitle, subX, subY);
+    const subMetrics = subCtx.measureText(tpl.subtitle);
+
+    subElem = {
+      id: 'subtitle',
+      type: 'text',
+      label: 'Subtitle',
+      field: 'subtitle',
+      colorField: 'subColor',
+      text: tpl.subtitle,
+      fontSize: subFontSize,
+      x: subX - subMetrics.width / 2,
+      y: subY - subFontSize * 0.6,
+      width: subMetrics.width,
+      height: subFontSize * 1.3
+    };
+  }
+  subCtx.restore();
+
+  // Store elements list for Canva-style on-canvas hit testing & dragging
+  appState.templateElements = [
+    {
+      id: 'headline',
+      type: 'text',
+      label: 'Headline',
+      field: 'headline',
+      colorField: 'textColor',
+      text: headlineText,
+      fontSize: fontSize,
+      x: headX - headMetrics.width / 2,
+      y: headY - fontSize * 0.6,
+      width: headMetrics.width,
+      height: fontSize * 1.3
+    }
+  ];
+  if (subElem) appState.templateElements.push(subElem);
+  if (badgeElem) appState.templateElements.push(badgeElem);
+
+  // Sync overlay position if an element is currently active
+  if (appState.selectedTemplateElement) {
+    const fresh = appState.templateElements.find(e => e.id === appState.selectedTemplateElement.id);
+    if (fresh) {
+      appState.selectedTemplateElement = fresh;
+      updateCanvaSelectionOverlayPosition();
+    }
+  }
+}
+
+// Canva Selection & Direct In-Place On-Canvas Editing Engine
+function updateCanvaSelectionOverlayPosition() {
+  const overlay = document.getElementById('canva-selection-overlay');
+  if (!overlay) return;
+  if (!appState.selectedTemplateElement || !appState.activeTemplate) {
+    overlay.style.display = 'none';
+    return;
+  }
+  const el = appState.selectedTemplateElement;
+  overlay.style.display = 'block';
+  overlay.style.left = (el.x - 6) + 'px';
+  overlay.style.top = (el.y - 6) + 'px';
+  overlay.style.width = (el.width + 12) + 'px';
+  overlay.style.height = (el.height + 12) + 'px';
+}
+
+function findHitTemplateElement(cx, cy) {
+  if (!appState.templateElements || appState.templateElements.length === 0) return null;
+  const pad = 18; // comfortable mobile touch cushion
+  for (let i = appState.templateElements.length - 1; i >= 0; i--) {
+    const el = appState.templateElements[i];
+    if (cx >= el.x - pad && cx <= el.x + el.width + pad &&
+        cy >= el.y - pad && cy <= el.y + el.height + pad) {
+      return el;
+    }
+  }
+  return null;
+}
+
+function selectCanvaElement(el) {
+  appState.selectedTemplateElement = el;
+  updateCanvaSelectionOverlayPosition();
+  showToast(`Selected "${el.label}"! Drag to move, or tap Edit.`);
+}
+
+function deselectCanvaElement(e) {
+  if (e) e.stopPropagation();
+  appState.selectedTemplateElement = null;
+  const overlay = document.getElementById('canva-selection-overlay');
+  if (overlay) overlay.style.display = 'none';
+}
+
+function promptEditSelectedCanvaElement(e) {
+  if (e) e.stopPropagation();
+  if (!appState.selectedTemplateElement || !appState.activeTemplate) return;
+  const el = appState.selectedTemplateElement;
+  const currentVal = appState.activeTemplate[el.field] || el.text || '';
+  const newVal = prompt(`Edit ${el.label}:`, currentVal);
+  if (newVal !== null && newVal.trim() !== '') {
+    appState.activeTemplate[el.field] = newVal.trim();
+    redrawActiveTemplateLayers();
+    showToast(`Updated ${el.label} to "${newVal.trim()}"`);
+    saveHistoryState();
+  }
+}
+
+function changeSelectedElementColor(e) {
+  if (e) e.stopPropagation();
+  if (!appState.selectedTemplateElement || !appState.activeTemplate) return;
+  const el = appState.selectedTemplateElement;
+  const colorPalette = ['#ffffff', '#fde047', '#00c4cc', '#ec4899', '#10b981', '#f97316', '#a855f7', '#0f172a'];
+  const curColor = appState.activeTemplate[el.colorField] || '#ffffff';
+  const curIndex = colorPalette.indexOf(curColor);
+  const nextColor = colorPalette[(curIndex + 1) % colorPalette.length];
+  appState.activeTemplate[el.colorField] = nextColor;
+  redrawActiveTemplateLayers();
+  showToast(`Changed color of ${el.label} to ${nextColor}`);
+  saveHistoryState();
+}
+
+function adjustSelectedElementFontSize(factor, e) {
+  if (e) e.stopPropagation();
+  if (!appState.selectedTemplateElement || !appState.activeTemplate) return;
+  const el = appState.selectedTemplateElement;
+  const tpl = appState.activeTemplate;
+  if (el.id === 'headline') {
+    const curSize = tpl.headFontSize || Math.max(24, Math.min(84, Math.round(tpl.width * 0.065)));
+    tpl.headFontSize = Math.max(16, Math.min(160, Math.round(curSize * factor)));
+  } else if (el.id === 'subtitle') {
+    const headSize = tpl.headFontSize || Math.max(24, Math.min(84, Math.round(tpl.width * 0.065)));
+    const curSize = tpl.subFontSize || Math.max(13, Math.round(headSize * 0.38));
+    tpl.subFontSize = Math.max(11, Math.min(90, Math.round(curSize * factor)));
+  }
+  redrawActiveTemplateLayers();
+}
+
+function redrawActiveTemplateLayers() {
+  if (!appState.activeTemplate) return;
+  const bgLayer = appState.layers.find(l => l.name.includes('Background')) || appState.layers[0];
+  const shapesLayer = appState.layers.find(l => l.name.includes('Shapes')) || appState.layers[1];
+  const headlineLayer = appState.layers.find(l => l.name.includes('Headline')) || appState.layers[2];
+  const subtitleLayer = appState.layers.find(l => l.name.includes('Subtitle')) || appState.layers[3];
+
+  if (bgLayer && shapesLayer && headlineLayer && subtitleLayer) {
+    renderTemplateLayers(appState.activeTemplate, bgLayer, shapesLayer, headlineLayer, subtitleLayer);
+    renderCompositeCanvas();
+    renderTimelineFilmstrip();
+  }
+}
+
+function openTemplateEditorModal() {
+  if (!appState.activeTemplate) {
+    showToast("Load a template first to edit its text & elements!");
+    return;
+  }
+  const modal = document.getElementById('template-editor-modal');
+  if (!modal) return;
+
+  const tpl = appState.activeTemplate;
+  const headIn = document.getElementById('tpl-edit-headline');
+  const subIn = document.getElementById('tpl-edit-subtitle');
+  const badgeIn = document.getElementById('tpl-edit-badge');
+  const accentIn = document.getElementById('tpl-edit-accent');
+
+  if (headIn) headIn.value = tpl.headline || tpl.title || '';
+  if (subIn) subIn.value = tpl.subtitle || '';
+  if (badgeIn) badgeIn.value = tpl.badge || tpl.tag || '';
+  if (accentIn && tpl.accentColor) accentIn.value = tpl.accentColor;
+
+  modal.style.display = 'flex';
+}
+
+function closeTemplateEditorModal() {
+  const modal = document.getElementById('template-editor-modal');
+  if (modal) modal.style.display = 'none';
+}
+
+function saveTemplateEditorChanges() {
+  if (!appState.activeTemplate) {
+    closeTemplateEditorModal();
+    return;
+  }
+
+  const headIn = document.getElementById('tpl-edit-headline');
+  const subIn = document.getElementById('tpl-edit-subtitle');
+  const badgeIn = document.getElementById('tpl-edit-badge');
+  const accentIn = document.getElementById('tpl-edit-accent');
+
+  if (headIn) appState.activeTemplate.headline = headIn.value.trim() || appState.activeTemplate.headline;
+  if (subIn) appState.activeTemplate.subtitle = subIn.value.trim();
+  if (badgeIn) appState.activeTemplate.badge = badgeIn.value.trim();
+  if (accentIn) appState.activeTemplate.accentColor = accentIn.value;
+
+  redrawActiveTemplateLayers();
+  saveHistoryState();
+  showToast("Template updated with your custom text & style!");
+  closeTemplateEditorModal();
+}
+
+// Canva & Cloud API Connectors Management
+function openCloudApiModal() {
+  const modal = document.getElementById('cloud-api-modal');
+  if (!modal) return;
+  initCloudApiKeys();
+  modal.style.display = 'flex';
+}
+
+function closeCloudApiModal() {
+  const modal = document.getElementById('cloud-api-modal');
+  if (modal) modal.style.display = 'none';
+}
+
+function fillDemoCanvaApiKey() {
+  const canvaIn = document.getElementById('api-key-canva');
+  const unsplashIn = document.getElementById('api-key-unsplash');
+  const pinterestIn = document.getElementById('api-key-pinterest');
+  if (canvaIn) canvaIn.value = 'cnv_live_connect_creatives_v1_sandbox_unlocked';
+  if (unsplashIn) unsplashIn.value = 'uns_live_free_stock_mockups_token_ready';
+  if (pinterestIn) pinterestIn.value = 'pnt_live_aesthetic_boards_sync_v2';
+  const badge = document.getElementById('canva-api-status-badge');
+  if (badge) {
+    badge.textContent = 'DEMO READY';
+    badge.style.color = '#38bdf8';
+  }
+}
+
+function saveAndSyncCloudTemplates() {
+  const canvaKey = (document.getElementById('api-key-canva')?.value || '').trim();
+  const unsplashKey = (document.getElementById('api-key-unsplash')?.value || '').trim();
+  const pinterestKey = (document.getElementById('api-key-pinterest')?.value || '').trim();
+
+  const keys = {
+    canva: canvaKey,
+    unsplash: unsplashKey,
+    pinterest: pinterestKey,
+    updatedAt: Date.now()
+  };
+  localStorage.setItem('aether_cloud_api_keys_v1', JSON.stringify(keys));
+
+  // Instantiate live cloud templates into APP_TEMPLATES if not already present
+  const cloudTpls = [
+    {
+      id: 'tpl_canva_cloud_podcast',
+      category: 'canva',
+      platform: 'Canva',
+      platformBadgeColor: '#00c4cc',
+      title: 'Canva Cloud Podcast Cover 3000×3000',
+      dim: '3000 × 3000',
+      width: 3000,
+      height: 3000,
+      bg: 'linear-gradient(135deg, #18181b 0%, #3f3f46 100%)',
+      textColor: '#ffffff',
+      tag: 'Canva Cloud Pro',
+      desc: 'Synced via Canva Connect API. High-impact square cover with audio wave graphics.',
+      headline: 'CREATIVE MINDS TALK',
+      subtitle: 'WEEKLY DEEP DIVES WITH TOP DIGITAL ARTISTS',
+      badge: 'CANVA CLOUD LIVE',
+      accentColor: '#06b6d4',
+      layoutStyle: 'promo_arch'
+    },
+    {
+      id: 'tpl_canva_cloud_keynote',
+      category: 'canva',
+      platform: 'Canva',
+      platformBadgeColor: '#7d2ae8',
+      title: 'Canva Cloud Keynote Pitch 1920×1080',
+      dim: '1920 × 1080',
+      width: 1920,
+      height: 1080,
+      bg: 'linear-gradient(135deg, #09090b 0%, #1e1b4b 100%)',
+      textColor: '#ffffff',
+      tag: 'Canva Cloud Pro',
+      desc: 'Synced via Canva Connect API. Modern 16:9 tech presentation slide with glowing gradient.',
+      headline: 'THE FUTURE OF DESIGN 2026',
+      subtitle: 'SCALE CREATIVE WORKFLOWS WITH AI & VECTOR ENGINE',
+      badge: 'OFFICIAL CANVA',
+      accentColor: '#a855f7',
+      layoutStyle: 'youtube_banner'
+    },
+    {
+      id: 'tpl_canva_cloud_cyber',
+      category: 'canva',
+      platform: 'Canva',
+      platformBadgeColor: '#00f2fe',
+      title: 'Canva Cloud Cyber Monday Sale',
+      dim: '1200 × 1200',
+      width: 1200,
+      height: 1200,
+      bg: 'linear-gradient(135deg, #0f172a 0%, #020617 100%)',
+      textColor: '#ffffff',
+      tag: 'Canva Cloud Pro',
+      desc: 'Synced via Canva Connect API. High-conversion e-commerce promotional unit with neon accent.',
+      headline: 'CYBER MONDAY BLOWOUT',
+      subtitle: 'SAVE 60% ON ALL SUBSCRIPTIONS • 48H ONLY',
+      badge: 'SPECIAL LIVE DEAL',
+      accentColor: '#22d3ee',
+      layoutStyle: 'story_flash'
+    },
+    {
+      id: 'tpl_canva_cloud_cafe',
+      category: 'canva',
+      platform: 'Canva',
+      platformBadgeColor: '#00c4cc',
+      title: 'Canva Cloud Artisan Coffee Menu',
+      dim: '1080 × 1920',
+      width: 1080,
+      height: 1920,
+      bg: 'linear-gradient(180deg, #271a0c 0%, #180f07 100%)',
+      textColor: '#fef3c7',
+      tag: 'Canva Cloud Pro',
+      desc: 'Synced via Canva Connect API. Vertical café menu board with warm gold and amber accents.',
+      headline: 'ROASTERY & BOTANICAL CAFE',
+      subtitle: 'SINGLE ORIGIN ESPRESSO • ORGANIC MATCHA • PASTRIES',
+      badge: 'HANDCRAFTED',
+      accentColor: '#f59e0b',
+      layoutStyle: 'story_flash'
+    },
+    {
+      id: 'tpl_canva_cloud_agency',
+      category: 'canva',
+      platform: 'Canva',
+      platformBadgeColor: '#00c4cc',
+      title: 'Canva Cloud Agency Portfolio 1080×1350',
+      dim: '1080 × 1350',
+      width: 1080,
+      height: 1350,
+      bg: 'linear-gradient(135deg, #1e1b4b 0%, #312e81 100%)',
+      textColor: '#ffffff',
+      tag: 'Canva Cloud Pro',
+      desc: 'Synced via Canva Connect API. 4:5 Instagram feed carousel hero slide for creative agencies.',
+      headline: 'BRAND IDENTITY THAT CONVERTS',
+      subtitle: 'DISCOVER OUR LATEST GLOBAL REBRAND CASE STUDIES',
+      badge: 'CASE STUDY',
+      accentColor: '#818cf8',
+      layoutStyle: 'promo_arch'
+    }
+  ];
+
+  cloudTpls.forEach(ct => {
+    if (!APP_TEMPLATES.some(t => t.id === ct.id)) {
+      APP_TEMPLATES.unshift(ct);
+    }
+  });
+
+  closeCloudApiModal();
+  switchAppTab('templates');
+  filterTemplatesCategory('canva');
+  showToast("Canva API Connected! Live editable cloud templates loaded.");
+}
+
+function initCloudApiKeys() {
+  try {
+    const raw = localStorage.getItem('aether_cloud_api_keys_v1');
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      const canvaIn = document.getElementById('api-key-canva');
+      const unsplashIn = document.getElementById('api-key-unsplash');
+      const pinterestIn = document.getElementById('api-key-pinterest');
+      if (canvaIn && parsed.canva) canvaIn.value = parsed.canva;
+      if (unsplashIn && parsed.unsplash) unsplashIn.value = parsed.unsplash;
+      if (pinterestIn && parsed.pinterest) pinterestIn.value = parsed.pinterest;
+      const badge = document.getElementById('canva-api-status-badge');
+      if (badge && (parsed.canva || parsed.unsplash || parsed.pinterest)) {
+        badge.textContent = 'CONNECTED';
+        badge.style.color = '#34d399';
+      }
+    }
+  } catch (err) {
+    console.warn("Cloud keys init:", err);
+  }
 }
 
 let userProfile = {
@@ -11959,7 +14102,7 @@ function openCanvaFlyout(tab) {
   flyout.style.display = 'flex';
 
   if (tab === 'elements') {
-    if (titleEl) titleEl.innerHTML = '<span>🎨 Shapes & Elements</span>';
+    if (titleEl) titleEl.innerHTML = '<span>Shapes & Elements</span>';
     contentEl.innerHTML = `
       <div style="font-size: 11px; color: var(--text-dim);">Tap to add clean vector graphic to active canvas:</div>
       <div class="canva-element-grid">
@@ -11990,7 +14133,7 @@ function openCanvaFlyout(tab) {
       </div>
     `;
   } else if (tab === 'text') {
-    if (titleEl) titleEl.innerHTML = '<span>✍️ Typography & Text</span>';
+    if (titleEl) titleEl.innerHTML = '<span>Typography & Text</span>';
     contentEl.innerHTML = `
       <div style="font-size: 11px; color: var(--text-dim);">Click to add styled text box to drawing:</div>
       <div style="display: flex; flex-direction: column; gap: 8px;">
@@ -12004,80 +14147,80 @@ function openCanvaFlyout(tab) {
           <span>Add a paragraph of text</span>
         </button>
         <button class="btn" style="height: 42px; background: linear-gradient(135deg, rgba(6,182,212,0.2), rgba(236,72,153,0.2)); border: 1px solid rgba(6,182,212,0.4); text-align: left; padding: 0 14px; font-size: 14px; font-weight: 900; color: #06b6d4;" onclick="addCanvaText('neon')">
-          <span>✨ NEON GLOW VIBE</span>
+          <span>NEON GLOW VIBE</span>
         </button>
       </div>
     `;
   } else if (tab === 'filters') {
-    if (titleEl) titleEl.innerHTML = '<span>🎬 CapCut Filters & Grading</span>';
+    if (titleEl) titleEl.innerHTML = '<span>Filters & Color Grading</span>';
     contentEl.innerHTML = `
       <div style="font-size: 11px; color: var(--text-dim);">Apply instant color grading & adjustments:</div>
       <div class="canva-element-grid">
         <div class="canva-element-card" onclick="applyCanvaFilter('cinematic')">
-          <span style="font-size: 18px;">🎥</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
           <span style="font-size: 11px; font-weight: 750;">Cinematic</span>
         </div>
         <div class="canva-element-card" onclick="applyCanvaFilter('cyberpunk')">
-          <span style="font-size: 18px;">🌆</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
           <span style="font-size: 11px; font-weight: 750; color: #06b6d4;">Cyberpunk</span>
         </div>
         <div class="canva-element-card" onclick="applyCanvaFilter('noir')">
-          <span style="font-size: 18px;">🎞️</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/></svg>
           <span style="font-size: 11px; font-weight: 750;">Noir B&W</span>
         </div>
         <div class="canva-element-card" onclick="applyCanvaFilter('sunset')">
-          <span style="font-size: 18px;">🌅</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/></svg>
           <span style="font-size: 11px; font-weight: 750; color: #f59e0b;">Golden Hour</span>
         </div>
         <div class="canva-element-card" onclick="applyCanvaFilter('crisp')">
-          <span style="font-size: 18px;">💎</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="6 2 18 2 22 8 12 22 2 8 6 2"/><line x1="2" y1="8" x2="22" y2="8"/><line x1="12" y1="22" x2="12" y2="8"/></svg>
           <span style="font-size: 11px; font-weight: 750; color: #a78bfa;">HD Clarity</span>
         </div>
         <div class="canva-element-card" onclick="applyCanvaFilter('vintage')">
-          <span style="font-size: 18px;">📻</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="2"/><path d="M16.24 7.76a6 6 0 1 0-8.49 8.49"/></svg>
           <span style="font-size: 11px; font-weight: 750;">Vintage Film</span>
         </div>
       </div>
     `;
   } else if (tab === 'stickers') {
-    if (titleEl) titleEl.innerHTML = '<span>🏷️ Stickers & Badges</span>';
+    if (titleEl) titleEl.innerHTML = '<span>Stickers & Badges</span>';
     contentEl.innerHTML = `
       <div style="font-size: 11px; color: var(--text-dim);">Click to stamp onto canvas:</div>
       <div class="canva-element-grid">
         <div class="canva-element-card" onclick="addCanvaSticker('verified')">
-          <span style="font-size: 22px;">☑️</span>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
           <span style="font-size: 10px; font-weight: 700;">Verified Badge</span>
         </div>
         <div class="canva-element-card" onclick="addCanvaSticker('star')">
-          <span style="font-size: 22px;">⭐</span>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="#fbbf24" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
           <span style="font-size: 10px; font-weight: 700;">Gold Star</span>
         </div>
         <div class="canva-element-card" onclick="addCanvaSticker('fire')">
-          <span style="font-size: 22px;">🔥</span>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#f43f5e" stroke-width="2.2"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
           <span style="font-size: 10px; font-weight: 700;">Fire Trend</span>
         </div>
         <div class="canva-element-card" onclick="addCanvaSticker('sale')">
-          <span style="font-size: 22px;">🏷️</span>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00c4cc" stroke-width="2.2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
           <span style="font-size: 10px; font-weight: 700;">SALE 50%</span>
         </div>
       </div>
     `;
   } else if (tab === 'ai') {
-    if (titleEl) titleEl.innerHTML = '<span>⚡ PhotoRoom AI Tools</span>';
+    if (titleEl) titleEl.innerHTML = '<span>PhotoRoom AI Tools</span>';
     contentEl.innerHTML = `
       <div style="font-size: 11px; color: var(--text-dim);">Run neural tools directly on your active artwork:</div>
       <div style="display: flex; flex-direction: column; gap: 8px;">
         <button class="btn btn-secondary" style="height: 38px; justify-content: flex-start; padding: 0 12px; gap: 8px;" onclick="triggerAiTool('bg_remover')">
-          <span>✂️ Auto Cutout & Remove BG</span>
+          <span>Auto Cutout & Remove BG</span>
         </button>
         <button class="btn btn-secondary" style="height: 38px; justify-content: flex-start; padding: 0 12px; gap: 8px;" onclick="triggerAiTool('eraser')">
-          <span>🧹 Magic Object Eraser</span>
+          <span>Magic Object Eraser</span>
         </button>
         <button class="btn btn-secondary" style="height: 38px; justify-content: flex-start; padding: 0 12px; gap: 8px;" onclick="triggerAiTool('relight')">
-          <span>💡 Studio Relight & Ambient Glow</span>
+          <span>Studio Relight & Ambient Glow</span>
         </button>
         <button class="btn btn-secondary" style="height: 38px; justify-content: flex-start; padding: 0 12px; gap: 8px;" onclick="triggerAiTool('enhancer')">
-          <span>🚀 AI 4K Detail Enhancer</span>
+          <span>AI 4K Detail Enhancer</span>
         </button>
       </div>
     `;
@@ -13510,8 +15653,8 @@ function startFigmaCollaborativeEngine() {
   if (appState.figmaIntervalId) clearInterval(appState.figmaIntervalId);
 
   let tick = 0;
-  const phrasesMaya = ["Adding rim lighting!", "Nice stroke! ✨", "Switching to soft brush", "Color harmony is clean", "Blending with Multiply"];
-  const phrasesRen = ["Inking character line...", "Smooth stabilizer 👌", "Adjusting curve flow", "Outline looks crisp!", "Checking focal balance"];
+  const phrasesMaya = ["Adding rim lighting!", "Nice stroke!", "Switching to soft brush", "Color harmony is clean", "Blending with Multiply"];
+  const phrasesRen = ["Inking character line...", "Smooth stabilizer", "Adjusting curve flow", "Outline looks crisp!", "Checking focal balance"];
 
   appState.figmaIntervalId = setInterval(() => {
     tick++;
@@ -14236,19 +16379,19 @@ function toggleWorkspaceMode() {
   appState.uiMode = nextMode;
   localStorage.setItem('aether_workspace_mode', nextMode);
   setWorkspaceMode(nextMode);
-  showToast(`Workspace: ${nextMode === 'minimal' ? '📱 Minimal Phone & Tablet' : '🖥️ Adobe Illustrator Pro'}`);
+  showToast(`Workspace: ${nextMode === 'minimal' ? 'Minimal Mobile Studio' : 'Illustrator Pro Studio'}`);
 }
 
 function updateWorkspaceSwitcherLabels() {
   const isMin = appState.effectiveUiMode === 'minimal';
-  const label = isMin ? '📱 Minimal Phone' : '🖥️ Illustrator Pro';
+  const label = isMin ? 'Minimal Mobile' : 'Illustrator Pro';
   const subLabel = isMin ? 'Switch to Illustrator Pro Workspace' : 'Switch to Minimalist Workspace';
 
   const toggle = document.getElementById('workspace-mode-toggle');
   if (toggle) {
     const icon = document.getElementById('workspace-mode-icon');
     const text = document.getElementById('workspace-mode-text');
-    if (icon) icon.textContent = isMin ? '📱' : '🖥️';
+    if (icon) icon.innerHTML = isMin ? '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/></svg>' : '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>';
     if (text) text.textContent = isMin ? 'Minimal UI' : 'Illustrator Pro';
     toggle.title = subLabel;
   }
@@ -14642,6 +16785,430 @@ function closeAiBlendModal() {
     modal.style.display = 'none';
   }
 }
+
+/**
+ * =============================================================
+ * GRAPHENX STUDIO ENGINE CONTROLLER & WORKSPACE DYNAMICS
+ * "Only change engines not canvas"
+ * =============================================================
+ */
+
+const STUDIO_ENGINES = {
+  // Graphic Design Engines
+  'photoshop': {
+    id: 'photoshop',
+    mode: 'design',
+    name: 'Adobe Photoshop',
+    badge: 'Raster Studio',
+    accent: '#31a8ff',
+    desc: 'PSD layer hierarchy, smart selection, advanced blend modes, and raster precision.'
+  },
+  'figma': {
+    id: 'figma',
+    mode: 'design',
+    name: 'Figma',
+    badge: 'Vector UI',
+    accent: '#a259ff',
+    desc: 'Vector pen tool, auto-layout frame guides, component tokens, and SVG export.'
+  },
+  // Drawing & Animation Engines
+  'procreate': {
+    id: 'procreate',
+    mode: 'drawing',
+    name: 'Procreate',
+    badge: 'Illustration',
+    accent: '#f59e0b',
+    desc: 'Floating brush size/opacity HUD, streamlined gestures, and pressure-sensitive lines.'
+  },
+  'ibispaint': {
+    id: 'ibispaint',
+    mode: 'drawing',
+    name: 'Ibis Paint',
+    badge: 'Manga / Anime',
+    accent: '#06b6d4',
+    desc: 'Screen tones, line stabilizer, manga speed-lines, and ruler guides.'
+  },
+  'krita': {
+    id: 'krita',
+    mode: 'drawing',
+    name: 'Krita',
+    badge: 'Digital Paint',
+    accent: '#ec4899',
+    desc: 'Artistic brush engine, color wheel HUD, symmetry guides, and wrap-around canvas.'
+  },
+  'flipaclip': {
+    id: 'flipaclip',
+    mode: 'drawing',
+    name: 'FlipaClip',
+    badge: 'Animation',
+    accent: '#10b981',
+    desc: 'Timeline filmstrip, onion skinning, light-table flip strip, and frame-by-frame vector lineart.'
+  },
+  'krita_anim': {
+    id: 'krita_anim',
+    mode: 'drawing',
+    name: 'Krita Animation',
+    badge: 'Pro 2D Anim',
+    accent: '#8b5cf6',
+    desc: 'Advanced keyframe timeline, onion skin coloring, and linear opacity fade transitions.'
+  }
+};
+
+appState.studioMode = 'design';
+appState.activeEngine = 'photoshop';
+
+function switchStudioMode(mode) {
+  if (mode !== 'design' && mode !== 'drawing') mode = 'design';
+  appState.studioMode = mode;
+
+  const tabDesign = document.getElementById('mode-tab-design');
+  const tabDrawing = document.getElementById('mode-tab-drawing');
+  if (tabDesign && tabDrawing) {
+    if (mode === 'design') {
+      tabDesign.classList.add('active');
+      tabDrawing.classList.remove('active');
+    } else {
+      tabDrawing.classList.add('active');
+      tabDesign.classList.remove('active');
+    }
+  }
+
+  // Ensure engine aligns with selected mode
+  const currentEngineObj = STUDIO_ENGINES[appState.activeEngine];
+  if (!currentEngineObj || currentEngineObj.mode !== mode) {
+    appState.activeEngine = (mode === 'design') ? 'photoshop' : 'procreate';
+  }
+
+  updateEngineWorkspaceUI();
+  updateEngineMenuDropdown();
+  showToast(`Switched to ${mode === 'design' ? 'Graphic Design' : 'Drawing & Animation'} mode`);
+}
+
+function selectStudioEngine(engineId) {
+  if (!STUDIO_ENGINES[engineId]) return;
+  appState.activeEngine = engineId;
+  const engine = STUDIO_ENGINES[engineId];
+  appState.studioMode = engine.mode;
+
+  const tabDesign = document.getElementById('mode-tab-design');
+  const tabDrawing = document.getElementById('mode-tab-drawing');
+  if (tabDesign && tabDrawing) {
+    if (engine.mode === 'design') {
+      tabDesign.classList.add('active');
+      tabDrawing.classList.remove('active');
+    } else {
+      tabDrawing.classList.add('active');
+      tabDesign.classList.remove('active');
+    }
+  }
+
+  updateEngineWorkspaceUI();
+  updateEngineMenuDropdown();
+  closeEngineMenu();
+
+  showToast(`Engine: ${engine.name} active • Canvas 100% intact`);
+}
+
+function toggleEngineMenu(e) {
+  if (e) e.stopPropagation();
+  const menu = document.getElementById('engine-dropdown-menu');
+  if (!menu) return;
+  if (menu.style.display === 'none' || !menu.style.display) {
+    updateEngineMenuDropdown();
+    menu.style.display = 'flex';
+  } else {
+    menu.style.display = 'none';
+  }
+}
+
+function closeEngineMenu() {
+  const menu = document.getElementById('engine-dropdown-menu');
+  if (menu) menu.style.display = 'none';
+}
+
+// Close menu when clicking outside
+document.addEventListener('click', (e) => {
+  const wrapper = document.querySelector('.engine-menu-wrapper');
+  if (wrapper && !wrapper.contains(e.target)) {
+    closeEngineMenu();
+  }
+});
+
+function updateEngineMenuDropdown() {
+  const menu = document.getElementById('engine-dropdown-menu');
+  if (!menu) return;
+
+  const currentMode = appState.studioMode;
+  const currentEngine = appState.activeEngine;
+
+  let html = '';
+  if (currentMode === 'design') {
+    html += `<div class="engine-menu-header">Graphic Design Engines</div>`;
+    ['photoshop', 'figma'].forEach(key => {
+      const eng = STUDIO_ENGINES[key];
+      const isActive = currentEngine === key;
+      html += `
+        <button class="engine-menu-item ${isActive ? 'active' : ''}" onclick="selectStudioEngine('${eng.id}')">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="${eng.accent}" stroke-width="2.2">
+            ${key === 'photoshop'
+              ? '<rect width="18" height="18" x="3" y="3" rx="4"/><path d="M7 10h4a2 2 0 0 1 0 4H7z"/><path d="M7 18V8"/>'
+              : '<path d="M5 5.5A3.5 3.5 0 0 1 8.5 2H12v7H8.5A3.5 3.5 0 0 1 5 5.5z"/><path d="M12 2h3.5a3.5 3.5 0 1 1 0 7H12V2z"/><path d="M12 12.5a3.5 3.5 0 1 1 7 0 3.5 3.5 0 1 1-7 0z"/><path d="M5 19.5A3.5 3.5 0 0 1 8.5 16H12v3.5a3.5 3.5 0 1 1-7 0z"/><path d="M5 12.5A3.5 3.5 0 0 1 8.5 9H12v7H8.5A3.5 3.5 0 0 1 5 12.5z"/>'}
+          </svg>
+          <span>${eng.name}</span>
+          <span class="engine-badge">${eng.badge}</span>
+        </button>
+      `;
+    });
+  } else {
+    html += `<div class="engine-menu-header">Drawing Engines</div>`;
+    ['procreate', 'ibispaint', 'krita'].forEach(key => {
+      const eng = STUDIO_ENGINES[key];
+      const isActive = currentEngine === key;
+      html += `
+        <button class="engine-menu-item ${isActive ? 'active' : ''}" onclick="selectStudioEngine('${eng.id}')">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="${eng.accent}" stroke-width="2.2">
+            <path d="m18 2 4 4-14 14H4v-4L18 2z"/>
+          </svg>
+          <span>${eng.name}</span>
+          <span class="engine-badge">${eng.badge}</span>
+        </button>
+      `;
+    });
+    html += `<div class="engine-menu-header">Animation Engines</div>`;
+    ['flipaclip', 'krita_anim'].forEach(key => {
+      const eng = STUDIO_ENGINES[key];
+      const isActive = currentEngine === key;
+      html += `
+        <button class="engine-menu-item ${isActive ? 'active' : ''}" onclick="selectStudioEngine('${eng.id}')">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="${eng.accent}" stroke-width="2.2">
+            <rect width="18" height="18" x="3" y="3" rx="2"/><path d="m9 8 6 4-6 4Z"/>
+          </svg>
+          <span>${eng.name}</span>
+          <span class="engine-badge">${eng.badge}</span>
+        </button>
+      `;
+    });
+  }
+
+  menu.innerHTML = html;
+}
+
+function updateEngineWorkspaceUI() {
+  const engine = STUDIO_ENGINES[appState.activeEngine] || STUDIO_ENGINES['photoshop'];
+  const appContainer = document.getElementById('app-container');
+  if (appContainer) {
+    // Remove previous engine classes
+    Object.keys(STUDIO_ENGINES).forEach(k => appContainer.classList.remove('engine-' + k));
+    appContainer.classList.add('engine-' + engine.id);
+  }
+
+  // 1. Procreate Floating Sliders HUD
+  const procreateSliders = document.getElementById('procreate-floating-sliders');
+  if (procreateSliders) {
+    procreateSliders.style.display = (engine.id === 'procreate') ? 'flex' : 'none';
+  }
+
+  // 2. Figma Properties Panel
+  const figmaPanel = document.getElementById('figma-properties-panel');
+  if (figmaPanel) {
+    figmaPanel.style.display = (engine.id === 'figma') ? 'flex' : 'none';
+    if (engine.id === 'figma') {
+      const wIn = document.getElementById('figma-prop-w');
+      const hIn = document.getElementById('figma-prop-h');
+      if (wIn) wIn.value = CANVAS_WIDTH;
+      if (hIn) hIn.value = CANVAS_HEIGHT;
+    }
+  }
+
+  // 3. Animation Engines (FlipaClip & Krita Animation) automatically surface Timeline
+  const timelinePanel = document.getElementById('timeline-panel');
+  if (timelinePanel) {
+    if (engine.id === 'flipaclip' || engine.id === 'krita_anim') {
+      timelinePanel.style.display = 'flex';
+      renderTimelineFilmstrip();
+    }
+  }
+
+  // NOTE: Crucial rule: Canvas layers, pixel buffers, and history are completely preserved!
+}
+
+function setProcreateBrushSize(val) {
+  appState.brushSize = parseInt(val, 10);
+  const sizeInput = document.getElementById('brush-size');
+  if (sizeInput) sizeInput.value = val;
+  const label = document.getElementById('procreate-size-val');
+  if (label) label.textContent = val + 'px';
+  updateBrushPreview();
+}
+
+function setProcreateBrushOpacity(val) {
+  const parsed = parseInt(val, 10);
+  appState.brushOpacity = parsed / 100;
+  const opInput = document.getElementById('brush-opacity');
+  if (opInput) opInput.value = parsed;
+  const label = document.getElementById('procreate-op-val');
+  if (label) label.textContent = val + '%';
+  updateBrushPreview();
+}
+
+function updateFigmaFrameProps() {
+  const w = parseInt(document.getElementById('figma-prop-w').value, 10) || CANVAS_WIDTH;
+  const h = parseInt(document.getElementById('figma-prop-h').value, 10) || CANVAS_HEIGHT;
+  const rad = parseInt(document.getElementById('figma-prop-radius').value, 10) || 0;
+  const canvasEl = document.getElementById('drawing-canvas');
+  if (canvasEl) {
+    canvasEl.style.borderRadius = rad + 'px';
+  }
+  showToast(`Figma Frame: ${w}×${h}px • Radius: ${rad}px`);
+}
+
+/**
+ * =============================================================
+ * UNIVERSAL SAVE ICON ACROSS ALL ENGINES
+ * =============================================================
+ */
+function executeUniversalSave() {
+  const saveBtn = document.getElementById('pod-universal-save-btn');
+  if (saveBtn) {
+    saveBtn.classList.remove('save-success-flash');
+    void saveBtn.offsetWidth; // force reflow
+    saveBtn.classList.add('save-success-flash');
+  }
+
+  // 1. Capture current project state
+  try {
+    saveProjectState();
+  } catch (e) {
+    console.warn("saveProjectState error:", e);
+  }
+
+  // 2. Persist to Graphenx Vault in localStorage
+  try {
+    const activeLayer = getActiveLayer();
+    const thumbData = activeLayer ? activeLayer.canvas.toDataURL('image/jpeg', 0.6) : null;
+    const projectMetadata = {
+      id: appState.currentProjectId || 'graphenx_vault_' + Date.now(),
+      title: appState.projectName || 'Graphenx Masterwork',
+      engine: appState.activeEngine,
+      mode: appState.studioMode,
+      timestamp: Date.now(),
+      timestampFormatted: new Date().toLocaleTimeString(),
+      width: CANVAS_WIDTH,
+      height: CANVAS_HEIGHT,
+      layersCount: (appState.layers || []).length,
+      framesCount: (appState.frames || []).length,
+      thumbnail: thumbData
+    };
+
+    localStorage.setItem('graphenx_vault_current_project', JSON.stringify(projectMetadata));
+    localStorage.setItem('graphenx_vault_last_saved', String(Date.now()));
+  } catch (err) {
+    console.warn("Vault local storage write:", err);
+  }
+
+  showToast("Universal Save Complete • Preserved across all engines!");
+}
+
+/**
+ * =============================================================
+ * QUICK TEMPLATES PICKER MODAL (Canva, PhotoRoom, Pinterest, Google)
+ * =============================================================
+ */
+let currentPickerPlatform = 'all';
+let currentPickerSearch = '';
+
+function openTemplatesQuickModal() {
+  const modal = document.getElementById('templates-picker-modal');
+  if (!modal) return;
+  modal.style.display = 'flex';
+  renderTemplatesPickerGrid(currentPickerPlatform, currentPickerSearch);
+}
+
+function closeTemplatesQuickModal() {
+  const modal = document.getElementById('templates-picker-modal');
+  if (modal) modal.style.display = 'none';
+}
+
+function filterTemplatesQuickPlatform(platform, event) {
+  currentPickerPlatform = platform;
+  const chips = document.querySelectorAll('#tpl-picker-chips .template-category-chip');
+  chips.forEach(c => c.classList.remove('active'));
+  if (event && event.currentTarget) {
+    event.currentTarget.classList.add('active');
+  }
+  renderTemplatesPickerGrid(currentPickerPlatform, currentPickerSearch);
+}
+
+function searchTemplatesQuick(query) {
+  currentPickerSearch = query.trim().toLowerCase();
+  renderTemplatesPickerGrid(currentPickerPlatform, currentPickerSearch);
+}
+
+function renderTemplatesPickerGrid(platform, search) {
+  const grid = document.getElementById('picker-templates-grid');
+  if (!grid) return;
+
+  let list = APP_TEMPLATES;
+  if (platform && platform !== 'all') {
+    list = list.filter(t => t.platform.toLowerCase() === platform.toLowerCase());
+  }
+  if (search) {
+    list = list.filter(t =>
+      t.title.toLowerCase().includes(search) ||
+      t.platform.toLowerCase().includes(search) ||
+      (t.desc && t.desc.toLowerCase().includes(search))
+    );
+  }
+
+  if (list.length === 0) {
+    grid.innerHTML = `
+      <div style="grid-column: 1/-1; text-align: center; padding: 40px 20px; color: #94a3b8;">
+        <p style="font-size: 13px; margin-bottom: 6px;">No templates found matching your search</p>
+        <button class="tool-btn" onclick="filterTemplatesQuickPlatform('all', null)">View All Templates</button>
+      </div>
+    `;
+    return;
+  }
+
+  grid.innerHTML = list.map(tpl => `
+    <div class="photoroom-template-card" onclick="applyTemplateAndClosePicker('${tpl.id}')" style="flex: unset; cursor: pointer;">
+      <div class="photoroom-template-preview" style="background: ${tpl.bg}; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 14px; position: relative;">
+        <span class="photoroom-badge" style="position: absolute; top: 8px; left: 8px; background: ${tpl.platformBadgeColor || '#3b82f6'}; color: #fff;">
+          ${tpl.platform}
+        </span>
+        <span style="font-size: 10px; font-weight: 700; color: ${tpl.textColor}; text-align: center; line-height: 1.25; margin-top: 10px;">
+          ${tpl.title}
+        </span>
+        <span style="font-size: 8px; opacity: 0.8; color: ${tpl.textColor}; margin-top: 4px;">
+          ${tpl.dim}
+        </span>
+      </div>
+      <div class="photoroom-template-info" style="display: flex; align-items: center; justify-content: space-between; padding: 10px 12px;">
+        <div style="display: flex; flex-direction: column; gap: 2px;">
+          <span class="photoroom-template-name" style="font-size: 11px; font-weight: 600;">${tpl.title}</span>
+          <span style="font-size: 9px; color: #94a3b8;">${tpl.platform} • ${tpl.dim}</span>
+        </div>
+        <button class="photoroom-use-btn" onclick="event.stopPropagation(); applyTemplateAndClosePicker('${tpl.id}')" style="padding: 4px 10px; font-size: 10px; border-radius: 6px;">
+          Use & Edit
+        </button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function applyTemplateAndClosePicker(tplId) {
+  applyTemplateToCanvas(tplId);
+  closeTemplatesQuickModal();
+  showToast("Template loaded! Ready for full vector and layer editing.");
+}
+
+// Global pre-rendering on DOMContentLoaded
+document.addEventListener('DOMContentLoaded', () => {
+  try { renderTemplatesGrid('all', ''); } catch (e) {}
+  try { renderTemplatesPickerGrid('all', ''); } catch (e) {}
+  try { updateEngineWorkspaceUI(); } catch (e) {}
+});
+
 </script>
 </body>
 </html>

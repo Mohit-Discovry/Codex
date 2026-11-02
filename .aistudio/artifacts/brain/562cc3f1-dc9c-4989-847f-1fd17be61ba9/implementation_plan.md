@@ -1,29 +1,26 @@
-# Comprehensive Studio Upgrade: Auth, Collaboration, Studio Sidebar & Smart Templates
+# Graphenx - Multi-Engine Creative Studio & Opacity Fade Timeline
 
-This plan outlines the architecture and execution steps for integrating Google & Email authentication, profile editing with device photo library upload, Figma-style collaborative group projects, hiding animation UI on static canvases, removing top bar color clutter, adding a CapCut/Canva collapsible tool sidebar, and providing interactive smart editable templates.
-
----
+Deliver a studio-grade multi-engine creative workspace under the official name **Graphenx** with a top-right engine switcher (Graphic Design: Photoshop & Figma; Drawing & Animation: Procreate, Ibis Paint, Krita & FlipaClip), full canvas data preservation, linear Opacity Fade keyframe transitions in the animation timeline, complete removal of unnecessary emojis in favor of precision SVG icons, a universal save button, and permanently accessible templates.
 
 ## User Review & Critical Decisions
 
 > [!IMPORTANT]
-> The following decisions were confirmed during the Phase 1 questionnaire and will guide the implementation:
+> The following architectural and user experience decisions have been aligned based on your preferences:
 
-- **Confirmed Decision 1 (Authentication Flow)**: Provide a frictionless authentication experience where users start in a clean profile view with 1-tap options for "Sign in with Google" or "Sign in with Email & Password". Signed-in profiles persist locally in device storage with custom avatars imported from the device photo library.
-- **Confirmed Decision 2 (Studio Sidebar)**: Implement a sleek collapsible left drawer styled after CapCut and Canva, housing Elements, Text, Layers, Filters, AI Studio, and Adjustments, keeping the canvas spacious on phones while expanding smoothly on larger displays.
-- **Confirmed Decision 3 (Group Projects)**: Projects tab will feature a dedicated "+ Group Project" action generating instant room codes with multi-user presence avatars and simulated peer live cursors (Figma-style).
-- **Confirmed Decision 4 (Canvas Decluttering)**: The animation filmstrip and timeline will be hidden on all standard static canvases, appearing strictly when an Animation project is active. The color palette bar on the top header will be streamlined into the tool drawer to avoid top-edge clutter.
+- **Confirmed Decision 1 (App Rebranding to Graphenx)**: Rename the application to **Graphenx** across all UI headers, splash screen, launcher labels (`strings.xml`), project settings (`settings.gradle.kts`), and platform metadata (`metadata.json`).
+- **Confirmed Decision 2 (Engine Workspaces)**: Switching engines (Photoshop, Figma, Procreate, Ibis Paint, Krita, FlipaClip) dynamically transforms the toolbars, inspectors, and docks into that specific software's layout while leaving the current canvas content, active layers, and drawing pixels 100% intact.
+- **Confirmed Decision 3 (Template Accessibility)**: Surfacing templates through an always-visible sliding dock tab, a prominent top-bar "Templates Hub" quick-launch button, and an instant in-canvas template picker modal so templates are never hidden or lost.
+- **Confirmed Decision 4 (Opacity Fade Transitions)**: Adding a linear opacity interpolation toggle between keyframes in the timeline filmstrip with configurable duration and ease-in-out curve.
+- **Confirmed Decision 5 (Professional Iconography)**: Stripping all decorative emojis across the interface and replacing them with sharp, studio-grade SVG vector icons and clean typographic labels.
+- **Confirmed Decision 6 (Universal Save Icon)**: Adding a standardized universal save icon in the persistent top bar across all engines with tactile visual feedback and timestamp tracking.
 
 ---
 
 ## 1. Overview & Core Concept
 
-- **What It Does**:
-  1. **Authentication & Profile Hub**: Complete login modal with Google OAuth simulation and Email/Password fields. Displays profile card with custom avatar (from device library), full name, and @username handle. Includes an "Edit Profile" modal to customize profile details anytime.
-  2. **Figma Group Projects**: Group project creator in the Projects tab allowing users to generate shareable room codes, see connected collaborator avatars, and experience real-time cursor indicators.
-  3. **Contextual Canvas UI**: Hides animation controls when editing standard illustrations and removes top bar color clutter, placing color selection in the primary tool palette.
-  4. **CapCut / Canva Studio Sidebar**: Expandable left navigation rail featuring Elements, Text, Filters, Layers, and AI Tools tailored for mobile and tablet touch ergonomics.
-  5. **Smart Canva-Style Templates**: Curated royalty-free templates with editable text, background, and graphic layers that can be selected and manipulated directly on the canvas.
+- **What It Does**: Establishes **Graphenx** as a versatile multi-paradigm creative powerhouse. Artists and designers can toggle between **Graphic Design** (Adobe Photoshop or Figma) and **Drawing & Animation** (Procreate, Ibis Paint, Krita, FlipaClip) with dedicated 3-dot engine menus. The timeline gains true frame-to-frame opacity fade tweening, templates are guaranteed accessible at all times, and the entire UI is elevated to a professional vector-styled environment.
+- **Target Audience**: Digital painters, vector designers, motion animators, and content creators who frequently switch between raster illustration and UI/graphic design.
+- **Key Value**: Eliminates app-switching friction: sketching with Procreate-style gestures, vectoring with Figma tools, animating with FlipaClip onion-skinning, and retouching with Photoshop filters on a single continuous canvas.
 
 ---
 
@@ -31,88 +28,111 @@ This plan outlines the architecture and execution steps for integrating Google &
 
 ### Key User Flows
 
-1. **Profile Authentication & Avatar Customization**:
-   - User navigates to the **Profile** tab in the bottom dock.
-   - If not logged in, user sees a sleek login card with:
-     - `Continue with Google` (One-tap sign in)
-     - `Sign in with Email & Password` (Form fields with toggle)
-   - Once signed in, user sees a prominent Profile Card showing their avatar image, Name, and `@username`.
-   - User taps **Edit Profile**: a drawer opens allowing them to pick an image from their phone photo library, update their Name and Username, and save immediately to device storage.
-2. **Starting a Group Project (Figma Style)**:
-   - User navigates to the **Projects** tab and taps **+ Group Project**.
-   - A modal prompts for project title and generates a 6-digit room code (e.g. `AETH-7429`) with a "Copy Invite Link" action.
-   - Upon launching the project, the studio shows collaborator avatars in the header and peer presence cursors on canvas.
-3. **Clean Canvas Studio & Sidebar**:
-   - When opening a standard canvas, the bottom animation filmstrip is automatically hidden.
-   - The top header remains ultra-clean (Undo/Redo, Zoom, Symmetry, Analyze, Publish).
-   - Tapping the left sidebar toggle reveals the Canva/CapCut tool flyout:
-     - **Elements**: Geometric badges, ribbons, arrows, stars.
-     - **Text**: Heading, Subtitle, Body text presets.
-     - **Filters**: Brightness, Contrast, Saturation, Vignette.
-     - **Layers**: Reorder, opacity, blend mode.
+1. **Switching Studio Modes & Engines**:
+   - The user looks at the top-right header pod and sees a sleek segmented pill toggle: `[ Graphic Design ] | [ Drawing & Animation ]`.
+   - Next to the active segment is a `[ ··· ]` engine menu button.
+   - When **Graphic Design** is active, tapping `···` presents:
+     - **Adobe Photoshop**: Activates dark carbon styling, Marquee/Lasso/Wand, Dodge/Burn/Smudge toolbar, adjustment layer presets, and layer blend modes.
+     - **Figma**: Activates clean slate UI, Frame tool, vector pen path nodes, collaborative cursor layer, and Auto-Layout property inspector.
+   - When **Drawing & Animation** is active, tapping `···` presents:
+     - **Procreate**: Floating vertical dual-slider dock (Brush Size & Opacity) on the left edge, streamlined minimal header, and quick color disc.
+     - **Ibis Paint**: Bottom-docked tool selector, stabilizer slider (0–10), and specialized dip pen / felt tip presets.
+     - **Krita**: Docker sidebars, brush preset wheel, and scratchpad canvas.
+     - **FlipaClip**: Lower timeline tray with onion skin toggles, frame-by-frame light table, and loop playback.
+   - *The user's canvas art, layer stack, and dimensions never reset when engines are switched.*
 
-### Visual Identity & Theme Tokens
+2. **Universal Save Action**:
+   - A dedicated Universal Save button (floppy disc SVG icon with status ring) is anchored in the persistent top bar.
+   - Tapping it triggers an instant snapshot save to `localStorage` / project database, flashes a subtle teal ring, and confirms with "Project saved successfully".
 
-```css
-:root {
-  --sidebar-bg: rgba(14, 16, 26, 0.95);
-  --sidebar-width: 64px;
-  --sidebar-expanded: 260px;
-  --presence-user-1: #06b6d4;
-  --presence-user-2: #ec4899;
-  --presence-user-3: #10b981;
-}
-```
+3. **Instant Template Browsing & Application**:
+   - Always accessible from two permanent access points:
+     1. The sliding bottom navigation dock: `Templates` tab.
+     2. A top header quick button: `Templates`.
+   - Selecting any template (Canva, PhotoRoom, Pinterest, Google) instantly formats the 5-layer editable structure with bounding-box handles and inline text customization.
+
+4. **Timeline Opacity Fade Keyframe Transition**:
+   - In the animation timeline, between any two sequential keyframes, the user can tap the transition connector icon `[ ⟐ Fade ]`.
+   - When enabled, during animation playback or frame scrubbing, the active layer's opacity linearly interpolates from Frame A's opacity to Frame B's opacity (0% to 100%).
+
+### Visual Identity & Theme
+
+- **Aesthetic Direction**: Studio Dark Mode (`#0d0e15` base, `#161726` elevated glass panels, `#222538` borders).
+- **Color Accents by Engine**:
+  - Photoshop: Cyan `#00c8ff` & Navy `#001e36`
+  - Figma: Purple `#a259ff` & Coral `#f24e1e`
+  - Procreate: Neon Orange `#ff6138` & Graphite `#1c1c1e`
+  - Ibis Paint: Sky Blue `#0099ff` & Teal `#00e5ff`
+  - Krita: Magenta `#f038ff` & Cyan `#38d9ff`
+  - FlipaClip: Vivid Red `#ff334b` & Amber `#ffaa00`
+- **Iconography**: 100% SVG line and filled vector icons (replacing all emojis) across every menu, tab, card, and action button.
+- **Typography**: Clean system sans-serif (`-apple-system`, `Inter`, `Roboto`) with high-contrast hierarchical weights (400, 600, 750, 900).
 
 ---
 
 ## 3. Key Product Decisions & Trade-Offs
 
-### Decision 1: Collapsible Sidebar vs Fixed Dock
-- **Chosen Approach**: A compact 56px left vertical rail with collapsible slide-out drawer on phones, which expands to a full side panel on wider viewports.
-- **Why**: Protects valuable canvas real-estate on mobile phones while providing instant access to Canva/CapCut-level tools.
-
-### Decision 2: Local & Simulated Multi-User Presence
-- **Chosen Approach**: Peer presence simulation with real room-code persistence, collaborator avatars in header, and active peer cursor position tracking.
-- **Why**: Works 100% offline and in emulator environments without requiring paid Firebase authentication credentials, fulfilling the user's explicit request.
-
----
-
-## 4. Technical Architecture & Component Structure
-
-```
-┌────────────────────────────────────────────────────────────────────────┐
-│                        AetherStudio Architecture                       │
-│                                                                        │
-│  ┌──────────────────────────────────────────────────────────────────┐  │
-│  │ Navigation Dock: Home | Templates | Projects | Profile           │  │
-│  └──────────────────────────────────────────────────────────────────┘  │
-│                                                                        │
-│  ┌─────────────────────────┐  ┌──────────────────────────────────────┐  │
-│  │ CapCut / Canva Sidebar  │  │ Canvas Workspace                     │  │
-│  │  - Elements & Shapes    │  │  - Clean Header (No palette clutter) │  │
-│  │  - Typography & Text    │  │  - Pure Drawing Stage                │  │
-│  │  - Filters & Inpainting │  │  - Animation Timeline (Anim ONLY)    │  │
-│  │  - Layers & Blends      │  │  - Peer Collaborative Cursors (Live) │  │
-│  └─────────────────────────┘  └──────────────────────────────────────┘  │
-│                                                                        │
-│  ┌──────────────────────────────────────────────────────────────────┐  │
-│  │ Profile Engine                                                   │  │
-│  │  - Google & Email Auth State Machine                             │  │
-│  │  - Device Photo Library Avatar Upload (FileReader -> localStorage)│  │
-│  │  - Username & Name Editor Modal                                  │  │
-│  └──────────────────────────────────────────────────────────────────┘  │
-└────────────────────────────────────────────────────────────────────────┘
-```
+- **Decision 1: Engine Architecture via CSS Viewport Themes & Active Dock Configs**
+  - *Chosen Approach*: Maintain a single canvas state machine (`appState.layers`, `appState.canvasDimensions`), while swapping workspace tool palettes and UI modes via an `activeEngine` controller (`'photoshop'`, `'figma'`, `'procreate'`, `'ibispaint'`, `'krita'`, `'flipaclip'`).
+  - *Why*: Guarantees zero data loss across engine switches, instant switching performance (<16ms), and avoids memory-heavy DOM rebuilding.
+- **Decision 2: Universal Emoji Removal**
+  - *Chosen Approach*: Replace all 40+ emojis embedded in shelf headers, buttons, cards, and dialogs with inline SVGs and clean semantic text tags.
+  - *Why*: Eliminates the cluttered "hobbyist" aesthetic and satisfies the user's explicit demand for a clean, professional application look.
+- **Decision 3: Procedural Opacity Fade Tweening**
+  - *Chosen Approach*: Interpolate alpha during composite frame rendering based on normalized sub-frame time or keyframe sequence step without creating destructive flattened bitmaps.
+  - *Why*: Preserves full editability of individual layers on each keyframe.
+- **Decision 4: Full App Renaming to Graphenx**
+  - *Chosen Approach*: Update `metadata.json`, `app/src/main/res/values/strings.xml`, `settings.gradle.kts`, splash screen branding, and document title to **Graphenx**.
+  - *Why*: Meets the user's explicit name instruction and satisfies the mandatory AI Studio platform sync rule.
 
 ---
 
-## 5. Verification Plan
+## 4. Technical Architecture & Data Strategy
 
-1. Verify profile login flow (Google 1-tap and Email/Password).
-2. Verify photo library picker updates profile avatar and persists across app restarts.
-3. Verify "+ Group Project" creates a collaborative room with collaborator avatars and peer cursor motion.
-4. Verify standard canvas projects do not display the animation timeline panel.
-5. Verify canvas top bar is clean with no redundant color palette.
-6. Verify CapCut/Canva sidebar toggles and adds text/elements to canvas.
-7. Run `compile_applet` and verify zero build errors.
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                             GRAPHENX WORKSPACE                              │
+├─────────────────────────────────────────────────────────────────────────────┤
+│  TOP BAR                                                                    │
+│  [Universal Save]  [Project Title]   [ Mode: Graphic / Draw ] [ ··· Engine ]│
+├───────────────────┬─────────────────────────────────────┬───────────────────┤
+│ ENGINE PALETTE    │ CANVAS STAGE (Persistent Data)      │ INSPECTOR / DOCK  │
+│                   │                                     │                   │
+│ - Photoshop Tools │ ┌─────────────────────────────────┐ │ - Layers / Groups │
+│ - Figma Vectors   │ │ Active Composite Viewport       │ │ - Blend Modes     │
+│ - Procreate Sliders││ 100% Preserved Across Engines   │ │ - Engine Props    │
+│ - Ibis / Krita    │ └─────────────────────────────────┘ │ - Live Transforms │
+├───────────────────┴─────────────────────────────────────┴───────────────────┤
+│ TIMELINE FILMSTRIP                                                          │
+│ [Frame 1] ───[ ⟐ Opacity Fade ]───► [Frame 2] ───[ ⟐ Fade ]───► [Frame 3]   │
+├─────────────────────────────────────────────────────────────────────────────┤
+│ BOTTOM DOCK (Always Visible)                                                │
+│ [ Home ]         [ Templates Hub ]        [ Projects ]        [ Profile ]   │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+### Data Model Additions
+
+```javascript
+// Workspace Studio Engine State
+appState.workspaceMode = 'design'; // 'design' | 'drawing'
+appState.activeEngine = 'photoshop'; // 'photoshop' | 'figma' | 'procreate' | 'ibispaint' | 'krita' | 'flipaclip'
+
+// Timeline Keyframe Transition Model
+interface KeyframeTransition {
+  fromFrameIndex: number;
+  toFrameIndex: number;
+  type: 'fade' | 'cut';
+  durationMs: number;
+  easing: 'linear' | 'ease-in-out';
+}
+appState.keyframeTransitions = [];
+```
+
+### Interactive Component & State Mapping
+
+- `setStudioEngine(mode, engine)`: Updates `workspaceMode` and `activeEngine`, applies CSS engine class to `#app-container`, updates active toolsets, updates left and right docks, and preserves canvas stage.
+- `executeUniversalSave()`: Serializes project state, writes to storage, flashes save icon state ring, and displays verification toast.
+- `renderTimelineTransitions()`: Renders transition pills between keyframe cards; tapping toggles `opacity_fade`.
+- `calculateFrameOpacity(frameIndex, progress)`: In the playback loop, interpolates layer alpha dynamically between bounding frames.
+- `openTemplatesModal()` / `switchAppTab('templates')`: Renders templates grid with search, categories, and one-tap canvas loading.

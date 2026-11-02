@@ -22,6 +22,6 @@ dependencyResolutionManagement {
   }
 }
 
-rootProject.name = "AetherStudio Elite"
+rootProject.name = "Graphenx"
 
 include(":app")
